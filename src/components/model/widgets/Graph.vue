@@ -5,83 +5,57 @@
   </svg>
 </template>
 <script>
+import NodeTable from './NodeTable'
+import PipeTable from './PipeTable'
 import dagreD3 from 'dagre-d3'
 import * as d3 from 'd3'
 export default {
   name: 'Graph',
+  components: {
+    NodeTable,
+    PipeTable
+  },
   data () {
     return {
       url: 'http://localhost:8000/api/nodes/',
-      root: null,
-      graph: null
+      dag: null,
+      nodeList: null,
+      pipeList: null
     }
   },
-  props: {
-    id: {
-      type: Number
-    }
-  },
-  watch: {
-    id (newVal, oldVal) {
-      this.search()
-    }
+  mounted () {
+    // setGraph({rankdir: "LR"})为设置为横向显示 .setGraph({}) 为默认竖向显示
+    this.dag = new dagreD3.graphlib.Graph().setGraph({rankdir: 'LR'}).setDefaultEdgeLabel(function () {
+      return {}
+    })
   },
   methods: {
-    search () {
-      if (this.id === null || this.id === undefined) {
+    handleGraph (nodeList, pipeList) {
+      // 获取之前的nodes缓存并清除
+      let nodes = this.dag.nodes()
+      if (nodes.length) {
+        nodes.forEach(
+          item => {
+            this.dag.removeNode(item)
+          }
+        )
+      }
+      if (nodeList !== null && pipeList !== null) {
+        this.nodeList = nodeList
+        this.pipeList = pipeList
+      }
+      if (this.nodeList === null || this.nodeList.length === 0) {
         return
       }
-      this.$axios.get(this.url + this.id).then(res => {
-        this.root = res.data
-        // 获取之前的nodes缓存并清除
-        let nodes = this.graph.nodes()
-        if (nodes.length) {
-          nodes.forEach(
-            item => {
-              this.graph.removeNode(item)
-            }
-          )
-        }
-        if (this.root.childPipeList === undefined || this.root.childPipeList.length === 0) {
-          this.setNode(this.root)
-        } else {
-          this.addNode(this.root)
-        }
-        this.paint()
+      this.nodeList.forEach(item => {
+        this.setNode(item)
       })
-    },
-    addNode (node) {
-      if (node === null || node === undefined) {
-        return
-      }
-      this.setNode(node)
-      if (node.nextPipeList !== undefined && node.nextPipeList.length > 0) {
-        node.nextPipeList.forEach(item => {
+      if (this.pipeList !== undefined && this.pipeList.length !== 0) {
+        this.pipeList.forEach(item => {
           this.setEdge(item)
         })
       }
-      if (node.childPipeList !== undefined && node.childPipeList.length > 0) {
-        node.childPipeList.forEach(item => {
-          this.setEdge(item)
-        })
-      }
-      if (node.parentPipeList !== undefined && node.parentPipeList.length > 0) {
-        node.parentPipeList.forEach(item => {
-          this.setEdge(item)
-        })
-      }
-      if (node.childList !== undefined && node.childList.length > 0) {
-        node.childList.forEach(item => {
-          this.setNode(item)
-          this.addNode(item)
-        })
-      }
-      if (node.nextList !== undefined && node.nextList.length > 0) {
-        node.nextList.forEach(item => {
-          this.setNode(item)
-          this.addNode(item)
-        })
-      }
+      this.paint()
     },
     setNode (item) {
       let style = ''
@@ -96,7 +70,7 @@ export default {
           style = item.style
       }
       item.style = style
-      this.graph.setNode(item.id, item)
+      this.dag.setNode(item.id, item)
     },
     setEdge (item) {
       let style = 'stroke: #000;fill:none;'
@@ -119,7 +93,7 @@ export default {
         left = item.parentId
         right = item.childId
       }
-      this.graph.setEdge(left, right, {
+      this.dag.setEdge(left, right, {
         style: style,
         arrowheadStyle: 'fill: #0fb2cc;stroke: #0fb2cc;',
         arrowhead: 'vee'
@@ -135,39 +109,27 @@ export default {
       })
       svg.call(zoom)
       var render = new dagreD3.render()
-      render(inner, this.graph)
+      render(inner, this.dag)
     }
-  },
-  mounted () {
-    // setGraph({rankdir: "LR"})为设置为横向显示 .setGraph({}) 为默认竖向显示
-    this.graph = new dagreD3.graphlib.Graph().setGraph({rankdir: 'LR'}).setDefaultEdgeLabel(function () {
-      return {}
-    })
   }
 }
 </script>
 <style scoped lang="scss">
   .Graph {
-    width: fit-content;
-    height: fit-content;
-    border: solid 1px #ccc;
+    width: 100%;
+    height: 300px;
     text-align: center;
     .node-default{
       fill: #f77; font-weight: bold;
     }
-    // svg {
-    //   font-size: 14px;
-    //   color: #fff;
-    // }
-    // .node rect {
-    //   stroke: #606266;
-    //   fill: #fff;
-    // }
-
-    // .edgePath path {
-    //   stroke: #606266;
-    //   fill: #333;
-    //   stroke-width: 1.5px;
-    // }
+    .el-card{
+      height: calc(50% - 18px)!important;
+    }
+    svg {
+      width: 100%;
+      height: calc(100% - 10px);
+      font-size: 14px;
+      color: #fff;
+    }
   }
 </style>

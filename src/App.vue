@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 body, html {
   width: 100%;
   height: 100%;
@@ -25,5 +25,19 @@ body, html {
   /* color: #2c3e50; */
   width: 100%;
   height: 100%;
+}
+.el-container{
+  padding: 0!important;
+  .el-aside, .el-main{
+    padding: 0!important;
+    margin: 0!important;
+  }
+  .el-aside{
+    max-height: 100% !important;
+    height: 100%!important;
+  }
+}
+.el-drawer{
+  padding: 20px !important;
 }
 </style>
