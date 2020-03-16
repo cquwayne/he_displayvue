@@ -58,7 +58,7 @@ export default {
       this.paint()
     },
     setNode (item) {
-      let style = ''
+      let style
       switch (item.style) {
         case 0:
           style = 'fill: #ccc; font-weight: bold;rx:15;ry:15'
@@ -67,33 +67,25 @@ export default {
           style = 'fill: #f77; font-weight: bold;'
           break
         default:
-          style = item.style
+          style = item.style ? item.style : 'fill: #ccc;'
       }
       item.style = style
       this.dag.setNode(item.id, item)
     },
     setEdge (item) {
-      let style = 'stroke: #000;fill:none;'
-      switch (item.style) {
-        case 0:
-          // return
-          style = style + 'stroke: #0fb2cc; stroke-dasharray:10,10;'
-          break
+      let style
+      switch (item.direction) {
         case 1:
-          style = style + 'stroke: #0fb2cc;'
+          style = 'stroke: #0fb2cc; stroke-dasharray:10,10;'
           break
         case 2:
-          style = style + 'stroke:red;stroke-width:2;'
+          style = 'stroke: #0fb2cc;'
+          break
+        case 3:
+          style = 'stroke:red;stroke-width:2;'
       }
-      let left, right
-      if (item.inputId) {
-        left = item.inputId
-        right = item.outputId
-      } else {
-        left = item.parentId
-        right = item.childId
-      }
-      this.dag.setEdge(left, right, {
+      console.log(style)
+      this.dag.setEdge(item.inputId, item.outputId, {
         style: style,
         arrowheadStyle: 'fill: #0fb2cc;stroke: #0fb2cc;',
         arrowhead: 'vee'

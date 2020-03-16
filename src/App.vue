@@ -1,12 +1,21 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <el-container id="app">
+    <el-aside>
+      <Navigation></Navigation>
+    </el-aside>
+    <el-main>
+      <router-view/>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
+import Navigation from './components/widgets/Navigation'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Navigation
+  }
 }
 </script>
 
@@ -17,6 +26,9 @@ body, html {
   text-align:center;
   padding: 0;
   margin: 0;
+  a{
+    text-decoration: none;
+  }
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -25,6 +37,11 @@ body, html {
   /* color: #2c3e50; */
   width: 100%;
   height: 100%;
+}
+#app >.el-aside{
+  background: #000;
+  height: 100%!important;
+  max-width: 150px!important;
 }
 .el-container{
   padding: 0!important;

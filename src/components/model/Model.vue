@@ -1,16 +1,14 @@
 <template>
   <el-container class="Model">
     <el-aside style="width: 400px!important;">
-      <el-card>
-        <NodeTable class="table" :table="totalNodeTable" @handleSelect="handleSelect"></NodeTable>
-      </el-card>
+      <NodeTable class="table" :table="totalNodeTable" @handleSelect="handleSelect"></NodeTable>
     </el-aside>
     <el-main>
       <Graph ref="graph"></Graph>
       <el-divider></el-divider>
       <el-row>
         <el-col :span="20">
-          <PipeForm :nodeList="currentNodeList"></PipeForm>
+          <PipeForm :nodeList="currentNodeList" :pipeList="currentPipeList" :nodeId="id"></PipeForm>
         </el-col>
         <el-col :span="4">
           <el-button @click="drawer=true">编辑</el-button>
@@ -29,7 +27,7 @@
       <el-card class="pane" v-if="currentPipeList">
         <PipeTable class="table" :table="currentPipeList" :nodeList="currentNodeList"></PipeTable>
       </el-card>
-    </el-drawer>  
+    </el-drawer>
   </el-container>
 </template>
 <script>
@@ -48,6 +46,7 @@ export default {
   data () {
     return {
       drawer: false,
+      id: null,
       url: 'http://localhost:8000/api/nodes/',
       currentPipeList: null,
       currentNodeList: null,
@@ -55,8 +54,14 @@ export default {
       graphMap: {}
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.$router.go(0)
+    }
+  },
   beforeRouteEnter (to, from, next) {
     next(vm => {
+      vm.id = to.query['id']
       vm.handleSelect({id: to.query['id']})
       vm.$axios.get(vm.url).then(res => {
         vm.totalNodeTable = res.data
@@ -64,6 +69,7 @@ export default {
     })
   },
   beforeRouteUpdate (to, from, next) {
+    this.id = to.query['id']
     this.handleSelect({id: to.query['id']})
     this.$axios.get(this.url).then(res => {
       this.totalNodeTable = res.data

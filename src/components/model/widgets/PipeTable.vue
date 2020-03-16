@@ -65,7 +65,7 @@ export default {
     }
   },
   data () {
-    return { 
+    return {
       selectPipe: null,
       drawer: false,
       url: 'http://localhost:8000/api/pipes/'

@@ -26,7 +26,7 @@ export default {
   watch: {
     editable (newVal, oldVal) {
       if (newVal) {
-        this.nodeForm = node
+        this.nodeForm = this.node
       } else {
         this.nodeForm = {}
       }

@@ -72,9 +72,9 @@ export default {
       this.drawer = true
     },
     handleDetail (index, row) {
-      this.$emit('handleDelete', row)
+      this.$router.push({name: 'Model', query: {id: row.id}})
     },
-    handlePut(index, row) {
+    handlePut (index, row) {
       this.selectNode = row
       this.drawer = true
     },
