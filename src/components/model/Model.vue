@@ -31,6 +31,7 @@
   </el-container>
 </template>
 <script>
+import Header from '../widgets/Header'
 import NodeTable from './widgets/NodeTable'
 import Graph from './widgets/Graph'
 import PipeTable from './widgets/PipeTable'
@@ -38,6 +39,7 @@ import PipeForm from './widgets/PipeForm'
 export default {
   name: 'Model',
   components: {
+    Header,
     Graph,
     NodeTable,
     PipeTable,
@@ -45,6 +47,9 @@ export default {
   },
   data () {
     return {
+      header: {
+        title: '模型构建'
+      },
       drawer: false,
       id: null,
       url: 'http://localhost:8000/api/nodes/',

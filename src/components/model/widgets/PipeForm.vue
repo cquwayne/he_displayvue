@@ -2,13 +2,13 @@
   <div class="PipeForm">
     <el-form :model="pipeForm" class="demo-form-inline">
       <el-form-item>
-        <el-col :span="8">
+        <el-col :span="10">
           <el-select v-model="pipeForm.inputId" placeholder="输入结点">
             <el-option v-for="item in nodeList" :key="item.index"
               :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="10">
           <el-select v-model="pipeForm.outputId" placeholder="输出结点">
             <el-option v-for="item in nodeList" :key="item.index"
               :label="item.label" :value="item.id"></el-option>

@@ -76,15 +76,14 @@ export default {
       let style
       switch (item.direction) {
         case 1:
-          style = 'stroke: #0fb2cc; stroke-dasharray:10,10;'
+          style = 'stroke: #0fb2cc;fill:none;'
           break
         case 2:
-          style = 'stroke: #0fb2cc;'
+          style = 'stroke: #0fb2cc; stroke-dasharray:10,10;fill:none;'
           break
         case 3:
-          style = 'stroke:red;stroke-width:2;'
+          style = 'stroke:red;stroke-width:2;fill:none;'
       }
-      console.log(style)
       this.dag.setEdge(item.inputId, item.outputId, {
         style: style,
         arrowheadStyle: 'fill: #0fb2cc;stroke: #0fb2cc;',

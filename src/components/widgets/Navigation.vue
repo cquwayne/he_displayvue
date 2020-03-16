@@ -26,8 +26,13 @@ export default {
           icon: 'el-icon-s-grid'
         },
         {
-          title: '规则管理',
-          name: 'Rule',
+          title: '规则库管理',
+          name: 'RuleIndex',
+          icon: 'el-icon-link'
+        },
+        {
+          title: '规则链管理',
+          name: 'ChainIndex',
           icon: 'el-icon-connection'
         },
         {
@@ -56,6 +61,9 @@ export default {
       padding: 0 20px;
       margin: 20px 0;
       color: #ccc;
+    }
+    .router-link-active{
+      color: gold;
     }
   }
 </style>

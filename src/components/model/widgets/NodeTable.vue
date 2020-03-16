@@ -9,6 +9,18 @@
           {{ scope.row.id }}
         </template>
       </el-table-column> -->
+      <el-table-column width="60px"
+        prop="style"
+        label="类型"
+        :filters="[{ text: '复合结点', value: 1 }, { text: '单元结点', value: 0 }]"
+        :filter-method="filterStyle"
+        filter-placement="bottom-end">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.style === 1 ? 'primary' : 'success'"
+            disable-transitions>{{scope.row.style ? '复' : '单'}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         label="结点名称">
         <template slot-scope="scope">
@@ -68,6 +80,9 @@ export default {
     }
   },
   methods: {
+    filterStyle (value, row) {
+      return row.style === value
+    },
     addNode () {
       this.drawer = true
     },

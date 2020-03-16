@@ -57,4 +57,11 @@ body, html {
 .el-drawer{
   padding: 20px !important;
 }
+.block {
+  flex: 1;
+}
+.divider{
+  width: 1px;
+  background: #eee;
+}
 </style>
