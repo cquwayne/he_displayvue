@@ -1,28 +1,27 @@
 <template>
   <div class="Header">
-    {{header.title}}
+    <i class="el-icon-s-platform"></i>&nbsp; {{title}}
   </div>
 </template>
 <script>
 export default {
   name: 'Header',
-  props: {
-    header: {
-      type: Object,
-      default () {
-        return {
-          title: ''
-        }
-      }
+  data () {
+    return {
+      title: '工艺资源环境负荷数据采集系统'
     }
   }
 }
 </script>
 <style scoped lang="scss">
   .Header{
-    height: 60px;
-    line-height: 60px;
-    font-size: 20px;
-    background: #000;
+    text-align: left;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    color: #ccc;
+    i {
+      font-size: 15px;
+    }
   }
 </style>

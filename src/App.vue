@@ -1,20 +1,26 @@
 <template>
   <el-container id="app">
-    <el-aside>
-      <Navigation></Navigation>
-    </el-aside>
-    <el-main>
-      <router-view/>
-    </el-main>
+    <el-header id="header">
+      <Header></Header>
+    </el-header>
+    <el-container id="container">
+      <el-aside id="navigation">
+        <Navigation></Navigation>
+      </el-aside>
+      <el-main>
+        <router-view/>
+      </el-main>
+    </el-container>
   </el-container>
 </template>
-
 <script>
 import Navigation from './components/widgets/Navigation'
+import Header from './components/widgets/Header'
 export default {
   name: 'App',
   components: {
-    Navigation
+    Navigation,
+    Header
   }
 }
 </script>
@@ -38,10 +44,17 @@ body, html {
   width: 100%;
   height: 100%;
 }
-#app >.el-aside{
-  background: #000;
+#header{
+  background: #1C2327;
+  height: 50px!important;
+}
+#navigation{
+  background: #373D41;
   height: 100%!important;
   max-width: 150px!important;
+}
+#container{
+  height: calc(100% - 50px)
 }
 .el-container{
   padding: 0!important;

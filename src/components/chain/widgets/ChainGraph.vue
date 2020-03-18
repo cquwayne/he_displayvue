@@ -1,26 +1,26 @@
 <template>
-  <svg class="Graph">
+  <svg class="ChainGraph">
     <g />
     <rect />
   </svg>
 </template>
 <script>
-import NodeTable from './NodeTable'
-import PipeTable from './PipeTable'
+import RuleTable from '../../rule/widgets/RuleTable'
+import LinkTable from './LinkTable'
 import dagreD3 from 'dagre-d3'
 import * as d3 from 'd3'
 export default {
-  name: 'Graph',
+  name: 'ChainGraph',
   components: {
-    NodeTable,
-    PipeTable
+    RuleTable,
+    LinkTable
   },
   data () {
     return {
-      url: 'http://localhost:8000/api/nodes/',
+      url: 'http://localhost:8000/api/chains/',
       dag: null,
-      nodeList: null,
-      pipeList: null
+      ruleList: null,
+      linkList: null
     }
   },
   mounted () {
@@ -30,7 +30,7 @@ export default {
     })
   },
   methods: {
-    handleGraph (nodeList, pipeList) {
+    handleGraph (ruleList, linkList) {
       // 获取之前的nodes缓存并清除
       let nodes = this.dag.nodes()
       if (nodes.length) {
@@ -40,51 +40,31 @@ export default {
           }
         )
       }
-      if (nodeList !== null && pipeList !== null) {
-        this.nodeList = nodeList
-        this.pipeList = pipeList
+      if (ruleList !== null && linkList !== null) {
+        this.ruleList = ruleList
+        this.linkList = linkList
       }
-      if (this.nodeList === null || this.nodeList.length === 0) {
+      if (this.ruleList === null || this.ruleList.length === 0) {
         return
       }
-      this.nodeList.forEach(item => {
+      this.ruleList.forEach(item => {
         this.setNode(item)
       })
-      if (this.pipeList !== undefined && this.pipeList.length !== 0) {
-        this.pipeList.forEach(item => {
+      if (this.linkList !== undefined && this.linkList.length !== 0) {
+        this.linkList.forEach(item => {
           this.setEdge(item)
         })
       }
       this.paint()
     },
     setNode (item) {
-      let style
-      switch (item.style) {
-        case 0:
-          style = 'fill: #ccc; font-weight: bold;rx:15;ry:15'
-          break
-        case 1:
-          style = 'fill: #f77; font-weight: bold;'
-          break
-        default:
-          style = item.style ? item.style : 'fill: #ccc;'
-      }
+      let style = 'fill: #ccc;'
       item.style = style
       this.dag.setNode(item.id, item)
     },
     setEdge (item) {
-      let style
-      switch (item.direction) {
-        case 1:
-          style = 'stroke: #0fb2cc;fill:none;'
-          break
-        case 2:
-          style = 'stroke: #0fb2cc; stroke-dasharray:10,10;fill:none;'
-          break
-        case 3:
-          style = 'stroke:red;stroke-width:2;fill:none;'
-      }
-      this.dag.setEdge(item.inputId, item.outputId, {
+      let style = 'stroke: #0fb2cc;fill:none;'
+      this.dag.setEdge(item.leftId, item.rightId, {
         style: style,
         arrowheadStyle: 'fill: #0fb2cc;stroke: #0fb2cc;',
         arrowhead: 'vee'
@@ -106,7 +86,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .Graph {
+  .ChainGraph {
     width: 100%;
     height: 300px;
     text-align: center;

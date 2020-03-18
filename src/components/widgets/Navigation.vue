@@ -15,29 +15,23 @@ export default {
     return {
       navList: [
         {
-          title: '采集系统',
-          name: 'Home',
-          icon: 'el-icon-wind-power',
-          divider: true
-        },
-        {
           title: '模型管理',
-          name: 'Model',
+          name: 'ModelIndex',
           icon: 'el-icon-s-grid'
         },
         {
-          title: '规则库管理',
+          title: '规则库',
           name: 'RuleIndex',
           icon: 'el-icon-link'
         },
         {
-          title: '规则链管理',
+          title: '规则链',
           name: 'ChainIndex',
           icon: 'el-icon-connection'
         },
         {
           title: '任务管理',
-          name: 'Task',
+          name: 'TaskIndex',
           icon: 'el-icon-data-line'
         },
         {

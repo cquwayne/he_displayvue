@@ -1,29 +1,37 @@
 <template>
-  <div class="ChainTable">
+  <div class="TaskTable">
     <el-table
       :data="table"
       style="width:100%">
       <el-table-column
-        label="规则链名称">
+        label="任务名称">
         <template slot-scope="scope">
           {{ scope.row.title }}
         </template>
       </el-table-column>
       <el-table-column
-        label="规则数量">
+        label="关联模型">
         <template slot-scope="scope">
-          {{ scope.row.linkList.length > 0 ? scope.row.linkList.length + 1 : 0 }}
+          {{ scope.row.node.label }}
         </template>
       </el-table-column>
-      <el-table-column>
+      <el-table-column
+        label="关联规则">
+        <template slot-scope="scope">
+          {{ scope.row.bindList.length > 0 ? scope.row.bindList.length + 1 : 0 }} 条
+        </template>
+      </el-table-column>
+      <el-table-column width="150px">
         <template slot="header">
           <el-button  type="primary" size="mini" @click.native="handleAdd">
-            新建规则链
+            新建任务
           </el-button>
         </template>
         <template slot-scope="scope">
           <el-button size="mini" type="primary" plain
-            @click="handleSelect(scope.$index, scope.row)">查看</el-button>
+            @click="handleSelect(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="primary" plain
+            @click="handleSelect(scope.$index, scope.row)">采集</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -31,7 +39,7 @@
 </template>
 <script>
 export default {
-  name: 'ChainTable',
+  name: 'TaskTable',
   props: {
     table: {
       type: Array
@@ -48,6 +56,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .ChainTable{
-  }
+
 </style>

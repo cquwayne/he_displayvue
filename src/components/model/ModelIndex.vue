@@ -1,14 +1,14 @@
 <template>
-  <el-container class="Model">
+  <el-container class="ModelIndex">
     <el-aside style="width: 400px!important;">
       <NodeTable class="table" :table="totalNodeTable" @handleSelect="handleSelect"></NodeTable>
     </el-aside>
     <el-main>
-      <Graph ref="graph"></Graph>
+      <ModelGraph ref="graph"></ModelGraph>
       <el-divider></el-divider>
       <el-row>
         <el-col :span="20">
-          <PipeForm :nodeList="currentNodeList" :pipeList="currentPipeList" :nodeId="id"></PipeForm>
+          <PipeForm :pointList="currentPointList" :pipeList="currentPipeList" :nodeId="id"></PipeForm>
         </el-col>
         <el-col :span="4">
           <el-button @click="drawer=true">编辑</el-button>
@@ -21,11 +21,11 @@
       :visible.sync="drawer"
       :size="'50%'"
       :direction="'rtl'">
-      <el-card class="pane" v-if="currentNodeList">
-        <NodeTable class="table" :editable="true" :table="currentNodeList"></NodeTable>
+      <el-card class="pane" v-if="currentPointList">
+        <NodeTable class="table" :editable="true" :table="currentPointList"></NodeTable>
       </el-card>
       <el-card class="pane" v-if="currentPipeList">
-        <PipeTable class="table" :table="currentPipeList" :nodeList="currentNodeList"></PipeTable>
+        <PipeTable class="table" :table="currentPipeList" :pointList="currentPointList"></PipeTable>
       </el-card>
     </el-drawer>
   </el-container>
@@ -33,14 +33,14 @@
 <script>
 import Header from '../widgets/Header'
 import NodeTable from './widgets/NodeTable'
-import Graph from './widgets/Graph'
+import ModelGraph from './widgets/ModelGraph'
 import PipeTable from './widgets/PipeTable'
 import PipeForm from './widgets/PipeForm'
 export default {
-  name: 'Model',
+  name: 'ModelIndex',
   components: {
     Header,
-    Graph,
+    ModelGraph,
     NodeTable,
     PipeTable,
     PipeForm
@@ -54,7 +54,7 @@ export default {
       id: null,
       url: 'http://localhost:8000/api/nodes/',
       currentPipeList: null,
-      currentNodeList: null,
+      currentPointList: null,
       totalNodeTable: [],
       graphMap: {}
     }
@@ -90,13 +90,13 @@ export default {
       })
     },
     handleGraphMap () {
-      this.currentNodeList = []
+      this.currentPointList = []
       this.currentPipeList = []
       for (let key in this.graphMap) {
         let graph = this.graphMap[key]
-        if (graph.nodeList !== undefined && graph.nodeList.length !== 0) {
-          graph.nodeList.forEach(item => {
-            this.currentNodeList.push(item)
+        if (graph.pointList !== undefined && graph.pointList.length !== 0) {
+          graph.pointList.forEach(item => {
+            this.currentPointList.push(item)
           })
         }
         if (graph.pipeList !== undefined && graph.pipeList.length !== 0) {
@@ -105,13 +105,13 @@ export default {
           })
         }
       }
-      this.$refs['graph'].handleGraph(this.currentNodeList, this.currentPipeList)
+      this.$refs['graph'].handleGraph(this.currentPointList, this.currentPipeList)
     }
   }
 }
 </script>
 <style lang="scss">
-  .Model{
+  .ModelIndex{
     height: 100%;
     .el-aside{
       .el-card{

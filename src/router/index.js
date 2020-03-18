@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
-import Model from '../components/model/Model'
-import Task from '../components/task/Task'
+import ModelIndex from '../components/model/ModelIndex'
+import TaskIndex from '../components/task/TaskIndex'
 import RuleIndex from '../components/rule/RuleIndex'
 import ChainIndex from '../components/chain/ChainIndex'
 import Data from '../components/data/Data'
@@ -18,8 +18,8 @@ export default new Router({
     },
     {
       path: '/model',
-      name: 'Model',
-      component: Model
+      name: 'ModelIndex',
+      component: ModelIndex
     },
     {
       path: '/rule',
@@ -33,8 +33,8 @@ export default new Router({
     },
     {
       path: '/task',
-      name: 'Task',
-      component: Task
+      name: 'TaskIndex',
+      component: TaskIndex
     },
     {
       path: '/data',

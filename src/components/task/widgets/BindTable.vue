@@ -1,8 +1,8 @@
 <template>
-  <div class="Task"></div>
+  <div class="BindTable"></div>
 </template>
 <script>
 export default {
-  name: 'Task'
+  name: 'BindTable'
 }
 </script>
