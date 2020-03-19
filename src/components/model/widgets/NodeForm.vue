@@ -2,7 +2,7 @@
   <div class="NodeForm">
     <el-form :model="nodeForm">
       <el-form-item>
-        <el-input v-model="nodeForm.label"></el-input>
+        <el-input v-model="nodeForm.label" placeholder="模型标题"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -41,7 +41,7 @@ export default {
     return {
       url: 'http://localhost:8000/api/nodes/',
       nodeForm: {
-        label: null
+        title: null
       }
     }
   },

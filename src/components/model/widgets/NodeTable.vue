@@ -1,7 +1,7 @@
 <template>
   <div class="NodeTable">
     <el-table
-      :data="table"
+      :data="table.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
       style="width:100%">
       <!-- <el-table-column
         label="ID">
@@ -21,10 +21,15 @@
             disable-transitions>{{scope.row.style ? '复' : '单'}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        label="模型名称">
+      <el-table-column>
+        <template slot="header" slot-scope="scope">
+          <el-input
+            v-model="search"
+            size="mini"
+            placeholder="输入模型标题搜索"/>
+        </template>
         <template slot-scope="scope">
-          {{ scope.row.label }}
+          {{ scope.row.title }}
         </template>
       </el-table-column>
       <el-table-column width="150px">
@@ -73,6 +78,7 @@ export default {
   },
   data () {
     return {
+      search: '',
       drawer: false,
       selectNode: null
     }

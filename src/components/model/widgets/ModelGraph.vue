@@ -66,25 +66,24 @@ export default {
         case 1:
           style = 'fill: #f77; font-weight: bold;'
           break
-        default:
-          style = item.style ? item.style : 'fill: #ccc;'
       }
       item.style = style
-      item.label = item.label
-      this.dag.setNode(item.label, item)
+      let label = item.label
+      item.label = item.title + item.label
+      this.dag.setNode(label, item)
     },
     setEdge (item) {
-      let style = 'stroke: #0fb2cc;fill:none;'
-      // switch (item.direction) {
-      //   case 1:
-      //     style = 'stroke: #0fb2cc;fill:none;'
-      //     break
-      //   case 2:
-      //     style = 'stroke: #0fb2cc; stroke-dasharray:10,10;fill:none;'
-      //     break
-      //   case 3:
-      //     style = 'stroke:red;stroke-width:2;fill:none;'
-      // }
+      let style
+      switch (item.direction) {
+        case 0:
+          style = 'stroke: #0fb2cc;stroke-dasharray:10,10;fill:none;'
+          break
+        case 1:
+          style = 'stroke: #0fb2cc;fill:none;'
+          break
+        case 2:
+          style = 'stroke:red;stroke-width:2;fill:none;'
+      }
       this.dag.setEdge(item.inputLabel, item.outputLabel, {
         style: style,
         arrowheadStyle: 'fill: #0fb2cc;stroke: #0fb2cc;',

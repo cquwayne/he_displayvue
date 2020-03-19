@@ -6,7 +6,7 @@
       <el-table-column
         label="输入端">
         <template slot-scope="scope">
-          {{ scope.row.input['label'] }}
+          {{ scope.row.input['title'] }}
         </template>
       </el-table-column>
       <el-table-column
@@ -26,7 +26,7 @@
       <el-table-column
         label="输出端">
         <template slot-scope="scope">
-          {{ scope.row.output['label'] }}
+          {{ scope.row.output['title'] }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="150">
@@ -38,7 +38,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-drawer
+    <el-drawer 
       title="编辑"
       :with-header="false"
       :visible.sync="drawer"
