@@ -1,7 +1,6 @@
 <template>
-  <div class="BaseTable">
-    <h3>规则实例库</h3>
-    <el-divider></el-divider>
+  <div class="BaseTable Table">
+    <h3><i class="el-icon-coin"></i> &nbsp;规则实例库</h3>
     <el-table
       :data="table.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
       style="width:100%">
@@ -128,8 +127,5 @@ export default {
 </script>
 <style scoped lang="scss">
   .BaseTable{
-    height: 100%;
-    max-height: 100%;
-    overflow: auto;
   }
 </style>

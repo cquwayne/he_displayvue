@@ -1,7 +1,6 @@
 <template>
-  <div class="RuleTable">
-    <h3>规则库</h3>
-    <el-divider></el-divider>
+  <div class="RuleTable Table">
+    <h3><i class="el-icon-coin"></i> &nbsp;规则库</h3>
     <el-table
       :data="table.filter(data => !search || data.label.toLowerCase().includes(search.toLowerCase()))"
       style="width:100%">
@@ -98,9 +97,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .RuleTable{
-    height: 100%;
-    max-height: 100%;
-    overflow: auto;
-  }
 </style>

@@ -1,10 +1,14 @@
 <template>
   <div class="Navigation">
-    <div v-for="item in navList" :key="item.index">
-      <router-link :to="{name: item.name}">
-        <i :class="item.icon"></i> &nbsp; {{item.title}}
-      </router-link>
-      <el-divider v-if="item.divider"></el-divider>
+    <div class="group" v-for="item in navList" :key="item.index">
+      <div class="title">
+        <i :class="item.icon"></i> &nbsp;{{item.title}}
+      </div>
+      <div class="list">
+        <router-link v-for="sub in item.list" :to="{name: sub.name}" :key="sub.index">
+          <i :class="sub.icon"></i> &nbsp;{{sub.title}}
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -16,23 +20,51 @@ export default {
       navList: [
         {
           title: '模型管理',
-          name: 'ModelIndex',
-          icon: 'el-icon-s-grid'
+          icon: 'el-icon-s-grid',
+          list: [
+            {
+              title: '模型库',
+              name: 'ModelIndex',
+              icon: 'el-icon-discover',
+            },
+            {
+              title: '数据流图',
+              name: 'ModelIndex',
+              icon: 'el-icon-full-screen',
+            }
+          ]
         },
         {
-          title: '规则库',
-          name: 'RuleIndex',
-          icon: 'el-icon-link'
-        },
-        {
-          title: '规则链',
-          name: 'ChainIndex',
-          icon: 'el-icon-connection'
+          title: '规则管理',
+          icon: 'el-icon-document-copy',
+          list: [
+            {
+              title: '规则库',
+              name: 'RuleIndex',
+              icon: 'el-icon-link',
+            },
+            {
+              title: '规则链',
+              name: 'ChainIndex',
+              icon: 'el-icon-connection',
+            }
+          ]
         },
         {
           title: '任务管理',
-          name: 'TaskIndex',
-          icon: 'el-icon-data-line'
+          icon: 'el-icon-c-scale-to-original',
+          list: [
+            {
+              title: '任务库',
+              name: 'TaskIndex',
+              icon: 'el-icon-data-line',
+            },
+            {
+              title: '实时采集',
+              name: 'TaskIndex',
+              icon: 'el-icon-timer'
+            }
+          ]
         },
         {
           title: '数据管理',
@@ -44,20 +76,29 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
   .Navigation{
     width: 100%;
     text-align: left;
     color: #fff;
-    a{
-      font-size: 14px;
-      display: block;
-      padding: 0 20px;
-      margin: 20px 0;
-      color: #ccc;
+    .group{
+      margin: 20px 0 10px 20px;
     }
-    .router-link-active{
-      color: gold;
+    .title{
+      color: #aaa;
+      font-size: 15px;
+    }
+    .list{
+      a{
+        font-size: 14px;
+        display: block;
+        padding: 0 15px;
+        margin: 15px 0;
+        color: #ccc;
+      }
+      .router-link-active{
+        color: gold;
+      }
     }
   }
 </style>

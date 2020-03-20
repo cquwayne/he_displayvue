@@ -12,7 +12,7 @@
       <el-table-column
         label="关联模型">
         <template slot-scope="scope">
-          {{ scope.row.node.label }}
+          {{ scope.row.node.title }}
         </template>
       </el-table-column>
       <el-table-column

@@ -1,15 +1,12 @@
 <template>
-  <div class="RuleIndex">
-    <div class="block">
+  <el-container class="RuleIndex">
+    <el-aside>
       <RuleTable :table="ruleList"></RuleTable>
-    </div>
-    <div class="divider">
-      <el-divider></el-divider>
-    </div>
-    <div class="block">
+    </el-aside>
+    <el-main>
       <BaseTable :table="baseList" :ruleList="ruleList"></BaseTable>
-    </div>
-  </div>
+    </el-main>
+  </el-container>
 </template>
 <script>
 import RuleTable from './widgets/RuleTable'
@@ -44,8 +41,10 @@ export default {
 <style scoped lang="scss">
   .RuleIndex{
     height: 100%;
-    max-height: 100%;
-    overflow: auto;
-    display: flex;
+    .el-aside{
+      width: 500px!important;
+      border-right: solid 1px #eee!important;
+      padding: 0 1px!important;
+    }
   }
 </style>

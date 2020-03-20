@@ -22,7 +22,7 @@
           </el-button>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" plain
+          <el-button size="mini" type="warning" plain
             @click="handleClick('put', scope.row)">编辑</el-button>
           <el-button size="mini" type="primary" plain
             @click="handleSelect(scope.$index, scope.row)">查看</el-button>

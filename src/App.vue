@@ -55,6 +55,17 @@ body, html {
 #container{
   height: calc(100% - 50px)
 }
+.Table{
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  h3{
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    border-bottom: solid 1px #eee;
+  }
+}
 .el-container{
   padding: 0!important;
   .el-aside, .el-main{

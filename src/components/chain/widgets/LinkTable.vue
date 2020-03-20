@@ -1,12 +1,13 @@
 <template>
   <div class="LinkTable">
     <el-table
+      v-if="table != null"
       :data="table"
       style="width:100%">
       <el-table-column
-        label="链编号">
+        label="链序号">
         <template slot-scope="scope">
-          {{ scope.row.id }}
+          {{ scope.$index + 1 }}
         </template>
       </el-table-column>
       <el-table-column
