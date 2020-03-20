@@ -32,7 +32,16 @@
       :with-header="false">
       <el-form :model="bindForm">
         <el-form-item>
-          <el-input v-model="bindForm.title" placeholder="绑定名称"></el-input>
+          <el-select filterable v-model="bindForm.nodeId" placeholder="关联模型">
+            <el-option v-for="item in nodeList" :key="item.index"
+              :label="item.title" :value="item.id"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-select filterable v-model="bindForm.chainId" placeholder="关联规则链">
+            <el-option v-for="item in chainList" :key="item.index"
+              :label="item.title" :value="item.id"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button @click="handleEdit">保存</el-button>
@@ -47,6 +56,12 @@ export default {
   props: {
     table: {
       type: Array
+    },
+    chainList: {
+      type: Array
+    },
+    nodeList: {
+      type: Array
     }
   },
   data () {
@@ -55,7 +70,8 @@ export default {
       drawer: false,
       url: this.$store.state.url,
       bindForm: {
-        title: null
+        chainId: null,
+        nodeId: null
       }
     }
   },
