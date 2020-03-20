@@ -1,10 +1,10 @@
 <template>
   <el-container class="TaskIndex">
     <el-aside>
-      <TaskTable :table="taskList"></TaskTable>
+      <TaskTable :table="taskList" :nodeList="nodeList" @handleSelect="handleSelect"></TaskTable>
     </el-aside>
     <el-main>
-      <BindTable></BindTable>
+      <BindTable :table="bindList" :task="selectTask" :baseList="baseList"></BindTable>
     </el-main>
   </el-container>
 </template>
@@ -20,7 +20,10 @@ export default {
   data () {
     return {
       url: this.$store.state.url,
-      taskList: []
+      taskList: [],
+      nodeList: [],
+      selectTask: {},
+      bindList: []
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -28,7 +31,19 @@ export default {
       vm.$axios.get(vm.url + 'tasks').then(res => {
         vm.taskList = res.data
       })
+      vm.$axios.get(vm.url + 'nodes').then(res => {
+        vm.nodeList = res.data
+      })
     })
+  },
+  methods: {
+    handleSelect (task) {
+      this.$axios.get(this.url + 'tasks/' + task.id).then(res => {
+        let task = res.data
+        this.selectTask = task
+        this.bindList = task['bindList']
+      })
+    }
   }
 }
 </script>

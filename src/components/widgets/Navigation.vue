@@ -61,7 +61,7 @@ export default {
             },
             {
               title: '实时采集',
-              name: 'TaskIndex',
+              name: 'Running',
               icon: 'el-icon-timer'
             }
           ]
@@ -82,11 +82,15 @@ export default {
     text-align: left;
     color: #fff;
     .group{
-      margin: 20px 0 10px 20px;
+      margin: 20px 20px 10px 20px;
+      padding-bottom: 10px;
+      &:not(:last-child) {
+        border-bottom: solid 1px #555;
+      }
     }
     .title{
       color: #aaa;
-      font-size: 15px;
+      font-size: 14px;
     }
     .list{
       a{

@@ -87,4 +87,9 @@ body, html {
   width: 1px;
   background: #eee;
 }
+a{
+  &:hover{
+    color: gold!important;
+  }
+}
 </style>
