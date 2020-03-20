@@ -54,6 +54,9 @@
 export default {
   name: 'BindTable',
   props: {
+    task: {
+      type: Object
+    },
     table: {
       type: Array
     },
@@ -70,6 +73,7 @@ export default {
       drawer: false,
       url: this.$store.state.url,
       bindForm: {
+        taskId: null,
         chainId: null,
         nodeId: null
       }
@@ -82,6 +86,7 @@ export default {
       this.drawer = true
     },
     handleEdit () {
+      this.bindForm.taskId = this.task.id
       if (this.editType === 'post') {
         this.$axios.post(this.url + 'binds', this.bindForm).then(res => {
           history.go(0)

@@ -6,7 +6,8 @@ import TaskIndex from '../components/task/TaskIndex'
 import Running from '../components/task/Running'
 import RuleIndex from '../components/rule/RuleIndex'
 import ChainIndex from '../components/chain/ChainIndex'
-import Data from '../components/data/Data'
+import DataIndex from '../components/data/DataIndex'
+import Influx from '../components/data/Influx'
 
 Vue.use(Router)
 
@@ -44,8 +45,13 @@ export default new Router({
     },
     {
       path: '/data',
-      name: 'Data',
-      component: Data
+      name: 'DataIndex',
+      component: DataIndex
+    },
+    {
+      path: '/influx',
+      name: 'Influx',
+      component: Influx
     }
   ]
 })

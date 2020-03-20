@@ -68,8 +68,19 @@ export default {
         },
         {
           title: '数据管理',
-          name: 'Data',
-          icon: 'el-icon-coin'
+          icon: 'el-icon-coin',
+          list: [
+            {
+              title: '数据接口',
+              name: 'DataIndex',
+              icon: 'el-icon-monitor',
+            },
+            {
+              title: '时序数据',
+              name: 'Influx',
+              icon: 'el-icon-time',
+            }
+          ]
         }
       ]
     }
@@ -83,7 +94,7 @@ export default {
     color: #fff;
     .group{
       margin: 20px 20px 10px 20px;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
       &:not(:last-child) {
         border-bottom: solid 1px #555;
       }

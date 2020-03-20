@@ -1,9 +1,9 @@
 <template>
-  <div class="Data">
+  <div class="Influx">
   </div>
 </template>
 <script>
 export default {
-  name: 'Data'
+  name: 'Influx'
 }
 </script>

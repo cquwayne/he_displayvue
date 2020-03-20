@@ -50,7 +50,7 @@ body, html {
 #navigation{
   background: #373D41;
   height: 100%!important;
-  max-width: 150px!important;
+  max-width: 170px!important;
 }
 #container{
   height: calc(100% - 50px)

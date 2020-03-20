@@ -4,7 +4,7 @@
       <TaskTable :table="taskList" :nodeList="nodeList" @handleSelect="handleSelect"></TaskTable>
     </el-aside>
     <el-main>
-      <BindTable :table="bindList" :task="selectTask" :chainList="chainList"></BindTable>
+      <BindTable :table="bindList" :task="selectTask" :nodeList="nodeList" :chainList="chainList"></BindTable>
     </el-main>
   </el-container>
 </template>
@@ -32,9 +32,6 @@ export default {
       vm.$axios.get(vm.url + 'tasks').then(res => {
         vm.taskList = res.data
       })
-      vm.$axios.get(vm.url + 'nodes').then(res => {
-        vm.nodeList = res.data
-      })
       vm.$axios.get(vm.url + 'chains').then(res => {
         vm.chainList = res.data
       })
@@ -46,6 +43,10 @@ export default {
         let task = res.data
         this.selectTask = task
         this.bindList = task['bindList']
+      })
+      this.$axios.get(this.url + 'nodes/' + task.node.id).then(res => {
+        let node = res.data
+        this.nodeList = node['nodeList']
       })
     }
   }
