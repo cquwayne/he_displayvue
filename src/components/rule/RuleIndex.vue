@@ -1,30 +1,30 @@
 <template>
   <div class="RuleIndex">
     <div class="block">
-      <RuleTable :table="ruleList" @handleSelect="handleSelect"></RuleTable>
+      <RuleTable :table="ruleList"></RuleTable>
     </div>
     <div class="divider">
       <el-divider></el-divider>
     </div>
     <div class="block">
-      <RuleForm ref="ruleForm"></RuleForm>
+      <BaseTable :table="baseList" :ruleList="ruleList"></BaseTable>
     </div>
   </div>
 </template>
 <script>
-import RuleForm from './widgets/RuleForm'
 import RuleTable from './widgets/RuleTable'
+import BaseTable from './widgets/BaseTable'
 export default {
   name: 'RuleIndex',
   components: {
     RuleTable,
-    RuleForm
+    BaseTable
   },
   data () {
     return {
       url: this.$store.state.url,
       ruleList: [],
-      selectRule: null
+      baseList: []
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -32,19 +32,20 @@ export default {
       vm.$axios.get(vm.url + 'rules').then(res => {
         vm.ruleList = res.data
       })
+      vm.$axios.get(vm.url + 'bases').then(res => {
+        vm.baseList = res.data
+      })
     })
   },
   methods: {
-    handleSelect (rule) {
-      this.selectRule = rule
-      this.$refs['ruleForm'].updateForm(rule)
-    }
   }
 }
 </script>
 <style scoped lang="scss">
   .RuleIndex{
     height: 100%;
+    max-height: 100%;
+    overflow: auto;
     display: flex;
   }
 </style>
