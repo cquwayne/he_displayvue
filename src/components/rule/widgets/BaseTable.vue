@@ -37,7 +37,7 @@
       <el-table-column>
         <template slot="header">
           <el-button  type="primary" size="mini" @click="handleClick('post', {})">
-            创建实例
+            <i class="el-icon-circle-plus-outline"></i> 添加
           </el-button>
         </template>
         <template slot-scope="scope">

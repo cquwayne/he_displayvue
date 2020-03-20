@@ -29,7 +29,6 @@ export default {
 body, html {
   width: 100%;
   height: 100%;
-  text-align:center;
   padding: 0;
   margin: 0;
   a{
