@@ -4,6 +4,7 @@ import Home from '../components/Home'
 import ModelIndex from '../components/model/ModelIndex'
 import TaskIndex from '../components/task/TaskIndex'
 import Running from '../components/task/Running'
+import Task from '../components/task/Task'
 import RuleIndex from '../components/rule/RuleIndex'
 import ChainIndex from '../components/chain/ChainIndex'
 import DataIndex from '../components/data/DataIndex'
@@ -34,9 +35,14 @@ export default new Router({
       component: ChainIndex
     },
     {
-      path: '/task',
+      path: '/tasks',
       name: 'TaskIndex',
       component: TaskIndex
+    },
+    {
+      path: '/task',
+      name: 'Task',
+      component: Task
     },
     {
       path: '/running',

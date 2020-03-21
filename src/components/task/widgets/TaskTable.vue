@@ -1,5 +1,6 @@
 <template>
-  <div class="TaskTable">
+  <div class="TaskTable Table">
+    <h3>任务库</h3>
     <el-table
       :data="table"
       style="width:100%">

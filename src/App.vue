@@ -64,6 +64,10 @@ body, html {
     margin: 0;
     padding: 20px;
     border-bottom: solid 1px #eee;
+    a{
+      font-size: 14px;
+      font-weight: normal;
+    }
   }
 }
 .el-container{

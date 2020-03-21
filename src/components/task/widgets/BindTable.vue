@@ -1,5 +1,18 @@
 <template>
-  <div class="BindTable">
+  <div class="BindTable Table">
+    <h3>
+      <el-row>
+        <el-col :span="18">
+          任务绑定配置
+        </el-col>
+        <el-col :span="6" v-if="task">
+          <router-link class="el-button el-button--success el-button--mini"
+            :to="{name: 'Task', query: {id: task ? task['id'] : 0}}">
+            <i class="el-icon-right"></i> 任务详情
+          </router-link>
+        </el-col>
+      </el-row>
+    </h3>
     <el-table
       :data="table"
       style="width:100%">
@@ -55,7 +68,12 @@ export default {
   name: 'BindTable',
   props: {
     task: {
-      type: Object
+      type: Object,
+      default () {
+        return {
+          id: 0
+        }
+      }
     },
     table: {
       type: Array

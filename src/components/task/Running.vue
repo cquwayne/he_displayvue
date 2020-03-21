@@ -36,7 +36,7 @@ export default {
   .Running{
     height: 100%;
     .el-aside{
-      width: 300px!important;
+      width: 220px!important;
       border-right: solid 1px #eee!important;
       padding: 0 1px!important;
     }

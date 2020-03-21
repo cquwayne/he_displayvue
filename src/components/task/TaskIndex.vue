@@ -22,7 +22,7 @@ export default {
       url: this.$store.state.url,
       taskList: [],
       nodeList: [],
-      selectTask: {},
+      selectTask: {id: 0},
       bindList: [],
       chainList: []
     }
