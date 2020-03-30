@@ -75,13 +75,13 @@ export default {
     setEdge (item) {
       let style
       switch (item.direction) {
-        case 0:
+        case 1:
           style = 'stroke: #0fb2cc;stroke-dasharray:10,10;fill:none;'
           break
-        case 1:
+        case 2:
           style = 'stroke: #0fb2cc;fill:none;'
           break
-        case 2:
+        case 3:
           style = 'stroke:red;stroke-width:2;fill:none;'
       }
       this.dag.setEdge(item.inputLabel, item.outputLabel, {
