@@ -1,7 +1,7 @@
 <template>
   <el-container class="Running">
     <el-aside>
-      <RunTable :table="taskList"></RunTable>
+      <RunTable :table="instanceList"></RunTable>
     </el-aside>
     <el-container>
       <el-main></el-main>
@@ -19,14 +19,14 @@ export default {
   data () {
     return {
       url: this.$store.state.url,
-      taskList: [],
-      selectTask: {}
+      instanceList: [],
+      selectInstance: {}
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.$axios.get(vm.url + 'tasks').then(res => {
-        vm.taskList = res.data
+      vm.$axios.get(vm.url + 'instances').then(res => {
+        vm.instanceList = res.data
       })
     })
   },

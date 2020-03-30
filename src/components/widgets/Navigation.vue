@@ -56,7 +56,7 @@ export default {
           list: [
             {
               title: '任务库',
-              name: 'TaskIndex',
+              name: 'InstanceIndex',
               icon: 'el-icon-data-line',
             },
             {

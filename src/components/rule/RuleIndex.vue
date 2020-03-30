@@ -29,7 +29,7 @@ export default {
       vm.$axios.get(vm.url + 'rules').then(res => {
         vm.ruleList = res.data
       })
-      vm.$axios.get(vm.url + 'bases').then(res => {
+      vm.$axios.get(vm.url + 'attributes').then(res => {
         vm.baseList = res.data
       })
     })

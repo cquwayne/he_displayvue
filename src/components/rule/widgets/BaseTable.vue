@@ -113,11 +113,11 @@ export default {
     },
     handleEdit () {
       if (this.editType === 'post') {
-        this.$axios.post(this.url + 'bases', this.baseForm).then(res => {
+        this.$axios.post(this.url + 'attributes', this.baseForm).then(res => {
           history.go(0)
         })
       } else if (this.editType === 'put') {
-        this.$axios.put(this.url + 'bases', this.baseForm).then(res => {
+        this.$axios.put(this.url + 'attributes', this.baseForm).then(res => {
           history.go(0)
         })
       }

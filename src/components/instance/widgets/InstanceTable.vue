@@ -1,5 +1,5 @@
 <template>
-  <div class="TaskTable Table">
+  <div class="InstanceTable Table">
     <h3>任务库</h3>
     <el-table
       :data="table"
@@ -39,12 +39,12 @@
     <el-drawer
       :visible.sync="drawer"
       :with-header="false">
-      <el-form :model="taskForm">
+      <el-form :model="instanceForm">
         <el-form-item>
-          <el-input v-model="taskForm.title" placeholder="任务名称"></el-input>
+          <el-input v-model="instanceForm.title" placeholder="任务名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-select filterable v-model="taskForm.nodeId" placeholder="关联模型">
+          <el-select filterable v-model="instanceForm.nodeId" placeholder="关联模型">
             <el-option v-for="item in nodeList" :key="item.index"
               :label="item.title" :value="item.id"></el-option>
           </el-select>
@@ -58,7 +58,7 @@
 </template>
 <script>
 export default {
-  name: 'TaskTable',
+  name: 'InstanceTable',
   props: {
     table: {
       type: Array
@@ -72,7 +72,7 @@ export default {
       editType: 'post',
       drawer: false,
       url: this.$store.state.url,
-      taskForm: {
+      instanceForm: {
         title: null
       }
     }
@@ -80,16 +80,16 @@ export default {
   methods: {
     handleClick (type, form) {
       this.editType = type
-      this.taskForm = form
+      this.instanceForm = form
       this.drawer = true
     },
     handleEdit () {
       if (this.editType === 'post') {
-        this.$axios.post(this.url + 'tasks', this.taskForm).then(res => {
+        this.$axios.post(this.url + 'instances', this.instanceForm).then(res => {
           history.go(0)
         })
       } else if (this.editType === 'put') {
-        this.$axios.put(this.url + 'tasks', this.taskForm).then(res => {
+        this.$axios.put(this.url + 'instances', this.instanceForm).then(res => {
           history.go(0)
         })
       }

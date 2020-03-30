@@ -108,7 +108,7 @@ export default {
 <style scoped lang="scss">
   .ModelGraph {
     width: 100%;
-    height: 300px;
+    height: calc(100% - 5px);
     text-align: center;
     .node-default{
       fill: #f77; font-weight: bold;

@@ -1,5 +1,5 @@
 <template>
-  <el-container class="Task">
+  <el-container class="Instance">
     <el-aside>
       <PointTable :table="pointList" @handleSelect="handleSelect"></PointTable>
     </el-aside>
@@ -18,7 +18,7 @@ import ModelGraph from '../model/widgets/ModelGraph'
 import BaseTable from './widgets/BaseTable'
 import PointTable from './widgets/PointTable'
 export default {
-  name: 'Task',
+  name: 'Instance',
   components: {
     BaseTable,
     ModelGraph,
@@ -27,7 +27,7 @@ export default {
   data () {
     return {
       id: null,
-      task: {},
+      instance: {},
       url: this.$store.state.url,
       pointList: [],
       graph: {},
@@ -37,10 +37,10 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.id = to.query['id'] ? to.query['id'] : 2
-      vm.$axios.get(vm.url + 'tasks/' + vm.id).then(res => {
-        vm.task = res.data
-        vm.pointList = vm.task['node']['pointList']
-        vm.$axios.get(vm.url + 'nodes/' + vm.task.nodeId + '/graph').then(res => {
+      vm.$axios.get(vm.url + 'instances/' + vm.id).then(res => {
+        vm.instance = res.data
+        vm.pointList = vm.instance['node']['pointList']
+        vm.$axios.get(vm.url + 'nodes/' + vm.instance.nodeId + '/graph').then(res => {
           vm.graph = res.data
           vm.$refs['graph'].handleGraph(vm.graph.pointList, vm.graph.pipeList)
         })
@@ -55,7 +55,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .Task{
+  .Instance{
     height: 100%;
     .el-aside{
       width: 400px!important;

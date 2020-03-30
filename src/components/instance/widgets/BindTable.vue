@@ -5,9 +5,9 @@
         <el-col :span="18">
           任务绑定配置
         </el-col>
-        <el-col :span="6" v-if="task">
+        <el-col :span="6" v-if="instance">
           <router-link class="el-button el-button--success el-button--mini"
-            :to="{name: 'Task', query: {id: task ? task['id'] : 0}}">
+            :to="{name: 'Instance', query: {id: instance ? instance['id'] : 0}}">
             <i class="el-icon-right"></i> 任务详情
           </router-link>
         </el-col>
@@ -67,7 +67,7 @@
 export default {
   name: 'BindTable',
   props: {
-    task: {
+    instance: {
       type: Object,
       default () {
         return {
@@ -91,7 +91,7 @@ export default {
       drawer: false,
       url: this.$store.state.url,
       bindForm: {
-        taskId: null,
+        instanceId: null,
         chainId: null,
         nodeId: null
       }
@@ -104,7 +104,7 @@ export default {
       this.drawer = true
     },
     handleEdit () {
-      this.bindForm.taskId = this.task.id
+      this.bindForm.instanceId = this.instance.id
       if (this.editType === 'post') {
         this.$axios.post(this.url + 'binds', this.bindForm).then(res => {
           history.go(0)

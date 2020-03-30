@@ -38,7 +38,7 @@ export default {
       vm.$axios.get(vm.url + 'chains').then(res => {
         vm.chainList = res.data
       })
-      vm.$axios.get(vm.url + 'bases').then(res => {
+      vm.$axios.get(vm.url + 'attributes').then(res => {
         vm.baseList = res.data
       })
     })
