@@ -13,13 +13,13 @@
       <el-table-column
         label="链规则">
         <template slot-scope="scope">
-          {{ scope.row.base.rule.label }}
+          {{ scope.row.attribute.rule.label }}
         </template>
       </el-table-column>
       <el-table-column
         label="规则实例">
         <template slot-scope="scope">
-          {{ scope.row.base.title + ' (' + scope.row.base.value + ')' }}
+          {{ scope.row.attribute.title + ' (' + scope.row.attribute.value + ')' }}
         </template>
       </el-table-column>
       <el-table-column>
@@ -39,7 +39,7 @@
       :with-header="false">
       <el-form :model="linkForm">
         <el-form-item>
-          <el-select filterable v-model="linkForm.baseId" placeholder="关联规则实例">
+          <el-select filterable v-model="linkForm.attributeId" placeholder="关联规则实例">
             <el-option v-for="item in attributeList" :key="item.index"
               :label="item.rule.label + ' (' + item.title + ')' " :value="item.id"></el-option>
           </el-select>

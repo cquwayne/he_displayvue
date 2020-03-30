@@ -49,7 +49,7 @@ export default {
       editType: 'post',
       drawer: false,
       url: this.$store.state.url,
-      baseForm: {
+      attributeForm: {
         label: null,
         value: null
       }

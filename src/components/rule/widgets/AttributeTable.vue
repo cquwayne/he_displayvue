@@ -48,18 +48,18 @@
     <el-drawer
       :visible.sync="drawer"
       :with-header="false">
-      <el-form :model="baseForm">
+      <el-form :model="attributeForm">
         <el-form-item>
-          <el-select v-model="baseForm.ruleId" placeholder="所属规则">
+          <el-select v-model="attributeForm.ruleId" placeholder="所属规则">
             <el-option v-for="item in ruleList" :key="item.index"
               :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="baseForm.title" placeholder="实例名称"></el-input>
+          <el-input v-model="attributeForm.title" placeholder="实例名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="baseForm.value" placeholder="实例值"></el-input>
+          <el-input v-model="attributeForm.value" placeholder="实例值"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="handleEdit">保存</el-button>
@@ -96,7 +96,7 @@ export default {
       editType: 'post',
       drawer: false,
       url: this.$store.state.url,
-      baseForm: {
+      attributeForm: {
         label: null,
         value: null
       }
@@ -108,16 +108,16 @@ export default {
     },
     handleClick (type, form) {
       this.editType = type
-      this.baseForm = form
+      this.attributeForm = form
       this.drawer = true
     },
     handleEdit () {
       if (this.editType === 'post') {
-        this.$axios.post(this.url + 'attributes', this.baseForm).then(res => {
+        this.$axios.post(this.url + 'attributes', this.attributeForm).then(res => {
           history.go(0)
         })
       } else if (this.editType === 'put') {
-        this.$axios.put(this.url + 'attributes', this.baseForm).then(res => {
+        this.$axios.put(this.url + 'attributes', this.attributeForm).then(res => {
           history.go(0)
         })
       }
