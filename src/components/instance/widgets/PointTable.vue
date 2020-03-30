@@ -27,7 +27,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" type="warning" plain v-if="scope.row.chain.baseList === undefined" :disabled="true"
+          <el-button size="mini" type="warning" plain v-if="scope.row.chain.attributeList === undefined" :disabled="true"
             @click="handleSelect(scope.row)">
             未配置
           </el-button>

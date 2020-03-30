@@ -1,5 +1,5 @@
 <template>
-  <div class="BaseTable Table">
+  <div class="AttributeTable Table">
     <el-table
       :data="table.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
       style="width:100%">
@@ -37,7 +37,7 @@
 </template>
 <script>
 export default {
-  name: 'BaseTable',
+  name: 'AttributeTable',
   props: {
     table: {
       type: Array
@@ -58,6 +58,6 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .BaseTable{
+  .AttributeTable{
   }
 </style>

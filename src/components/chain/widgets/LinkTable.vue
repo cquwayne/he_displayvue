@@ -40,7 +40,7 @@
       <el-form :model="linkForm">
         <el-form-item>
           <el-select filterable v-model="linkForm.baseId" placeholder="关联规则实例">
-            <el-option v-for="item in baseList" :key="item.index"
+            <el-option v-for="item in attributeList" :key="item.index"
               :label="item.rule.label + ' (' + item.title + ')' " :value="item.id"></el-option>
           </el-select>
         </el-form-item>
@@ -61,7 +61,7 @@ export default {
     table: {
       type: Array
     },
-    baseList: {
+    attributeList: {
       type: Array
     }
   },

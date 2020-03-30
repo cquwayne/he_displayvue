@@ -8,7 +8,7 @@
         <ChainGraph></ChainGraph>
       </el-main>
       <el-footer>
-        <LinkTable :table="linkList" :chain="selectChain" :baseList="baseList"></LinkTable>
+        <LinkTable :table="linkList" :chain="selectChain" :attributeList="attributeList"></LinkTable>
       </el-footer>
     </el-container>
   </el-container>
@@ -29,7 +29,7 @@ export default {
       url: this.$store.state.url,
       selectChain: {},
       chainList: [],
-      baseList: [],
+      attributeList: [],
       linkList: null
     }
   },
@@ -39,7 +39,7 @@ export default {
         vm.chainList = res.data
       })
       vm.$axios.get(vm.url + 'attributes').then(res => {
-        vm.baseList = res.data
+        vm.attributeList = res.data
       })
     })
   },

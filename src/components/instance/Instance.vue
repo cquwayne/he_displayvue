@@ -8,19 +8,19 @@
         <ModelGraph ref="graph"></ModelGraph>
       </el-main>
       <el-footer>
-        <BaseTable :table="baseList"></BaseTable>
+        <AttributeTable :table="attributeList"></AttributeTable>
       </el-footer>
     </el-container>
   </el-container>
 </template>
 <script>
 import ModelGraph from '../model/widgets/ModelGraph'
-import BaseTable from './widgets/BaseTable'
+import AttributeTable from './widgets/AttributeTable'
 import PointTable from './widgets/PointTable'
 export default {
   name: 'Instance',
   components: {
-    BaseTable,
+    AttributeTable,
     ModelGraph,
     PointTable
   },
@@ -31,7 +31,7 @@ export default {
       url: this.$store.state.url,
       pointList: [],
       graph: {},
-      baseList: []
+      attributeList: []
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     handleSelect (point) {
-      this.baseList = point.baseList
+      this.attributeList = point.attributeList
     }
   }
 }

@@ -4,24 +4,24 @@
       <RuleTable :table="ruleList"></RuleTable>
     </el-aside>
     <el-main>
-      <BaseTable :table="baseList" :ruleList="ruleList"></BaseTable>
+      <AttributeTable :table="attributeList" :ruleList="ruleList"></AttributeTable>
     </el-main>
   </el-container>
 </template>
 <script>
 import RuleTable from './widgets/RuleTable'
-import BaseTable from './widgets/BaseTable'
+import AttributeTable from './widgets/AttributeTable'
 export default {
   name: 'RuleIndex',
   components: {
     RuleTable,
-    BaseTable
+    AttributeTable
   },
   data () {
     return {
       url: this.$store.state.url,
       ruleList: [],
-      baseList: []
+      attributeList: []
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -30,7 +30,7 @@ export default {
         vm.ruleList = res.data
       })
       vm.$axios.get(vm.url + 'attributes').then(res => {
-        vm.baseList = res.data
+        vm.attributeList = res.data
       })
     })
   },
