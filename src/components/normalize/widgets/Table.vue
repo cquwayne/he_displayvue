@@ -68,17 +68,17 @@
           <div v-else>/</div>
         </template>
       </el-table-column>
-      <el-table-column width="200px" label="引用信息名称" v-if="element === 'infoRef' || element === 'attrRef'">
+      <el-table-column width="200px" label="引用信息名称" v-if="element === 'inforef' || element === 'attrref'">
         <template slot-scope="scope">
           {{ scope.row.parent ? scope.row.parent.title : '/' }}
         </template>
       </el-table-column>
-      <el-table-column width="200px" label="被引用信息名称" v-if="element === 'infoRef'">
+      <el-table-column width="200px" label="被引用信息名称" v-if="element === 'inforef'">
         <template slot-scope="scope">
           {{ scope.row.child ? scope.row.child.title : '/' }}
         </template>
       </el-table-column>
-      <el-table-column width="200px" label="被引用属性名称" v-if="element === 'attrRef'">
+      <el-table-column width="200px" label="被引用属性名称" v-if="element === 'attrref'">
         <template slot-scope="scope">
           {{ scope.row.child ? scope.row.child.title : '/' }}
         </template>

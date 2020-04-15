@@ -5,10 +5,10 @@
     </el-header>
     <el-container>
       <el-main>
-        <Table :element="'infoRef'" :table="table" @handleSelect="handleSelect"></Table>
+        <Table :element="'inforef'" :table="table" @handleSelect="handleSelect"></Table>
       </el-main>
       <el-aside>
-        <Form :element="'infoRef'" :form="select" ref="form"></Form>
+        <Form :element="'inforef'" :form="select" ref="form"></Form>
       </el-aside>
     </el-container>
   </el-container>
