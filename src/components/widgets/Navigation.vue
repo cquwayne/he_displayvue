@@ -19,61 +19,65 @@ export default {
     return {
       navList: [
         {
-          title: '模型管理',
+          title: '结构化模型管理',
           icon: 'el-icon-s-grid',
           list: [
             {
-              title: '模型库',
-              name: 'ModelIndex',
-              icon: 'el-icon-discover',
+              title: '结点管理',
+              name: 'Node',
+              icon: 'el-icon-box',
             },
             {
-              title: '数据流图',
-              name: 'ModelIndex',
-              icon: 'el-icon-full-screen',
-            }
-          ]
-        },
-        {
-          title: '规则管理',
-          icon: 'el-icon-document-copy',
-          list: [
+              title: '坐标管理',
+              name: 'Point',
+              icon: 'el-icon-map-location',
+            },
             {
-              title: '规则库',
-              name: 'RuleIndex',
+              title: '管道管理',
+              name: 'Pipe',
+              icon: 'el-icon-s-unfold',
+            },
+            {
+              title: '超链接管理',
+              name: 'Hyperlink',
               icon: 'el-icon-link',
-            },
-            {
-              title: '规则链',
-              name: 'ChainIndex',
-              icon: 'el-icon-connection',
             }
           ]
         },
         {
-          title: '任务管理',
-          icon: 'el-icon-c-scale-to-original',
+          title: '规范化模型管理',
+          icon: 'el-icon-files',
           list: [
             {
-              title: '任务库',
-              name: 'InstanceIndex',
-              icon: 'el-icon-data-line',
+              title: '规则管理',
+              name: 'Rule',
+              icon: 'el-icon-paperclip',
             },
             {
-              title: '实时采集',
-              name: 'Running',
-              icon: 'el-icon-timer'
+              title: '属性管理',
+              name: 'Attribute',
+              icon: 'el-icon-tickets',
+            },
+            {
+              title: '信息管理',
+              name: 'Information',
+              icon: 'el-icon-document-copy',
             }
           ]
         },
         {
-          title: '数据管理',
+          title: '工艺信息集成管理',
           icon: 'el-icon-coin',
           list: [
             {
-              title: '数据接口',
-              name: 'DataIndex',
-              icon: 'el-icon-monitor',
+              title: '工艺过程',
+              name: 'Process',
+              icon: 'el-icon-s-operation',
+            },
+            {
+              title: '实时管理',
+              name: 'Realtime',
+              icon: 'el-icon-data-analysis'
             },
             {
               title: '时序数据',
@@ -108,7 +112,7 @@ export default {
         font-size: 14px;
         display: block;
         padding: 0 15px;
-        margin: 15px 0;
+        margin: 10px 0;
         color: #ccc;
       }
       .router-link-active{

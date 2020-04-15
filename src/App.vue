@@ -33,6 +33,7 @@ body, html {
   margin: 0;
   a{
     text-decoration: none;
+    color: #1C2327;
   }
 }
 #app {
@@ -50,10 +51,15 @@ body, html {
 #navigation{
   background: #373D41;
   height: 100%!important;
-  max-width: 170px!important;
+  max-width: 190px!important;
 }
 #container{
   height: calc(100% - 50px)
+}
+.Element{
+  .el-main{
+    width: 500px!important;
+  }
 }
 .Table{
   height: 100%;
@@ -72,7 +78,7 @@ body, html {
 }
 .el-container{
   padding: 0!important;
-  .el-aside, .el-main{
+  .el-aside, .el-main, .el-header{
     padding: 0!important;
     margin: 0!important;
   }
