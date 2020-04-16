@@ -66,10 +66,10 @@ export default {
       // item.label = item.title + item.label
       let info = ''
       if (item.information) {
-        let arr = item.information.attrRefList
+        let arr = item.information.attributeList
         info = item.information.title + ' {\n\n'
         for(let i = 0; i < arr.length; i++) {
-          info = info + '  ' + arr[i]['child']['title'] + '\n'
+          info = info + '  ' + arr[i]['title']  + ': ' +  (arr[i]['value'] ? arr[i]['value'] : '/') + '\n'
         }
         info = info + '\n}'
       }

@@ -26,6 +26,9 @@
         <el-input v-model="editForm.attributeId" placeholder="规则链所属属性"></el-input>
       </el-form-item>
       <el-form-item v-if="element === 'attribute'">
+        <el-input v-model="editForm.informationId" placeholder="所属信息"></el-input>
+      </el-form-item>
+      <el-form-item v-if="element === 'attribute'">
         <el-input v-model="editForm.title" placeholder="属性名称"></el-input>
       </el-form-item>
       <el-form-item v-if="element === 'attribute'">
@@ -33,18 +36,6 @@
       </el-form-item>
       <el-form-item v-if="element === 'information'">
         <el-input v-model="editForm.title" placeholder="工艺信息名称"></el-input>
-      </el-form-item>
-      <el-form-item v-if="element === 'inforef'">
-        <el-input v-model="editForm.parentId" placeholder="信息"></el-input>
-      </el-form-item>
-      <el-form-item v-if="element === 'inforef'">
-        <el-input v-model="editForm.childId" placeholder="引用信息"></el-input>
-      </el-form-item>
-      <el-form-item v-if="element === 'attrref'">
-        <el-input v-model="editForm.parentId" placeholder="信息"></el-input>
-      </el-form-item>
-      <el-form-item v-if="element === 'attrref'">
-        <el-input v-model="editForm.childId" placeholder="引用属性"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">提交</el-button>

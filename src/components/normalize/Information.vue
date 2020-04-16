@@ -1,48 +1,27 @@
 <template>
   <el-container class="Information">
-    <el-header>
-      <SubNav :navList="navList"></SubNav>
-    </el-header>
-    <el-container>
-      <el-main>
-        <Table :element="'information'" :table="table" @handleSelect="handleSelect"></Table>
-      </el-main>
-      <el-aside>
-        <Form :element="'information'" :form="select" ref="form"></Form>
-      </el-aside>
-    </el-container>
+    <el-main>
+      <Table :element="'information'" :table="table" @handleSelect="handleSelect"></Table>
+    </el-main>
+    <el-aside>
+      <Form :element="'information'" :form="select" ref="form"></Form>
+    </el-aside>
   </el-container>
 </template>
 <script>
 import Table from './widgets/Table'
 import Form from './widgets/Form'
-import SubNav from '../widgets/SubNav'
 export default {
   name: 'Information',
   components: {
     Table,
-    Form,
-    SubNav
+    Form
   },
   data () {
     return {
       url: this.$store.state.url + 'normalize/informations',
       table: [],
-      select: {},
-      navList: [
-        {
-          name: 'Information',
-          title: '工艺信息管理'
-        },
-        {
-          name: 'InfoRef',
-          title: '信息引用管理'
-        },
-        {
-          name: 'AttrRef',
-          title: '属性引用管理'
-        }
-      ]
+      select: {}
     }
   },
   beforeRouteEnter (to, from, next) {

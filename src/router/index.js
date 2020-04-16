@@ -11,8 +11,6 @@ import Metadata from '../components/normalize/Metadata'
 import Rule from '../components/normalize/Rule'
 import Chain from '../components/normalize/Chain'
 import Attribute from '../components/normalize/Attribute'
-import AttrRef from '../components/normalize/AttrRef'
-import InfoRef from '../components/normalize/InfoRef'
 import Information from '../components/normalize/Information'
 import Integration from '../components/integration/Integration'
 import Process from '../components/integration/Process'
@@ -80,16 +78,6 @@ export default new Router({
           path: 'attribute',
           name: 'Attribute',
           component: Attribute
-        },
-        {
-          path: 'infoRef',
-          name: 'InfoRef',
-          component: InfoRef
-        },
-        {
-          path: 'attrRef',
-          name: 'AttrRef',
-          component: AttrRef
         },
         {
           path: 'information',

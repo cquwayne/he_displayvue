@@ -8,6 +8,11 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
+      <el-table-column width="100px" label="所属信息" v-if="element === 'attribute'">
+        <template slot-scope="scope">
+          {{ scope.row.information ? scope.row.information.title : '/' }}
+        </template>
+      </el-table-column>
       <el-table-column width="100px" label="属性名称" v-if="element === 'attribute'">
         <template slot-scope="scope">
           {{ scope.row.title }}
@@ -63,39 +68,14 @@
           {{ scope.row.title }}
         </template>
       </el-table-column>
-      <el-table-column width="150px" label="引用信息" v-if="element === 'information'">
+      <el-table-column width="200px" label="属性集合" v-if="element === 'information'">
         <template slot-scope="scope">
-          <div v-if="scope.row.infoRefList && scope.row.infoRefList.length > 0">
-            <div v-for="item in scope.row.infoRefList" :key="item.index">
-              {{ item.child.title }}
+          <div v-if="scope.row.attributeList && scope.row.attributeList.length > 0">
+            <div v-for="item in scope.row.attributeList" :key="item.index">
+              {{ item.title }}
             </div>
           </div>
           <div v-else>/</div>
-        </template>
-      </el-table-column>
-      <el-table-column width="200px" label="引用属性" v-if="element === 'information'">
-        <template slot-scope="scope">
-          <div v-if="scope.row.attrRefList && scope.row.attrRefList.length > 0">
-            <div v-for="item in scope.row.attrRefList" :key="item.index">
-              {{ item.child.title }}
-            </div>
-          </div>
-          <div v-else>/</div>
-        </template>
-      </el-table-column>
-      <el-table-column width="200px" label="引用信息名称" v-if="element === 'inforef' || element === 'attrref'">
-        <template slot-scope="scope">
-          {{ scope.row.parent ? scope.row.parent.title : '/' }}
-        </template>
-      </el-table-column>
-      <el-table-column width="200px" label="被引用信息名称" v-if="element === 'inforef'">
-        <template slot-scope="scope">
-          {{ scope.row.child ? scope.row.child.title : '/' }}
-        </template>
-      </el-table-column>
-      <el-table-column width="200px" label="被引用属性名称" v-if="element === 'attrref'">
-        <template slot-scope="scope">
-          {{ scope.row.child ? scope.row.child.title : '/' }}
         </template>
       </el-table-column>
       <el-table-column width="150px">
