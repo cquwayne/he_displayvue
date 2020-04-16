@@ -99,7 +99,7 @@ body, html {
 }
 a{
   &:hover{
-    color: gold!important;
+    color: #2A88F6!important;
   }
 }
 </style>

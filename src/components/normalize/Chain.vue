@@ -1,7 +1,7 @@
 <template>
   <el-container class="Chain">
     <el-header>
-      <RuleNav></RuleNav>
+      <SubNav :navList="navList"></SubNav>
     </el-header>
     <el-container>
       <el-main>
@@ -14,13 +14,13 @@
   </el-container>
 </template>
 <script>
-import RuleNav from './widgets/RuleNav'
+import SubNav from '../widgets/SubNav'
 import Table from './widgets/Table'
 import Form from './widgets/Form'
 export default {
   name: 'Chain',
   components: {
-    RuleNav,
+    SubNav,
     Table,
     Form
   },
@@ -28,7 +28,17 @@ export default {
     return {
       url: this.$store.state.url + 'normalize/chains',
       table: [],
-      select: {}
+      select: {},
+      navList: [
+        {
+          name: 'Attribute',
+          title: '属性管理'
+        },
+        {
+          name: 'Chain',
+          title: '规则链管理'
+        }
+      ]
     }
   },
   beforeRouteEnter (to, from, next) {

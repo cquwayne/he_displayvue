@@ -1,7 +1,7 @@
 <template>
   <el-container class="Information">
     <el-header>
-      <InfoNav></InfoNav>
+      <SubNav :navList="navList"></SubNav>
     </el-header>
     <el-container>
       <el-main>
@@ -16,19 +16,33 @@
 <script>
 import Table from './widgets/Table'
 import Form from './widgets/Form'
-import InfoNav from './widgets/InfoNav'
+import SubNav from '../widgets/SubNav'
 export default {
   name: 'Information',
   components: {
     Table,
     Form,
-    InfoNav
+    SubNav
   },
   data () {
     return {
       url: this.$store.state.url + 'normalize/attrrefs',
       table: [],
-      select: {}
+      select: {},
+      navList: [
+        {
+          name: 'Information',
+          title: '工艺信息管理'
+        },
+        {
+          name: 'InfoRef',
+          title: '信息引用管理'
+        },
+        {
+          name: 'AttrRef',
+          title: '属性引用管理'
+        }
+      ]
     }
   },
   beforeRouteEnter (to, from, next) {

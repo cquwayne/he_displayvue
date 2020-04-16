@@ -3,7 +3,7 @@
     <el-table
       :data="table.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
       style="width:100%">
-      <el-table-column label="主键" width="100px">
+      <el-table-column label="主键" width="50px">
         <template slot-scope="scope">
           {{ scope.row.id }}
         </template>
@@ -11,6 +11,21 @@
       <el-table-column width="100px" label="属性名称" v-if="element === 'attribute'">
         <template slot-scope="scope">
           {{ scope.row.title }}
+        </template>
+      </el-table-column>
+      <el-table-column width="100px" label="属性值" v-if="element === 'attribute'">
+        <template slot-scope="scope">
+          {{ scope.row.value }}
+        </template>
+      </el-table-column>
+      <el-table-column width="200px" label="属性规则链" v-if="element === 'attribute'">
+        <template slot-scope="scope">
+          <div v-if="scope.row.chainList && scope.row.chainList.length > 0">
+            <div v-for="item in scope.row.chainList" :key="item.index">
+              {{ item.left.title }} <i class="el-icon-right"/>  {{ item.right.title }} 
+            </div>
+          </div>
+          <div v-else>/</div>
         </template>
       </el-table-column>
       <el-table-column width="100px" label="规则元名称" v-if="element === 'metadata'">
@@ -30,7 +45,7 @@
       </el-table-column>
       <el-table-column width="200px" label="规则值" v-if="element === 'rule'">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.title + ' ( ' + scope.row.value + ' )' }}
         </template>
       </el-table-column>
       <el-table-column width="100px" label="左侧规则" v-if="element === 'chain'">
@@ -43,12 +58,12 @@
           {{ scope.row.right ? scope.row.right.metadata.title : '/' }}
         </template>
       </el-table-column>
-      <el-table-column width="200px" label="信息名称" v-if="element === 'information'">
+      <el-table-column width="150px" label="信息名称" v-if="element === 'information'">
         <template slot-scope="scope">
           {{ scope.row.title }}
         </template>
       </el-table-column>
-      <el-table-column width="200px" label="引用信息数量" v-if="element === 'information'">
+      <el-table-column width="150px" label="引用信息" v-if="element === 'information'">
         <template slot-scope="scope">
           <div v-if="scope.row.infoRefList && scope.row.infoRefList.length > 0">
             <div v-for="item in scope.row.infoRefList" :key="item.index">

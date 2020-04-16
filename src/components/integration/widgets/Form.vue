@@ -7,11 +7,14 @@
       <el-form-item v-if="element === 'process'">
         <el-input v-model="editForm.nodeId" placeholder="关联根节点"></el-input>
       </el-form-item>
-      <el-form-item v-if="element === 'point'">
-        <el-input v-model="editForm.x" placeholder="x坐标值"></el-input>
+      <el-form-item v-if="element === 'bind'">
+        <el-input v-model="editForm.processId" placeholder="所属过程"></el-input>
       </el-form-item>
-      <el-form-item v-if="element === 'point'">
-        <el-input v-model="editForm.y" placeholder="y坐标值"></el-input>
+      <el-form-item v-if="element === 'bind'">
+        <el-input v-model="editForm.nodeId" placeholder="绑定结点"></el-input>
+      </el-form-item>
+      <el-form-item v-if="element === 'bind'">
+        <el-input v-model="editForm.informationId" placeholder="绑定信息"></el-input>
       </el-form-item>
       <el-form-item v-if="element === 'pipe'">
         <el-input v-model="editForm.inputId" placeholder="输入坐标"></el-input>

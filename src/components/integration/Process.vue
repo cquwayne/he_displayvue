@@ -1,7 +1,7 @@
 <template>
   <el-container class="Process">
     <el-header>
-      <ProNav></ProNav>
+      <SubNav :navList="navList"></SubNav>
     </el-header>
     <el-container>
       <el-main>
@@ -14,13 +14,13 @@
   </el-container>
 </template>
 <script>
-import ProNav from './widgets/ProNav'
+import SubNav from '../widgets/SubNav'
 import Table from './widgets/Table'
 import Form from './widgets/Form'
 export default {
   name: 'Process',
   components: {
-    ProNav,
+    SubNav,
     Table,
     Form
   },
@@ -28,7 +28,17 @@ export default {
     return {
       url: this.$store.state.url + 'integration/processs',
       table: [],
-      select: {}
+      select: {},
+      navList: [
+        {
+          name: 'Process',
+          title: '工艺过程管理'
+        },
+        {
+          name: 'Bind',
+          title: '模型绑定管理'
+        }
+      ]
     }
   },
   beforeRouteEnter (to, from, next) {

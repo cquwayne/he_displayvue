@@ -1,19 +1,26 @@
 <template>
   <el-container class="Metadata">
-    <el-main>
-      <Table :element="'attribute'" :table="table" @handleSelect="handleSelect"></Table>
-    </el-main>
-    <el-aside>
-      <Form :element="'attribute'" :form="select" ref="form"></Form>
-    </el-aside>
+    <el-header>
+      <SubNav :navList="navList"></SubNav>
+    </el-header>
+    <el-container>
+      <el-main>
+        <Table :element="'attribute'" :table="table" @handleSelect="handleSelect"></Table>
+      </el-main>
+      <el-aside>
+        <Form :element="'attribute'" :form="select" ref="form"></Form>
+      </el-aside>
+    </el-container>
   </el-container>
 </template>
 <script>
+import SubNav from '../widgets/SubNav'
 import Table from './widgets/Table'
 import Form from './widgets/Form'
 export default {
   name: 'Metadata',
   components: {
+    SubNav,
     Table,
     Form
   },
@@ -21,7 +28,17 @@ export default {
     return {
       url: this.$store.state.url + 'normalize/attributes',
       table: [],
-      select: {}
+      select: {},
+      navList: [
+        {
+          name: 'Attribute',
+          title: '属性管理'
+        },
+        {
+          name: 'Chain',
+          title: '规则链管理'
+        }
+      ]
     }
   },
   beforeRouteEnter (to, from, next) {

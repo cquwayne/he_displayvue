@@ -20,6 +20,7 @@ export default {
     line-height: 50px;
     font-size: 14px;
     color: #ccc;
+    padding-left: 20px;
     i {
       font-size: 15px;
     }

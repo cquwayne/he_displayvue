@@ -116,7 +116,7 @@ export default {
         color: #ccc;
       }
       .router-link-active{
-        color: gold;
+        color: #2A88F6;
       }
     }
   }

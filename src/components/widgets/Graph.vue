@@ -54,15 +54,26 @@ export default {
       let style
       switch (item.style) {
         case 0:
-          style = 'fill: #ccc; font-weight: bold;rx:15;ry:15'
+          // style = 'fill: #eee; font-weight: bold;rx:15;ry:15'
+          style = 'fill: #eee; font-weight: bold;rx:5;ry:5'
           break
         case 1:
-          style = 'fill: #f77; font-weight: bold;'
+          style = 'fill: #2A88F6; stroke:white; font-weight: bold;rx:5;ry:5'
           break
       }
       item.style = style
       let label = item.label
-      item.label = item.title + item.label
+      // item.label = item.title + item.label
+      let info = ''
+      if (item.information) {
+        let arr = item.information.attrRefList
+        info = item.information.title + ' {\n\n'
+        for(let i = 0; i < arr.length; i++) {
+          info = info + '  ' + arr[i]['child']['title'] + '\n'
+        }
+        info = info + '\n}'
+      }
+      item.label = info ? info : item.title + item.label
       this.dag.setNode(label, item)
     },
     setEdge (item) {

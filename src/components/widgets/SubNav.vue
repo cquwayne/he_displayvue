@@ -1,5 +1,5 @@
 <template>
-  <div class="InfoNav">
+  <div class="SubNav">
     <router-link v-for="item in navList" :key="item.index"
      :to="{name: item.name}">
       {{item.title}}
@@ -8,38 +8,31 @@
 </template>
 <script>
 export default {
-  name: 'InfoNav',
+  name: 'SubNav',
+  props: {
+    navList: {
+      type: Array
+    }
+  },
   data () {
     return {
-      navList: [
-        {
-          name: 'Information',
-          title: '工艺信息管理'
-        },
-        {
-          name: 'InfoRef',
-          title: '信息引用管理'
-        },
-        {
-          name: 'AttrRef',
-          title: '属性引用管理'
-        }
-      ]
     }
   }
 }
 </script>
 <style scoped lang="scss">
-  .InfoNav{
-    background-color: #eee;
+  .SubNav{
+    background-color: #3F4448;
     line-height: 50px;
     a{
+      font-size: 14px;
+      color: #ccc;
       display: inline-block;
       margin-left: 20px;
       margin-right: 20px;
     }
     .router-link-active{
-      text-decoration: underline;
+      color: #2A88F6;
     }
   }
 </style>

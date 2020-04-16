@@ -33,7 +33,7 @@
           {{ scope.row.information.title }}
         </template>
       </el-table-column>
-      <el-table-column width="150px" v-if="element !== 'diagram'">
+      <el-table-column width="220px">
         <template slot="header">
           <el-button size="mini" type="primary" @click="handleSelect(null, {})">
             <i class="el-icon-circle-plus-outline"></i> 添加
@@ -42,20 +42,24 @@
         <template slot-scope="scope">
           <el-button size="mini" type="primary" plain
             @click="handleSelect(scope.$index, scope.row)">查看</el-button>
-        </template>
-      </el-table-column>
-      <el-table-column width="150px" label="数据流图" v-if="element === 'diagram'">
-        <template slot-scope="scope">
-          <el-button size="mini" type="primary" plain
-            @click="handleSelect(scope.$index, scope.row)">
-            {{ scope.row.title}}
-            </el-button>
+          <el-button size="mini" type="primary" plain v-if="element === 'process'"
+            @click="handleDiagram(scope.$index, scope.row)">数据流图</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-drawer
+      title= '数据流图'
+      :size="'80%'"
+      :show-close="false"
+      :visible.sync="graphDrawer"
+      :with-header="false"
+      :direction="'rtl'">
+        <Graph ref="graph"></Graph>
+    </el-drawer>
   </div>
 </template>
 <script>
+import Graph from '../../widgets/Graph'
 export default {
   name: 'NodeTable',
   props: {
@@ -67,11 +71,17 @@ export default {
       default: "node"
     }
   },
+  components: {
+    Graph
+  },
   data () {
     return {
+      url: this.$store.state.url + 'integration/processs',
+      graphDrawer: false,
       search: '',
       drawer: false,
-      selectNode: null
+      selectNode: null,
+      select: {}
     }
   },
   methods: {
@@ -90,6 +100,16 @@ export default {
     },
     handleSelect (index, row) {
       this.$emit('handleSelect', row)
+    },
+    handleDiagram (index, row) {
+      this.select = row
+      this.graphDrawer = true
+      this.$nextTick(function () {
+        this.$axios.get(this.url + '/' + row.id + '/graph').then(res => {
+          let newGraph = res.data
+          this.$refs['graph'].handleGraph(newGraph.pointList, newGraph.pipeList)
+        })
+      })
     }
   }
 }

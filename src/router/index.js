@@ -16,7 +16,6 @@ import InfoRef from '../components/normalize/InfoRef'
 import Information from '../components/normalize/Information'
 import Integration from '../components/integration/Integration'
 import Process from '../components/integration/Process'
-import Diagram from '../components/integration/Diagram'
 import Bind from '../components/integration/Bind'
 import Realtime from '../components/integration/Realtime'
 import Influx from '../components/integration/Influx'
@@ -113,11 +112,6 @@ export default new Router({
           path: 'bind',
           name: 'Bind',
           component: Bind
-        },
-        {
-          path: 'diagram',
-          name: 'Diagram',
-          component: Diagram
         },
         {
           path: 'realtime',

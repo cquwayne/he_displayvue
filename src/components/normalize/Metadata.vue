@@ -1,7 +1,7 @@
 <template>
   <el-container class="Metadata">
     <el-header>
-      <RuleNav></RuleNav>
+      <SubNav :navList="navList"></SubNav>
     </el-header>
     <el-container>
       <el-main>
@@ -14,13 +14,13 @@
   </el-container>
 </template>
 <script>
-import RuleNav from './widgets/RuleNav'
+import SubNav from '../widgets/SubNav'
 import Table from './widgets/Table'
 import Form from './widgets/Form'
 export default {
   name: 'Metadata',
   components: {
-    RuleNav,
+    SubNav,
     Table,
     Form
   },
@@ -28,7 +28,17 @@ export default {
     return {
       url: this.$store.state.url + 'normalize/metadatas',
       table: [],
-      select: {}
+      select: {},
+      navList: [
+        {
+          name: 'Rule',
+          title: '规则管理'
+        },
+        {
+          name: 'Metadata',
+          title: '规则元管理'
+        }
+      ]
     }
   },
   beforeRouteEnter (to, from, next) {
