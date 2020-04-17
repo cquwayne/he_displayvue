@@ -19,9 +19,9 @@ function subscribe (topics, callback) {
   client.onMessageArrived = function (message) {
     if (topics instanceof Array) {
       for (let i = 0; i < topics.length; i++) {
-        if (topics[i] === message['topic']) {
+        // if (topics[i] === message['topic']) {
           callback[i](JSON.parse(message['payloadString']))
-        }
+        // }
       }
     } else {
       callback(JSON.parse(message['payloadString']))
@@ -33,6 +33,7 @@ function subscribe (topics, callback) {
   } else {
     // connect the client
     client.connect({onSuccess: function () {
+      console.log('connect success....')
       client.subscribe(topics)
     }})
   }

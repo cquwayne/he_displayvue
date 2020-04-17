@@ -12,7 +12,7 @@ export default {
   computed: {
     topic () {
       return [
-        '/topic/' + this.process['id'] + '/property'
+        '/topic/#'
       ]
     },
     chartHeight () {
@@ -38,6 +38,9 @@ export default {
         rows: [],
         columnMap: {},
         maxDot: 30
+      },
+      propertyMessage: {
+        valueMap: {}
       }
     }
   },
@@ -65,16 +68,33 @@ export default {
   methods: {
     initChart () {
       this.chartData.columns = ['createdAt']
-      // this.device['model']['propertyList'].forEach(property => {
-      //   this.chartData.columns.push(property['name'])
-      //   this.chartData.columnMap[property['id']] = property['name']
-      // })
+      this.chartData.columns.push('主轴速度')
+      this.chartData.columns.push('切削度')
+      this.chartData.columnMap[1] = '主轴速度'
+      this.chartData.columnMap[2] = '切削度'
     },
     connect () {
       let callback = [
         this.propertyCallback
       ]
       mqtt.subscribe(this.topic, callback)
+    },
+    propertyCallback (message) {
+      this.propertyMessage.valueMap = {}
+      let dot = {
+        createdAt: this.getTime()
+      }
+      // message['dataList'].forEach(value => {
+      //   this.propertyMessage.valueMap[value['variableId']] = value['value']
+      //   dot[this.chartData.columnMap[value['variableId']]] = value['value']
+      // })
+      dot['主轴转速'] = message['value']
+      dot['切削度'] = message['value']
+      if (this.chartData.rows.length >= this.chartData.maxDot) {
+        // 删除数组第一个元素，以保障chart不超出最大点数
+        this.chartData.rows.shift()
+      }
+      this.chartData.rows.push(dot)
     },
     getTime () {
       let date1 = new Date()
