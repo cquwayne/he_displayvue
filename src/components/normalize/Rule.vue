@@ -32,11 +32,11 @@ export default {
       navList: [
         {
           name: 'Rule',
-          title: '规则管理'
+          title: '规则实例管理'
         },
         {
           name: 'Metadata',
-          title: '规则元管理'
+          title: '规则管理'
         }
       ]
     }

@@ -61,6 +61,12 @@ body, html {
     width: 500px!important;
   }
 }
+.el-dialog{
+  margin-top:50px!important;
+  .el-dialog__body{
+    padding: 0px!important
+  }
+}
 .Table{
   height: 100%;
   max-height: 100%;

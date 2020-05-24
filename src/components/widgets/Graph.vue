@@ -73,7 +73,8 @@ export default {
         }
         info = info + '\n}'
       }
-      item.label = info ? info : item.title + item.label
+      // item.label = info ? info : item.title + item.label
+      item.label = info ? info : item.title
       this.dag.setNode(label, item)
     },
     setEdge (item) {
@@ -112,7 +113,8 @@ export default {
 <style scoped lang="scss">
   .Graph {
     width: 100%;
-    height: calc(100% - 5px);
+    height: 430px;
+    // height: calc(100% - 5px);
     text-align: center;
     .node-default{
       fill: #f77; font-weight: bold;

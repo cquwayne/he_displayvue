@@ -2,10 +2,10 @@
   <div class="Form">
     <el-form :model="editForm">
       <el-form-item v-if="element === 'metadata'">
-        <el-input v-model="editForm.title" placeholder="规则元名称"></el-input>
+        <el-input v-model="editForm.title" placeholder="规则名称"></el-input>
       </el-form-item>
       <el-form-item v-if="element === 'metadata'">
-        <el-input v-model="editForm.value" placeholder="规则元值"></el-input>
+        <el-input v-model="editForm.value" placeholder="规则值"></el-input>
       </el-form-item>
       <el-form-item v-if="element === 'rule'">
         <el-input v-model="editForm.title" placeholder="规则名称"></el-input>
@@ -14,7 +14,7 @@
         <el-input v-model="editForm.value" placeholder="规则值"></el-input>
       </el-form-item>
       <el-form-item v-if="element === 'rule'">
-        <el-input v-model="editForm.metadataId" placeholder="关联规则元"></el-input>
+        <el-input v-model="editForm.metadataId" placeholder="关联规则"></el-input>
       </el-form-item>
       <el-form-item v-if="element === 'chain'">
         <el-input v-model="editForm.leftId" placeholder="规则链左规则"></el-input>

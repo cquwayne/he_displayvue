@@ -28,12 +28,22 @@
             {{ scope.row.time }}
           </template>
         </el-table-column>
-        <el-table-column label="坐标">
+        <el-table-column label="关联工艺过程">
+          <template slot-scope="scope">
+            {{ scope.row.processId }}
+          </template>
+        </el-table-column>
+        <el-table-column label="关联模型坐标">
           <template slot-scope="scope">
             {{ scope.row.pointId }}
           </template>
         </el-table-column>
-        <el-table-column label="属性">
+        <el-table-column label="关联工艺信息">
+          <template slot-scope="scope">
+            {{ scope.row.informationId }}
+          </template>
+        </el-table-column>
+        <el-table-column label="关联工艺属性">
           <template slot-scope="scope">
             {{ scope.row.attributeId }}
           </template>

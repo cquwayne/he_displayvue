@@ -3,19 +3,12 @@
     <el-table
       :data="table.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
       style="width:100%">
-      <el-table-column label="主键" width="100px">
+      <el-table-column label="主键" width="60px">
         <template slot-scope="scope">
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column v-if="element === 'node'">
-        <template slot="header" slot-scope="scope">
-          <el-input
-            v-model="search"
-            size="mini"
-            style="width:200px"
-            placeholder="搜索"/>
-        </template>
+      <el-table-column label="结点名称" width="150px" v-if="element === 'node'">
         <template slot-scope="scope">
           {{ scope.row.title }}
         </template>
@@ -23,24 +16,25 @@
       <el-table-column label="坐标平面" v-if="element === 'node'">
         <template slot-scope="scope">
           <div v-if="scope.row.pointList && scope.row.pointList.length > 0">
-            <div v-for="item in scope.row.pointList" :key="item.index">{{' (' + item.x + ', ' + item.y + ')'}}</div>
+            {{ scope.row.pointList.length}} 个坐标
+            <!-- <div v-for="item in scope.row.pointList" :key="item.index">{{' (' + item.x + ', ' + item.y + ')'}}</div> -->
           </div>
           <div v-else>
             无坐标
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="所属结点" v-if="element === 'point'">
+      <el-table-column label="所属结点" width="120px" v-if="element === 'point'">
         <template slot-scope="scope">
           {{ scope.row.parent.title }}
         </template>
       </el-table-column>
-      <el-table-column width="100px" label="x坐标值" v-if="element === 'point'">
+      <el-table-column width="80px" label="x坐标值" v-if="element === 'point'">
         <template slot-scope="scope">
           {{ scope.row.x }}
         </template>
       </el-table-column>
-      <el-table-column width="100px" label="y坐标值" v-if="element === 'point'">
+      <el-table-column width="80px" label="y坐标值" v-if="element === 'point'">
         <template slot-scope="scope">
           {{ scope.row.y }}
         </template>
@@ -55,12 +49,12 @@
           {{ scope.row.outputId + ' ( ' + scope.row.output.x + ', ' + scope.row.output.y  + ' )' }}
         </template>
       </el-table-column>
-      <el-table-column label="关联坐标所属结点" v-if="element === 'hyperlink'">
+      <el-table-column label="关联坐标所属结点" width="150px"  v-if="element === 'hyperlink'">
         <template slot-scope="scope">
           {{ scope.row.point.parent.title  }}
         </template>
       </el-table-column>
-      <el-table-column label="关联坐标" v-if="element === 'hyperlink'">
+      <el-table-column label="关联坐标" width="100px" v-if="element === 'hyperlink'">
         <template slot-scope="scope">
           {{ scope.row.pointId + ' ( ' + scope.row.point.x + ', ' + scope.row.point.y  + ' )'   }}
         </template>

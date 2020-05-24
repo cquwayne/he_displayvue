@@ -18,12 +18,12 @@
           {{ scope.row.node.title + ' (' + scope.row.node.id + ')' }}
         </template>
       </el-table-column>
-      <el-table-column width="200px" label="所属过程" v-if="element === 'bind'">
+      <el-table-column width="150px" label="所属工艺过程" v-if="element === 'bind'">
         <template slot-scope="scope">
           {{ scope.row.process.title }}
         </template>
       </el-table-column>
-      <el-table-column width="160px" label="绑定结点" v-if="element === 'bind'">
+      <el-table-column width="90px" label="绑定结点" v-if="element === 'bind'">
         <template slot-scope="scope">
           {{ scope.row.node.title }}
         </template>
@@ -47,15 +47,13 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-drawer
+    <el-dialog
       title= '数据流图'
-      :size="'80%'"
+      width="80%"
       :show-close="false"
-      :visible.sync="graphDrawer"
-      :with-header="false"
-      :direction="'rtl'">
+      :visible.sync="graphDrawer">
         <Graph ref="graph"></Graph>
-    </el-drawer>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -114,6 +112,5 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
-
+<style lang="scss">
 </style>
