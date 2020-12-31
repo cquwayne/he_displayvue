@@ -4,7 +4,7 @@ import Vue from 'vue'
 Vue.use(Vuex)
 let store = () => new Vuex.Store({
   state: {
-    url: 'http://localhost:8000/api/',
+    url: 'http://localhost:8000/',
     token: ''
   },
   mutations: {

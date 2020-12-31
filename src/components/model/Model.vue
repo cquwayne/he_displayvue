@@ -1,19 +1,21 @@
 <template>
-  <div class="Integration">
+  <div class="model">
     <router-view ></router-view>
   </div>
 </template>
+
 <script>
-export default {
-  name: 'Integration',
-  data () {
-    return {
+  export default {
+      name: "Model",
+    data () {
+      return {
+      }
     }
   }
-}
 </script>
+
 <style scoped lang="scss">
-  .Integration{
+  .model{
     height: 100%;
   }
 </style>

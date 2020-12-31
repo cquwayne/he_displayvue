@@ -1,22 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
-import Structure from '../components/structure/Structure'
-import Node from '../components/structure/Node'
-import Point from '../components/structure/Point'
-import Pipe from '../components/structure/Pipe'
-import Hyperlink from '../components/structure/Hyperlink'
-import Normalize from '../components/normalize/Normalize'
-import Metadata from '../components/normalize/Metadata'
-import Rule from '../components/normalize/Rule'
-import Chain from '../components/normalize/Chain'
-import Attribute from '../components/normalize/Attribute'
-import Information from '../components/normalize/Information'
-import Integration from '../components/integration/Integration'
-import Process from '../components/integration/Process'
-import Bind from '../components/integration/Bind'
-import Realtime from '../components/integration/Realtime'
-import Influx from '../components/integration/Influx'
+import Model from '../components/model/Model'
+import ModelManage from "../components/model/ModelManage";
+import Attribute from "../components/attribute/Attribute";
+import Monitor from "../components/monitor/Monitor";
+import Process from "../components/monitor/Process";
+import Realtime from "../components/monitor/Realtime";
+import Prediction from "../components/monitor/Prediction";
 
 Vue.use(Router)
 
@@ -28,88 +19,58 @@ export default new Router({
       component: Home
     },
     {
-      path: '/structure/',
-      name: 'Structure',
-      component: Structure,
+      path: '/model',
+      name: 'Model',
+      component: Model,
       children: [
         {
-          path: 'node',
-          name: 'Node',
-          component: Node
-        },
-        {
-          path: 'point',
-          name: 'Point',
-          component: Point
-        },
-        {
-          path: 'pipe',
-          name: 'Pipe',
-          component: Pipe
-        },
-        {
-          path: 'hyperlink',
-          name: 'Hyperlink',
-          component: Hyperlink
+          path: '/modelManage',
+          name: 'ModelManage',
+          component: ModelManage
         }
       ]
     },
     {
-      path: '/normalize/',
-      name: 'Normalize',
-      component: Normalize,
+      path: '/attribute',
+      name: 'Attribute',
+      component: Attribute,
       children: [
         {
-          path: 'metadata',
-          name: 'Metadata',
-          component: Metadata
-        },
-        {
-          path: 'rule',
-          name: 'Rule',
-          component: Rule
-        },
-        {
-          path: 'chain',
-          name: 'Chain',
-          component: Chain
-        },
-        {
-          path: 'attribute',
-          name: 'Attribute',
-          component: Attribute
-        },
-        {
-          path: 'information',
-          name: 'Information',
-          component: Information
-        }
-      ]
-    },
-    {
-      path: '/integration/',
-      name: 'Integration',
-      component: Integration,
-      children: [
-        {
-          path: 'process',
+          path: '/process',
           name: 'Process',
           component: Process
         },
         {
-          path: 'bind',
-          name: 'Bind',
-          component: Bind
-        },
-        {
-          path: 'realtime',
+          path: '/realtime',
           name: 'Realtime',
           component: Realtime
         },
         {
-          path: 'influx',
-          name: 'Influx',
-          component: Influx
+          path: '/prediction',
+          name: 'Prediction',
+          component: Prediction
+        }
+      ]
+    },
+    {
+      path: '/monitor',
+      name: 'Monitor',
+      component: Monitor,
+      children: [
+        {
+          path: '/process',
+          name: 'Process',
+          component: Process
+        },
+        {
+          path: '/realtime',
+          name: 'Realtime',
+          component: Realtime
+        },
+        {
+          path: '/prediction',
+          name: 'Prediction',
+          component: Prediction
         }
       ]
     }

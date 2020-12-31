@@ -19,69 +19,69 @@ export default {
     return {
       navList: [
         {
-          title: '结构化模型管理',
+          title: '铸造工艺孪生模型库',
           icon: 'el-icon-s-grid',
           list: [
             {
-              title: '结点管理',
-              name: 'Node',
+              title: '模型管理',
+              name: 'ModelManage',
               icon: 'el-icon-box',
-            },
-            {
-              title: '坐标管理',
-              name: 'Point',
-              icon: 'el-icon-map-location',
-            },
-            {
-              title: '管道管理',
-              name: 'Pipe',
-              icon: 'el-icon-s-unfold',
-            },
-            {
-              title: '超链接管理',
-              name: 'Hyperlink',
-              icon: 'el-icon-link',
             }
+          //   {
+          //     title: '坐标管理',
+          //     name: 'Point',
+          //     icon: 'el-icon-map-location',
+          //   },
+          //   {
+          //     title: '管道管理',
+          //     name: 'Pipe',
+          //     icon: 'el-icon-s-unfold',
+          //   },
+          //   {
+          //     title: '超链接管理',
+          //     name: 'Hyperlink',
+          //     icon: 'el-icon-link',
+          //   }
           ]
         },
         {
-          title: '规范化模型管理',
+          title: '铸造工艺要素特征指标体系',
           icon: 'el-icon-files',
           list: [
             {
-              title: '规则管理',
-              name: 'Rule',
-              icon: 'el-icon-paperclip',
-            },
-            {
               title: '属性管理',
               name: 'Attribute',
-              icon: 'el-icon-tickets',
-            },
-            {
-              title: '信息管理',
-              name: 'Information',
-              icon: 'el-icon-document-copy',
+              icon: 'el-icon-paperclip',
             }
+            // {
+            //   title: '属性管理',
+            //   name: 'attribute',
+            //   icon: 'el-icon-tickets',
+            // },
+            // {
+            //   title: '信息管理',
+            //   name: 'Information',
+            //   icon: 'el-icon-document-copy',
+            // }
           ]
         },
         {
-          title: '工艺信息集成管理',
+          title: '铸造工艺数字孪生监测',
           icon: 'el-icon-coin',
           list: [
             {
-              title: '工艺过程',
+              title: '工艺过程运行',
               name: 'Process',
               icon: 'el-icon-s-operation',
             },
             {
-              title: '实时管理',
+              title: '指标实时监控',
               name: 'Realtime',
               icon: 'el-icon-data-analysis'
             },
             {
-              title: '时序数据',
-              name: 'Influx',
+              title: '运行状态预测',
+              name: 'Prediction',
               icon: 'el-icon-time',
             }
           ]

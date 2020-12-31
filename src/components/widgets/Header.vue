@@ -8,7 +8,7 @@ export default {
   name: 'Header',
   data () {
     return {
-      title: '基础制造工艺信息集成系统'
+      title: '铸造工艺在线数字孪生系统'
     }
   }
 }
