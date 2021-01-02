@@ -1,28 +1,72 @@
 <template>
   <el-container class="SceneDataList">
-    <div style="margin:0 6px">
+    <div style="width: 100%">
       <el-divider></el-divider>
       <el-row :gutter="12" class="hover">
         <el-col  :span="15">
-          <el-input placeholder="搜索工艺场景">
+          <el-input placeholder="搜索工艺场景" style="margin-left: 45px">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
         <el-col :span="6" style="text-align:right">
-          <el-button type="info" @click="">
+          <el-button type="info">
             <i class="el-icon-circle-plus-outline"></i>新增模型
           </el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
+      <el-main>
+        <el-table :data="sceneModelList" style="text-align: center">
+          <el-table-column
+            label="孪生模型名称"
+          >
+            <template slot-scope="scope">
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="上层模型"
+          >
+            <template slot-scope="scope">
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="铸造类型"
+          >
+            <template slot-scope="scope">
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="模型描述"
+          >
+            <template slot-scope="scope">
+            </template>
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button size="mini">
+                详情
+              </el-button>
+              <el-button size="mini">
+                编辑
+              </el-button>
+            </template>
+        </el-table-column>
+      </el-table>
+      </el-main>
     </div>
   </el-container>
 </template>
 
 <script>
-    export default {
-        name: "ModelManage"
+// import api from 'api'
+export default {
+  name: 'ModelManage',
+  data(){
+    return {
+      sceneModelList: []
     }
+  }
+}
 </script>
 
 <style scoped lang="scss">
