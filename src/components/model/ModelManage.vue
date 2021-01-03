@@ -4,7 +4,7 @@
       <el-divider></el-divider>
       <el-row :gutter="12" class="hover">
         <el-col  :span="15">
-          <el-input placeholder="搜索工艺场景" style="margin-left: 45px">
+          <el-input placeholder="搜索模型" style="margin-left: 45px">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
@@ -21,24 +21,28 @@
             label="孪生模型名称"
           >
             <template slot-scope="scope">
+              {{scope.row['title']}}
             </template>
           </el-table-column>
           <el-table-column
             label="上层模型"
           >
             <template slot-scope="scope">
+              {{scope.row['parent']['title']}}
             </template>
           </el-table-column>
           <el-table-column
             label="铸造类型"
           >
             <template slot-scope="scope">
+              {{scope.row['processType']['title']}}
             </template>
           </el-table-column>
           <el-table-column
             label="模型描述"
           >
             <template slot-scope="scope">
+              {{scope.row['description']}}
             </template>
           </el-table-column>
           <el-table-column label="操作">
@@ -58,13 +62,22 @@
 </template>
 
 <script>
-// import api from 'api'
+import axios from 'axios'
 export default {
   name: 'ModelManage',
   data(){
     return {
       sceneModelList: []
     }
+  },
+  beforeRouteEnter(to, from ,next) {
+    next(vm => {
+      let url = 'http://localhost:8000/sceneModel/list'
+      axios.get(url).then(res => {
+        vm.sceneModelList = res.data
+        console.log(vm.sceneModelList)
+      })
+    })
   }
 }
 </script>
