@@ -2,9 +2,9 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 
 Vue.use(Vuex)
-let store = () => new Vuex.Store({
+export default new Vuex.Store({
   state: {
-    url: 'http://localhost:8000/',
+    root: 'http://localhost:8000/',
     token: '',
     sceneModelList: JSON.parse(localStorage.getItem('sceneModelList')) || null
   },
@@ -18,5 +18,3 @@ let store = () => new Vuex.Store({
     }
   }
 })
-
-export default store

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/store'
+import api from './fetch/api'
 import jsPlumb from 'jsplumb'
 import axios from 'axios'
 import ElementUI from 'element-ui'
@@ -12,7 +13,8 @@ import VCharts from 'v-charts'
 
 
 // 全局注册，使用方法为:this.$axios
-Vue.prototype.$axios = axios
+Vue.prototype.api = api
+Vue.prototype.$http = axios
 Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.config.productionTip = false
 Vue.use(ElementUI)

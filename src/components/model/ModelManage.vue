@@ -62,15 +62,15 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from 'api'
 export default {
   name: 'ModelManage',
-  data(){
+  data () {
     return {
       sceneModelList: [],
-      postSceneModel: fasle,
+      postSceneModel: false,
       postForm: {
-        sceneModel :{
+        sceneModel: {
           title: '',
           parentId: 1,
           processTypeId: 1,
@@ -79,21 +79,23 @@ export default {
       }
     }
   },
-  beforeRouteEnter(to, from ,next) {
+  beforeRouteEnter (to, from, next) {
     next(vm => {
-      let url = 'http://localhost:8000/sceneModel/list'
-      axios.get(url).then(res => {
-        vm.sceneModelList = res.data
-        console.log(vm.sceneModelList)
+      let args = {
+        url: 'sceneModel/list'
+      }
+      // let url = 'sceneModel/list'
+      api.get(args).then(res => {
+        vm.sceneModelList = res
       })
     })
   },
   methods: {
-    getDetails (index,row) {
+    getDetails (index, row) {
       this.$router.push({name: 'SceneModel', params: {sceneModelId: row['id']}})
     },
-    editSceneModel(row) {
-      if(row) {
+    editSceneModel (row) {
+      if (row) {
         this.postForm.sceneData = row
         this.postForm.sceneData['id'] = row['id']
       }

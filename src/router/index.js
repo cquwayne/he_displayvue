@@ -23,6 +23,11 @@ export default new Router({
           component: ModelManage
         },
         {
+          path: '/modelManage/:sceneModelId',
+          name: 'SceneModel',
+          component: SceneModel
+        },
+        {
           path: '/attribute',
           name: 'Attribute',
           component: Attribute
