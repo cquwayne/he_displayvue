@@ -13,14 +13,6 @@
         sceneModelList: []
       }
     }
-    // beforeRouteEnter (to, from, next) {
-    //   let args = {
-    //     url: '/sceneModel/list'
-    //   }
-    //   api.get(args).then(res => {
-    //     vm.sceneModelList = res
-    //   })
-    // }
   }
 </script>
 

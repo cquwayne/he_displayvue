@@ -47,10 +47,10 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="mini">
+              <el-button size="mini" @click="getDetails(scope.$index, scope.row)">
                 详情
               </el-button>
-              <el-button size="mini">
+              <el-button size="mini" @click="editSceneModel(scope.row)">
                 编辑
               </el-button>
             </template>
@@ -67,7 +67,16 @@ export default {
   name: 'ModelManage',
   data(){
     return {
-      sceneModelList: []
+      sceneModelList: [],
+      postSceneModel: fasle,
+      postForm: {
+        sceneModel :{
+          title: '',
+          parentId: 1,
+          processTypeId: 1,
+          description: ''
+        }
+      }
     }
   },
   beforeRouteEnter(to, from ,next) {
@@ -78,6 +87,18 @@ export default {
         console.log(vm.sceneModelList)
       })
     })
+  },
+  methods: {
+    getDetails (index,row) {
+      this.$router.push({name: 'SceneModel', params: {sceneModelId: row['id']}})
+    },
+    editSceneModel(row) {
+      if(row) {
+        this.postForm.sceneData = row
+        this.postForm.sceneData['id'] = row['id']
+      }
+      this.postSceneModel = true
+    }
   }
 }
 </script>
