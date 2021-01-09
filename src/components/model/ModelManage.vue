@@ -3,7 +3,7 @@
     <div style="width: 100%">
       <el-divider></el-divider>
       <el-row :gutter="12" class="hover">
-        <el-col  :span="15">
+        <el-col :span="15">
           <el-input placeholder="搜索模型" style="margin-left: 45px">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>

@@ -5,6 +5,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     root: 'http://localhost:8000/',
+    // root: 'http://172.28.11.174:8000/',
     token: '',
     sceneModelList: JSON.parse(localStorage.getItem('sceneModelList')) || null
   },
