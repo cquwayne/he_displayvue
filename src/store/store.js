@@ -7,7 +7,8 @@ export default new Vuex.Store({
     root: 'http://localhost:8000/',
     // root: 'http://172.28.11.174:8000/',
     token: '',
-    sceneModelList: JSON.parse(localStorage.getItem('sceneModelList')) || null
+    sceneModelList: JSON.parse(localStorage.getItem('sceneModelList')) || null,
+    objectList: JSON.parse(localStorage.getItem('objectList')) || null
   },
   mutations: {
     setToken (state, token) {
@@ -16,6 +17,10 @@ export default new Vuex.Store({
     setSceneModelList(state,sceneModelList) {
       localStorage.setItem('sceneModelList',JSON.stringify(sceneModelList))
       state.sceneModelList = JSON.parse(localStorage.getItem('sceneModelList'))
+    },
+    setObjectList(state,objectList) {
+      localStorage.setItem('objectList',JSON.stringify(objectList))
+      state.objectList = JSON.parse(localStorage.getItem('objectList'))
     }
   }
 })
