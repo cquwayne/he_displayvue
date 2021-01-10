@@ -1,98 +1,166 @@
 <template>
   <el-container class="SceneData">
-    <el-header>
-      <SceneBasic :sceneModel="sceneModel"></SceneBasic>
-      <el-divider></el-divider>
-    </el-header>
-    <el-main>
-      <!--      <el-table-->
-      <!--        :data="sceneData['inputFrameDataList']"-->
-      <!--        style="width: 100%">-->
-      <!--        <el-table-column-->
-      <!--          label="物料数据"-->
-      <!--          width="180">-->
-      <!--          <template slot-scope="scope">-->
-      <!--            <div v-for="item in scope.row['materialDataList']" :key="item.index" class="text item">-->
-      <!--              &lt;!&ndash;              {{item['material']['title']}} ： {{item['value']}} {{item['unit']['title']}}&ndash;&gt;-->
-      <!--              {{item['material']?item['material']['title']:''}} ： {{item['value']?item['value']:''}} {{item['unit']?item['unit']['title']:''}}-->
-      <!--            </div>-->
-      <!--          </template>-->
-      <!--        </el-table-column>-->
-      <!--        <el-table-column-->
-      <!--          label="能源数据"-->
-      <!--          width="180">-->
-      <!--          <template slot-scope="scope">-->
-      <!--            <div v-for="item in scope.row['energyDataList']" :key="item.index" class="text item">-->
-      <!--              &lt;!&ndash;              {{item['energy']['title']}} ： {{item['value']}} {{item['unit']['title']}}&ndash;&gt;-->
-      <!--              {{item['energy']?item['energy']['title']:''}} ： {{item['value']?item['value']:''}} {{item['unit']?item['unit']['title']:''}}-->
-      <!--            </div>-->
-      <!--          </template>-->
-      <!--        </el-table-column>-->
-      <!--        <el-table-column-->
-      <!--          label="设备数据"-->
-      <!--          width="180">-->
-      <!--          <template slot-scope="scope">-->
-      <!--            <div v-for="item in scope.row['deviceDataList']" :key="item.index" class="text item">-->
-      <!--              {{item['device']?item['device']['title']:''}}-->
-      <!--            </div>-->
-      <!--          </template>-->
-      <!--        </el-table-column>-->
-      <!--        <el-table-column-->
-      <!--          label="关键工艺参数"-->
-      <!--          width="180">-->
-      <!--          <template slot-scope="scope">-->
-      <!--            <div v-for="item in scope.row['keyParameterDataList']" :key="item.index" class="text item">-->
-      <!--              {{item['title']?item['title']:''}}-->
-      <!--            </div>-->
-      <!--          </template>-->
-      <!--        </el-table-column>-->
-      <!--        <el-table-column-->
-      <!--          label="功能单位"-->
-      <!--          width="180">-->
-      <!--          <template slot-scope="scope">-->
-      <!--            <div v-for="item in scope.row['functionUnitDataList']" :key="item.index" class="text item">-->
-      <!--              {{item['title']?item['title']:''}}-->
-      <!--            </div>-->
-      <!--          </template>-->
-      <!--        </el-table-column>-->
-      <!--        <el-table-column label="操作">-->
-      <!--          <template slot-scope="scope">-->
-      <!--            <el-popover-->
-      <!--              placement="right"-->
-      <!--              trigger="hover">-->
-      <!--              <el-table :data="scope.row['outputFrameDataList']">-->
-      <!--                <el-table-column-->
-      <!--                  label="采集描述"-->
-      <!--                  width="180">-->
-      <!--                  <template slot-scope="scope">-->
-      <!--                    {{scope.row['collectionDescription']}}-->
-      <!--                  </template>-->
-      <!--                </el-table-column>-->
-      <!--                <el-table-column-->
-      <!--                  label="环境负荷"-->
-      <!--                  width="180">-->
-      <!--                  <template slot-scope="scope">-->
-      <!--                    <div v-for="item in scope.row['envLoadDataList']" :key="item.index" class="text item">-->
-      <!--                      {{item['envLoad']?item['envLoad']['title']:''}} ： {{item['value']}} {{item['unit']?item['unit']['title']:''}}-->
-      <!--                    </div>-->
-      <!--                  </template>-->
-      <!--                </el-table-column>-->
-      <!--                <el-table-column-->
-      <!--                  label="输出部件"-->
-      <!--                  width="180">-->
-      <!--                  <template slot-scope="scope">-->
-      <!--                    <div v-for="item in scope.row['outputPartDataList']" :key="item.index" class="text item">-->
-      <!--                      {{item['title']}}-->
-      <!--                    </div>-->
-      <!--                  </template>-->
-      <!--                </el-table-column>-->
-      <!--              </el-table>-->
-      <!--              <el-button @click="handleDetail(scope.row)" slot="reference" size="mini">详情</el-button>-->
-      <!--            </el-popover>-->
-      <!--          </template>-->
-      <!--        </el-table-column>-->
-      <!--      </el-table>-->
-    </el-main>
+      <el-header height="150px">
+        <SceneBasic :sceneModel="sceneModel"></SceneBasic>
+        <el-divider></el-divider>
+      </el-header>
+      <el-main>
+        <el-card title="工艺对象">
+          <el-tag type="info" size="max">工艺对象</el-tag>
+          <el-button typw="info">新增工艺对象</el-button>
+          <el-table :data="objectList">
+            <el-table-column label="工艺对象">
+              <template slot-scope="scope">
+                <div v-for="item in scope.row['attributeValue']" :key="item.index">
+                  <div v-if="item.indexOf('工艺对象名称') !== -1">
+                    {{item.substring(item.lastIndexOf(':')+1)}}
+                  </div>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="特征描述">
+              <template slot-scope="scope">
+                <div v-for="item in scope.row['attributeValue']" :key="item.index">
+                  <div v-if="item.indexOf('工艺对象名称') === -1">
+                    {{item}}
+                  </div>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作">
+              <template slot-scope="scope">
+                <el-button type="info" @click="editAttribute(scope.row)">修改</el-button>
+                <el-button type="info" @click="deleteAttribute(scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+<!--        <el-card title="辅料">-->
+<!--          <el-tag type="info" size="max">辅料</el-tag>-->
+<!--          <el-table :data="assistList">-->
+<!--            <el-table-column label="辅料">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('辅料名称') !== -1">-->
+<!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="特征描述">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('辅料名称') === -1">-->
+<!--                    {{item}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="操作">-->
+<!--              <el-button type="info">修改</el-button>-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
+<!--        </el-card>-->
+<!--        <el-card title="设备">-->
+<!--          <el-tag type="info" size="max">设备</el-tag>-->
+<!--          <el-table :data="deviceList">-->
+<!--            <el-table-column label="设备">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('设备名称') !== -1">-->
+<!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="特征描述">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('设备名称') === -1">-->
+<!--                    {{item}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="操作">-->
+<!--              <el-button type="info">修改</el-button>-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
+<!--        </el-card>-->
+<!--        <el-card title="工艺参数">-->
+<!--          <el-tag type="info" size="max">工艺参数</el-tag>-->
+<!--          <el-table :data="paramList">-->
+<!--            <el-table-column label="工艺参数">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('工艺参数名称') !== -1">-->
+<!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="特征描述">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('工艺参数名称') === -1">-->
+<!--                    {{item}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="操作">-->
+<!--              <el-button type="info">修改</el-button>-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
+<!--        </el-card>-->
+<!--        <el-card title="能源消耗">-->
+<!--          <el-tag type="info" size="max">能源消耗</el-tag>-->
+<!--          <el-table :data="energyList">-->
+<!--            <el-table-column label="能源">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('能源名称') !== -1">-->
+<!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="特征描述">-->
+<!--              <template slot-scope="scope">-->
+<!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
+<!--                  <div v-if="item.indexOf('能源名称') === -1">-->
+<!--                    {{item}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="操作">-->
+<!--              <el-button type="info">修改</el-button>-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
+<!--        </el-card>-->
+      </el-main>
+    <el-drawer
+      class="manageEditDrawer"
+      title="编辑要素"
+      :visible.sync="editDrawer"
+      :direction="'rtl'"
+      :size="'27%'">
+      <el-form v-model="postForm" label-position="top">
+        <el-form-item v-for="item in postForm['attributeValue']" :key="item.index" :label="item.substring(0,item.lastIndexOf(':'))">
+          <div v-for="eg in selectValue">
+            <el-input v-if="eg.indexOf(item.substring(0,item.lastIndexOf(':')))===-1" clearable></el-input>
+            <!--          <el-select v-else=""></el-select>-->
+          </div>
+
+        </el-form-item>
+        <el-form-item>
+          <el-button type="info" @click="submitAttribute">
+            保存
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-drawer>
   </el-container>
 </template>
 
@@ -120,7 +188,10 @@ export default {
       deviceList: [],
       assistList: [],
       paramList: [],
-      energyList: []
+      energyList: [],
+      postForm: {},
+      editDrawer: false,
+      selectValue: ['工艺对象类型:易加工材料,难加工材料']
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -133,6 +204,7 @@ export default {
         vm.sceneModel = res
         vm.sceneModel.elementDataList.forEach(item => {
           if(item['elementId'] === 1) {
+            item['attributeValue'] = item.attributeValue.split(',')
             vm.objectList.push(item)
           } else if (item['elementId'] === 2) {
             vm.deviceList.push(item)
@@ -145,7 +217,27 @@ export default {
           }
         })
       })
+      // let arg = {
+      //   url: '/sceneModel/' + sceneModelId
+      // }
+      // api.get(attribute)
     })
+  },
+  methods: {
+    editAttribute(row){
+      this.postForm = {}
+      if (row) {
+        this.postForm = row
+      }
+      this.editDrawer = true
+    },
+    deleteAttribute(row){
+
+    },
+    submitAttribute(row){
+
+    }
+
   }
 }
 </script>

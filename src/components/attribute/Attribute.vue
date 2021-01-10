@@ -42,45 +42,6 @@
           </el-table-column>
         </el-table>
       </el-tab-pane>
-      <div>
-        <!--      <el-tab-pane>-->
-        <!--        <span slot="label" @click="getAttributeList(tabPaneList[0].elementId)"><i class="el-icon-setting"></i>{{tabPaneList[0].label}}</span>-->
-        <!--        <el-table-->
-        <!--          :data="attributeList">-->
-        <!--          <el-table-column-->
-        <!--            prop=""-->
-        <!--            label="序号">-->
-        <!--          </el-table-column>-->
-        <!--          <el-table-column-->
-        <!--            prop="description"-->
-        <!--            label="属性名称">-->
-        <!--          </el-table-column>-->
-        <!--          <el-table-column-->
-        <!--            prop="value"-->
-        <!--            label="属性可选项">-->
-        <!--          </el-table-column>-->
-        <!--          <el-table-column-->
-        <!--            label="操作">-->
-        <!--            <template slot-scope="scope">-->
-        <!--              <el-button @click="handleEditDrawer(scope.row)" type="text" size="small">编辑</el-button>-->
-        <!--              <el-button @click="handleDeleteDialog(scope.row)" type="text" size="small">删除</el-button>-->
-        <!--            </template>-->
-        <!--          </el-table-column>-->
-        <!--        </el-table>-->
-        <!--      </el-tab-pane>-->
-        <!--      <el-tab-pane>-->
-        <!--        <span slot="label" @click="getAttributeList(tabPaneList[1].elementId)"><i class="el-icon-tickets"></i>{{tabPaneList[1].label}}</span>-->
-        <!--      </el-tab-pane>-->
-        <!--      <el-tab-pane>-->
-        <!--        <span slot="label" @click="getAttributeList(tabPaneList[2].elementId)"><i class="el-icon-paperclip"></i>{{tabPaneList[2].label}}</span>-->
-        <!--      </el-tab-pane>-->
-        <!--      <el-tab-pane>-->
-        <!--        <span slot="label" @click="getAttributeList(tabPaneList[3].elementId)"><i class="el-icon-data-analysis"></i>{{tabPaneList[3].label}}</span>-->
-        <!--      </el-tab-pane>-->
-        <!--      <el-tab-pane>-->
-        <!--        <span slot="label" @click="getAttributeList(tabPaneList[4].elementId)"><i class="el-icon-files"></i>{{tabPaneList[4].label}}</span>-->
-        <!--      </el-tab-pane>-->
-      </div>
     </el-tabs>
     <el-drawer
       class="manageEditDrawer"
@@ -88,7 +49,7 @@
       :visible.sync="editDrawer"
       :direction="'rtl'"
       :size="'27%'">
-      <el-form ref="postForm" v-model="editForm" label-position="top">
+      <el-form v-model="editForm" label-position="top">
         <el-form-item label="属性名称">
           <el-input v-model="editForm['title']" clearable></el-input>
         </el-form-item>
