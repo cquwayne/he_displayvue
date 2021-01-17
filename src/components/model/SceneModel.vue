@@ -7,7 +7,7 @@
       <el-main>
         <el-card title="工艺对象">
           <el-tag type="info" size="max">工艺对象</el-tag>
-          <el-button typw="info">新增工艺对象</el-button>
+          <el-button typw="info" @click="editAttribute(null)">新增工艺对象</el-button>
           <el-table :data="objectList">
             <el-table-column label="工艺对象">
               <template slot-scope="scope">
@@ -190,6 +190,7 @@ export default {
   data () {
     return {
       sceneModel: {
+        id: '',
         title: '',
         parentId: '',
         parent: {},
@@ -262,30 +263,34 @@ export default {
   },
   methods: {
     editAttribute (row) {
-      console.log(row)
       this.postForm = {}
       this.selectValue = []
       this.noSelectValue = []
       if (row) {
         this.postForm = row
-        row.attributeValue.forEach(item => {
-          let tag = item.substring(0, item.lastIndexOf(':'))
-          if (this.allMultiKey.indexOf(tag) !== -1) {
-            let selectTmp = {
-              name: tag,
-              values: this.allMultiValue[this.allMultiKey.indexOf(tag)].values,
-              presentValue: item.substring(item.lastIndexOf(':') + 1)
-            }
-            this.selectValue.push(selectTmp)
-          } else {
-            let noSelectTmp = {
-              name: item.substring(0, item.lastIndexOf(':')),
-              presentValue: item.substring(item.lastIndexOf(':') + 1)
-            }
-            this.noSelectValue.push(noSelectTmp)
-          }
-        })
+      } else {
+        console.log(1)
+        this.postForm['attributeValue'] = []
+        this.postForm['attributeValue'].push('工艺对象名称: ')
+        console.log(this.postForm)
       }
+      this.postForm.attributeValue.forEach(item => {
+        let tag = item.substring(0, item.lastIndexOf(':'))
+        if (this.allMultiKey.indexOf(tag) !== -1) {
+          let selectTmp = {
+            name: tag,
+            values: this.allMultiValue[this.allMultiKey.indexOf(tag)].values,
+            presentValue: item.substring(item.lastIndexOf(':') + 1)
+          }
+          this.selectValue.push(selectTmp)
+        } else {
+          let noSelectTmp = {
+            name: item.substring(0, item.lastIndexOf(':')),
+            presentValue: item.substring(item.lastIndexOf(':') + 1)
+          }
+          this.noSelectValue.push(noSelectTmp)
+        }
+      })
       this.editDrawer = true
     },
     deleteAttribute (row) {
