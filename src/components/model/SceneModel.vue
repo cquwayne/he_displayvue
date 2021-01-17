@@ -148,11 +148,16 @@
       :size="'27%'">
       <el-form v-model="postForm" label-position="top">
         <el-form-item v-for="item in postForm['attributeValue']" :key="item.index" :label="item.substring(0,item.lastIndexOf(':'))">
-          <div v-for="eg in selectValue">
-            <el-input v-if="eg.indexOf(item.substring(0,item.lastIndexOf(':')))===-1" clearable></el-input>
-            <!--          <el-select v-else=""></el-select>-->
-          </div>
-
+          <el-input v-if="allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))===-1" clearable></el-input>
+<!--          {{allMultiValue[allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))]}}-->
+<!--          {{allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))}}-->
+          {{
+            allMultiValue[allMultiKey.indexOf(item.substring(0, item.lastIndexOf(':')))]
+          }}
+<!--          <el-select v-else>-->
+<!--            <el-option v-for="s in allMultiValue[allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))].substring(item.lastIndexOf(':')).split(','))">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
         </el-form-item>
         <el-form-item>
           <el-button type="info" @click="submitAttribute">
@@ -191,7 +196,14 @@ export default {
       energyList: [],
       postForm: {},
       editDrawer: false,
-      selectValue: ['工艺对象类型:易加工材料,难加工材料']
+      allMultiValue: [],
+      allMultiKey: [],
+      rowValue: [],
+      selectValue: [{
+        name: '',
+        value: [],
+        presentValue: ''
+      }]
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -203,8 +215,8 @@ export default {
       api.get(args).then(res => {
         vm.sceneModel = res
         vm.sceneModel.elementDataList.forEach(item => {
+          item['attributeValue'] = item.attributeValue.split(',')
           if(item['elementId'] === 1) {
-            item['attributeValue'] = item.attributeValue.split(',')
             vm.objectList.push(item)
           } else if (item['elementId'] === 2) {
             vm.deviceList.push(item)
@@ -217,10 +229,15 @@ export default {
           }
         })
       })
-      // let arg = {
-      //   url: '/sceneModel/' + sceneModelId
-      // }
-      // api.get(attribute)
+      let arg = {
+        url: '/attribute/multiValue'
+      }
+      api.get(arg).then(res => {
+        res.forEach(item => {
+          vm.allMultiValue.push(item['title']+':'+item['value'])
+          vm.allMultiKey.push(item['title'])
+        })
+      })
     })
   },
   methods: {
@@ -228,7 +245,19 @@ export default {
       this.postForm = {}
       if (row) {
         this.postForm = row
+        row.attributeValue.forEach(item => {
+          if (this.allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))!==-1) {
+            let selectTmp = {
+              name: item.substring(0,item.lastIndexOf(':')),
+              value: this.allMultiValue[this.allMultiKey.indexOf(item.substring(0, item.lastIndexOf(':')))].split(','),
+              presentValue: item.substring(item.lastIndexOf(':')+1)
+            }
+            this.selectValue.push(selectTmp)
+          }
+        })
+        console.log(this.selectValue)
       }
+
       this.editDrawer = true
     },
     deleteAttribute(row){
