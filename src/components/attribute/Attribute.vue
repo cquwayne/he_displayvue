@@ -67,100 +67,100 @@
 </template>
 
 <script>
-    import api from 'api'
-    export default {
-      name: "Attribute",
-      data() {
-        return {
-          tabPaneList: [
-            {
-              label: '工艺对象',
-              elementId: 1
-            },
-            {
-              label: '设备',
-              elementId: 2
-            },
-            {
-              label: '辅料',
-              elementId: 3
-            },
-            {
-              label: '工艺参数',
-              elementId: 4
-            },
-            {
-              label: '能源消耗',
-              elementId: 5
-            },
-          ],
-          attributeList: [],
-          editDrawer: false,
-          editForm: {},
+import api from 'api'
+export default {
+  name: 'Attribute',
+  data () {
+    return {
+      tabPaneList: [
+        {
+          label: '工艺对象',
           elementId: 1
+        },
+        {
+          label: '设备',
+          elementId: 2
+        },
+        {
+          label: '辅料',
+          elementId: 3
+        },
+        {
+          label: '工艺参数',
+          elementId: 4
+        },
+        {
+          label: '能源消耗',
+          elementId: 5
         }
-      },
-      beforeRouteEnter(to,from,next){
-        next(vm => {
-          let query = {
-            elementId: 1
-          }
-          let args = {
-            url: 'attribute/list',
-            params: query
-          }
-          api.get(args).then(res => {
-            vm.attributeList = res
-          })
-        })
-      },
-      methods: {
-        getAttributeList(elementId) {
-          this.elementId = elementId
-          let query = {
-            elementId: elementId
-          }
-          let args = {
-            url: 'attribute/list',
-            params: query
-          }
-          api.get(args).then(res => {
-            this.attributeList = res
-          })
-        },
-        handleEditDrawer(row) {
-          this.editForm = {}
-          if (row) {
-            this.editForm = row
-          } else {
-            this.editForm.elementId = this.elementId
-          }
-          this.editDrawer = true
-        },
-        handleSubmit() {
-          if (this.editForm['id'] === undefined) {
-            api.post({url: 'attribute', params: this.editForm}).then(res => {
-              history.go(0)
-            })
-          } else {
-            api.put({url: 'attribute', params: this.editForm}).then(res => {
-              history.go(0)
-            })
-          }
-        },
-        handleDeleteDialog(row) {
-          console.log(row)
-          this.editForm = row
-          api.delete({url: 'attribute', params: this.editForm}).then(res => {
-              if(res === 0) {
-                alert('暂不允许删除数据！！')
-              } else {
-                history.go(0)
-              }
-          })
-        }
-      }
+      ],
+      attributeList: [],
+      editDrawer: false,
+      editForm: {},
+      elementId: 1
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      let query = {
+        elementId: 1
+      }
+      let args = {
+        url: 'attribute/list',
+        params: query
+      }
+      api.get(args).then(res => {
+        vm.attributeList = res
+      })
+    })
+  },
+  methods: {
+    getAttributeList (elementId) {
+      this.elementId = elementId
+      let query = {
+        elementId: elementId
+      }
+      let args = {
+        url: 'attribute/list',
+        params: query
+      }
+      api.get(args).then(res => {
+        this.attributeList = res
+      })
+    },
+    handleEditDrawer (row) {
+      this.editForm = {}
+      if (row) {
+        this.editForm = row
+      } else {
+        this.editForm.elementId = this.elementId
+      }
+      this.editDrawer = true
+    },
+    handleSubmit () {
+      if (this.editForm['id'] === undefined) {
+        api.post({url: 'attribute', params: this.editForm}).then(res => {
+          history.go(0)
+        })
+      } else {
+        api.put({url: 'attribute', params: this.editForm}).then(res => {
+          history.go(0)
+        })
+      }
+    },
+    handleDeleteDialog (row) {
+      console.log(row)
+      this.editForm = row
+      api.delete({url: 'attribute', params: this.editForm}).then(res => {
+        if (res === 0) {
+          alert('暂不允许删除数据！！')
+        } else {
+          history.go(0)
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

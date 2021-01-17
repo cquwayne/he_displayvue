@@ -3,22 +3,22 @@ import axios from 'axios'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-
 axios.interceptors.request.use(config => {
-  return config;
-}, err => {
-  Message.error({
-    message: '请求超时!'
-  });
-  return Promise.resolve(err);
+  return config
+}, error => {
+// Do something with request error
+  console.log(error) // for debug
+  Promise.reject(error).then(r => {
+    return r
+  })
 })
 
 function get (args) {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     let url = args.url
     // let root = 'http://localhost:8000/'
     let root = store.state.root
-    axios.get(root + url,{params: args['params']})
+    axios.get(root + url, {params: args['params']})
       .then(response => {
         resolve(response.data)
       })
@@ -58,9 +58,6 @@ function put (args) {
     // 判断是传入的url中是否包含地址头
     let url = args.url
     let root = store.state.root
-    if (url.search('http') !== -1) {
-      root = ''
-    }
     axios.put(root + url, args['params'])
       .then(response => {
         store.commit('clear')

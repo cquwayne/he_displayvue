@@ -148,16 +148,26 @@
       :size="'27%'">
       <el-form v-model="postForm" label-position="top">
         <el-form-item v-for="item in postForm['attributeValue']" :key="item.index" :label="item.substring(0,item.lastIndexOf(':'))">
-          <el-input v-if="allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))===-1" clearable></el-input>
-<!--          {{allMultiValue[allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))]}}-->
-<!--          {{allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))}}-->
-          {{
-            allMultiValue[allMultiKey.indexOf(item.substring(0, item.lastIndexOf(':')))]
-          }}
-<!--          <el-select v-else>-->
-<!--            <el-option v-for="s in allMultiValue[allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))].substring(item.lastIndexOf(':')).split(','))">-->
-<!--            </el-option>-->
-<!--          </el-select>-->
+          <div v-if="allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))===-1">
+            <el-input
+              v-for="tmp in noSelectValue" :key="tmp.index"
+              v-if="tmp['name']===item.substring(0,item.lastIndexOf(':'))"
+              v-model="tmp['presentValue']"
+              placeholder="请输入内容"
+              clearable
+            >
+            </el-input>
+          </div>
+          <div v-else>
+            <el-select v-for="tmp in selectValue" :key="tmp.index"
+                       v-if="tmp['name']===item.substring(0,item.lastIndexOf(':'))" v-model="tmp['presentValue']">
+              <el-option
+                v-for="t in tmp['values']"
+                :key="t.index"
+                :value="t">
+              </el-option>
+            </el-select>
+          </div>
         </el-form-item>
         <el-form-item>
           <el-button type="info" @click="submitAttribute">
@@ -172,13 +182,12 @@
 <script>
 import api from 'api'
 import SceneBasic from './widgets/SceneBasic'
-import index from "../../router";
 export default {
   name: 'SceneModel',
   components: {
     SceneBasic
   },
-  data() {
+  data () {
     return {
       sceneModel: {
         title: '',
@@ -194,19 +203,26 @@ export default {
       assistList: [],
       paramList: [],
       energyList: [],
-      postForm: {},
+      postForm: {
+        id: '',
+        sceneId: '',
+        elementId: '',
+        element: null,
+        attributeValue: ''
+      },
       editDrawer: false,
       allMultiValue: [],
       allMultiKey: [],
-      rowValue: [],
-      selectValue: [{
-        name: '',
-        value: [],
-        presentValue: ''
-      }]
+      noSelectValue: [],
+      selectValue: []
+      // selectValue: [{
+      //   name: '',
+      //   value: [],
+      //   presentValue: ''
+      // }]
     }
   },
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter (to, from, next) {
     next(vm => {
       let sceneModelId = to.params['sceneModelId']
       let args = {
@@ -216,7 +232,7 @@ export default {
         vm.sceneModel = res
         vm.sceneModel.elementDataList.forEach(item => {
           item['attributeValue'] = item.attributeValue.split(',')
-          if(item['elementId'] === 1) {
+          if (item['elementId'] === 1) {
             vm.objectList.push(item)
           } else if (item['elementId'] === 2) {
             vm.deviceList.push(item)
@@ -234,37 +250,70 @@ export default {
       }
       api.get(arg).then(res => {
         res.forEach(item => {
-          vm.allMultiValue.push(item['title']+':'+item['value'])
+          let oj = {
+            name: item['title'],
+            values: item['value'].split(',')
+          }
+          vm.allMultiValue.push(oj)
           vm.allMultiKey.push(item['title'])
         })
       })
     })
   },
   methods: {
-    editAttribute(row){
+    editAttribute (row) {
+      console.log(row)
       this.postForm = {}
+      this.selectValue = []
+      this.noSelectValue = []
       if (row) {
         this.postForm = row
         row.attributeValue.forEach(item => {
-          if (this.allMultiKey.indexOf(item.substring(0,item.lastIndexOf(':')))!==-1) {
+          let tag = item.substring(0, item.lastIndexOf(':'))
+          if (this.allMultiKey.indexOf(tag) !== -1) {
             let selectTmp = {
-              name: item.substring(0,item.lastIndexOf(':')),
-              value: this.allMultiValue[this.allMultiKey.indexOf(item.substring(0, item.lastIndexOf(':')))].split(','),
-              presentValue: item.substring(item.lastIndexOf(':')+1)
+              name: tag,
+              values: this.allMultiValue[this.allMultiKey.indexOf(tag)].values,
+              presentValue: item.substring(item.lastIndexOf(':') + 1)
             }
             this.selectValue.push(selectTmp)
+          } else {
+            let noSelectTmp = {
+              name: item.substring(0, item.lastIndexOf(':')),
+              presentValue: item.substring(item.lastIndexOf(':') + 1)
+            }
+            this.noSelectValue.push(noSelectTmp)
           }
         })
-        console.log(this.selectValue)
       }
-
       this.editDrawer = true
     },
-    deleteAttribute(row){
+    deleteAttribute (row) {
 
     },
-    submitAttribute(row){
-
+    submitAttribute () {
+      let ss = ''
+      this.noSelectValue.forEach(item => {
+        ss = ss + item['name']
+        ss = ss + ':'
+        ss = ss + item['presentValue']
+        ss = ss + ','
+      })
+      this.selectValue.forEach(item => {
+        ss = ss + item['name']
+        ss = ss + ':'
+        ss = ss + item['presentValue']
+        ss = ss + ','
+      })
+      ss = ss.substring(0, ss.length - 1)
+      this.postForm['attributeValue'] = ss
+      api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
+        if (res > 0) {
+          history.go(0)
+        } else {
+          alert('更新失败！')
+        }
+      })
     }
 
   }
