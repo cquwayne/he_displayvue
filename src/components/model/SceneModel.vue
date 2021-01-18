@@ -8,7 +8,7 @@
         <div v-for="pojo in elementDataList">
           <el-card :title="pojo['title']">
             <el-tag type="info" size="max">{{pojo['title']}}</el-tag>
-            <el-button typw="info" @click="editAttribute(null)">新增{{pojo['title']}}</el-button>
+            <el-button typw="info" @click="editAttribute(null,pojo['elementId'])">新增{{pojo['title']}}</el-button>
             <el-table :data="pojo['dataList']">
               <el-table-column :label="pojo['title']">
                 <template slot-scope="scope">
@@ -30,118 +30,12 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button type="info" @click="editAttribute(scope.row)">修改</el-button>
+                  <el-button type="info" @click="editAttribute(scope.row,scope.row.elementId)">修改</el-button>
                   <el-button type="info" @click="deleteAttribute(scope.row)">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
           </el-card>
-        </div>
-        <div>
-          <!--        <el-card title="辅料">-->
-          <!--          <el-tag type="info" size="max">辅料</el-tag>-->
-          <!--          <el-table :data="assistList">-->
-          <!--            <el-table-column label="辅料">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('辅料名称') !== -1">-->
-          <!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="特征描述">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('辅料名称') === -1">-->
-          <!--                    {{item}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="操作">-->
-          <!--              <el-button type="info">修改</el-button>-->
-          <!--            </el-table-column>-->
-          <!--          </el-table>-->
-          <!--        </el-card>-->
-          <!--        <el-card title="设备">-->
-          <!--          <el-tag type="info" size="max">设备</el-tag>-->
-          <!--          <el-table :data="deviceList">-->
-          <!--            <el-table-column label="设备">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('设备名称') !== -1">-->
-          <!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="特征描述">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('设备名称') === -1">-->
-          <!--                    {{item}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="操作">-->
-          <!--              <el-button type="info">修改</el-button>-->
-          <!--            </el-table-column>-->
-          <!--          </el-table>-->
-          <!--        </el-card>-->
-          <!--        <el-card title="工艺参数">-->
-          <!--          <el-tag type="info" size="max">工艺参数</el-tag>-->
-          <!--          <el-table :data="paramList">-->
-          <!--            <el-table-column label="工艺参数">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('工艺参数名称') !== -1">-->
-          <!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="特征描述">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('工艺参数名称') === -1">-->
-          <!--                    {{item}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="操作">-->
-          <!--              <el-button type="info">修改</el-button>-->
-          <!--            </el-table-column>-->
-          <!--          </el-table>-->
-          <!--        </el-card>-->
-          <!--        <el-card title="能源消耗">-->
-          <!--          <el-tag type="info" size="max">能源消耗</el-tag>-->
-          <!--          <el-table :data="energyList">-->
-          <!--            <el-table-column label="能源">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('能源名称') !== -1">-->
-          <!--                    {{item.substring(item.lastIndexOf(':')+1)}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="特征描述">-->
-          <!--              <template slot-scope="scope">-->
-          <!--                <div v-for="item in scope.row['attributeValue']" :key="item.index">-->
-          <!--                  <div v-if="item.indexOf('能源名称') === -1">-->
-          <!--                    {{item}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </template>-->
-          <!--            </el-table-column>-->
-          <!--            <el-table-column label="操作">-->
-          <!--              <el-button type="info">修改</el-button>-->
-          <!--            </el-table-column>-->
-          <!--          </el-table>-->
-          <!--        </el-card>-->
         </div>
       </el-main>
     <el-drawer
@@ -149,6 +43,7 @@
       :title="editTitle+'要素'"
       :visible.sync="editDrawer"
       :direction="'rtl'"
+      :before-close="cleanUnsaved"
       :size="'27%'">
       <el-form v-model="postForm" label-position="top">
         <el-form-item v-for="item in postForm['attributeValue']" :key="item.index" :label="item.substring(0,item.lastIndexOf(':'))">
@@ -172,6 +67,41 @@
               </el-option>
             </el-select>
           </div>
+        </el-form-item>
+        <div v-for="att in addAttributes" :key="att.index">
+          <el-form-item :label="att.title">
+            <div v-if="att.value === null">
+              <el-col :span="20">
+                <el-input v-model="att.description" placeholder="请填写"></el-input>
+              </el-col>
+            </div>
+            <div v-else>
+              <el-col :span="20">
+                <el-select v-model="att.description" placeholder="请填写">
+                  <el-option
+                    v-for="tt in att['value'].split(',')"
+                    :key="tt.index"
+                    :value="tt">
+                  </el-option>
+                </el-select>
+              </el-col>
+            </div>
+            <el-col :span="4">
+              <el-button size="small" type="info" icon="el-icon-delete" @click="deleteItem(att)"></el-button>
+            </el-col>
+          </el-form-item>
+        </div>
+        <el-form-item>
+          <el-card style="height: i">添加属性</el-card>
+          <el-select v-model="currentKey" placeholder="请选择需要添加的属性">
+            <el-option
+              v-for="es in currentAttributes"
+              :key="es.index"
+              :label="es.title"
+              :value="es"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="info" @click="submitAttribute">
@@ -205,24 +135,29 @@ export default {
       },
       elementDataList: {
         object: {
-          dataList:[],
-          title: '工艺对象'
+          elementId: 1,
+          title: '工艺对象',
+          dataList:[]
         },
         device: {
-          dataList:[],
-          title: '设备'
+          elementId: 2,
+          title: '设备',
+          dataList:[]
         },
         assist: {
-          dataList:[],
-          title: '辅料'
+          elementId: 3,
+          title: '辅料',
+          dataList:[]
         },
         param: {
-          dataList:[],
-          title: '工艺参数'
+          elementId: 4,
+          title: '工艺参数',
+          dataList:[]
         },
         energy: {
-          dataList:[],
-          title: '能源'
+          elementId: 5,
+          title: '能源',
+          dataList:[]
         }
       },
       editTitle: '新增',
@@ -234,10 +169,18 @@ export default {
         attributeValue: ''
       },
       editDrawer: false,
-      allMultiValue: [],
-      allMultiKey: [],
-      noSelectValue: [],
-      selectValue: []
+      allMultiValue: [], //所有值可选的属性,包含属性类的所有字段
+      allMultiKey: [], //所有值可选的属性名称
+      noSelectValue: [], //当前场景模型中当前要素下值不可选的所有属性及其当前值
+      selectValue: [], //当前场景模型中当前要素下值可选的所有属性及其当前值，可选值
+      currentAttributes:[], //当前要素的所有值可选的属性体
+      currentKey: '', //当前选中添加的要素属性
+      addAttributes: [], //当前所有添加的要素属性及其值
+    }
+  },
+  watch: {
+    currentKey(newAtt,oldAtt) {
+      this.addAttributes.push(newAtt)
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -285,19 +228,26 @@ export default {
     })
   },
   methods: {
-    editAttribute (row) {
+    editAttribute (row,elementId) {
       console.log(row)
       this.postForm = {}
       this.selectValue = []
       this.noSelectValue = []
+      let args = {
+        url: 'attribute/list',
+        params: {
+          elementId: elementId
+        }
+      }
+      api.get(args).then(res => {
+        this.currentAttributes = res
+      })
       if (row) {
         this.editTitle = '编辑'
         this.postForm = row
       } else {
         this.editTitle = '新增'
         this.postForm['attributeValue'] = []
-        this.postForm['attributeValue'].push('工艺对象名称: ') //这里的工艺对象名称字符串后面必须有个空格
-        console.log(this.postForm)
       }
       this.postForm.attributeValue.forEach(item => {
         let tag = item.substring(0, item.lastIndexOf(':'))
@@ -326,28 +276,41 @@ export default {
     submitAttribute () {
       let ss = ''
       this.noSelectValue.forEach(item => {
-        ss = ss + item['name']
-        ss = ss + ':'
-        ss = ss + item['presentValue']
-        ss = ss + ','
+        ss = ss + item['name'] + ':' + item['presentValue'] + ','
       })
       this.selectValue.forEach(item => {
-        ss = ss + item['name']
-        ss = ss + ':'
-        ss = ss + item['presentValue']
-        ss = ss + ','
+        ss = ss + item['name'] + ':' + item['presentValue'] + ','
+      })
+      this.addAttributes.forEach(item => {
+        ss = ss + item['title'] + ':' + item['description'] + ','
       })
       ss = ss.substring(0, ss.length - 1)
       this.postForm['attributeValue'] = ss
-      api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
-        if (res > 0) {
-          history.go(0)
-        } else {
-          alert('更新失败！')
+      console.log(this.postForm)
+      // api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
+      //   if (res > 0) {
+      //     history.go(0)
+      //   } else {
+      //     alert('更新失败！')
+      //   }
+      // })
+    },
+    deleteItem (row) {
+      let temp = []
+      for (let i=0;i<this.addAttributes.length;i++) {
+        if (this.addAttributes[i]!==row) {
+          temp.push(this.addAttributes[i])
         }
-      })
+      }
+      this.addAttributes = []
+      this.addAttributes = temp
+      console.log(this.addAttributes)
+    },
+    cleanUnsaved(){
+      this.addAttributes=[]
+      this.editDrawer = false
+      this.currentKey = ''
     }
-
   }
 }
 </script>
