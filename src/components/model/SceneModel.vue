@@ -92,7 +92,7 @@
           </el-form-item>
         </div>
         <el-form-item>
-          <el-card style="height: i">添加属性</el-card>
+          <el-tag type="info">添加属性</el-tag>
           <el-select v-model="currentKey" placeholder="请选择需要添加的属性">
             <el-option
               v-for="es in currentAttributes"
@@ -229,7 +229,6 @@ export default {
   },
   methods: {
     editAttribute (row,elementId) {
-      console.log(row)
       this.postForm = {}
       this.selectValue = []
       this.noSelectValue = []
@@ -286,14 +285,13 @@ export default {
       })
       ss = ss.substring(0, ss.length - 1)
       this.postForm['attributeValue'] = ss
-      console.log(this.postForm)
-      // api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
-      //   if (res > 0) {
-      //     history.go(0)
-      //   } else {
-      //     alert('更新失败！')
-      //   }
-      // })
+      api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
+        if (res > 0) {
+          history.go(0)
+        } else {
+          alert('更新失败！')
+        }
+      })
     },
     deleteItem (row) {
       let temp = []
