@@ -7,7 +7,7 @@
           <el-input placeholder="搜索模型" style="margin-left: 45px" v-model="searchForm.content">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
-        </el-col>s
+        </el-col>
         <el-col :span="6" style="text-align:right">
           <el-button type="info" @click="editSceneModel(null)">
             <i class="el-icon-circle-plus-outline"></i>新增模型
