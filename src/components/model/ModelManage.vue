@@ -4,10 +4,10 @@
       <el-divider></el-divider>
       <el-row :gutter="12" class="hover">
         <el-col :span="15">
-          <el-input placeholder="搜索模型" style="margin-left: 45px">
+          <el-input placeholder="搜索模型" style="margin-left: 45px" v-model="searchForm.content">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
-        </el-col>
+        </el-col>s
         <el-col :span="6" style="text-align:right">
           <el-button type="info" @click="editSceneModel(null)">
             <i class="el-icon-circle-plus-outline"></i>新增模型
@@ -16,7 +16,8 @@
       </el-row>
       <el-divider></el-divider>
       <el-main>
-        <el-table :data="sceneModelList" style="text-align: center">
+        <el-table :data="sceneModelList.filter(data => !searchForm.content || data.title.toLowerCase().includes(searchForm.content.toLowerCase()))"
+                  style="text-align: center">
           <el-table-column
             label="孪生模型名称"
             align="center"
@@ -173,7 +174,10 @@ export default {
         description: ''
       },
       editDrawer: false,
-      editTitle: '新增'
+      editTitle: '新增',
+      searchForm: {
+        content: ''
+      }
     }
   },
   beforeRouteEnter (to, from, next) {

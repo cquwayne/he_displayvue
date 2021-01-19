@@ -4,7 +4,7 @@
     <div style="width: 100%">
       <el-row :gutter="12" class="hover">
         <el-col :span="15">
-          <el-input style="margin-left: 45px" placeholder="检索数据">
+          <el-input style="margin-left: 45px" placeholder="检索数据" v-model="searchForm.content">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
@@ -20,7 +20,7 @@
       <el-tab-pane v-for="item in tabPaneList" :key="item.index">
         <span slot="label" @click="getAttributeList(item.elementId)"><i class="el-icon-setting"></i>{{item.label}}</span>
         <el-table
-          :data="attributeList">
+          :data="attributeList.filter(data => !searchForm.content || data.title.toLowerCase().includes(searchForm.content.toLowerCase()))">
           <el-table-column
             type="index"
             label="序号">
@@ -109,7 +109,10 @@ export default {
       attributeList: [],
       editDrawer: false,
       editForm: {},
-      elementId: 2
+      elementId: 2,
+      searchForm: {
+        content: ''
+      }
     }
   },
   beforeRouteEnter (to, from, next) {
