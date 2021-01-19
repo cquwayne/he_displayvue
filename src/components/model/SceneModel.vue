@@ -137,27 +137,27 @@ export default {
         object: {
           elementId: 1,
           title: '工艺对象',
-          dataList:[]
+          dataList: []
         },
         device: {
           elementId: 2,
           title: '设备',
-          dataList:[]
+          dataList: []
         },
         assist: {
           elementId: 3,
           title: '辅料',
-          dataList:[]
+          dataList: []
         },
         param: {
           elementId: 4,
           title: '工艺参数',
-          dataList:[]
+          dataList: []
         },
         energy: {
           elementId: 5,
           title: '能源',
-          dataList:[]
+          dataList: []
         }
       },
       editTitle: '新增',
@@ -169,17 +169,17 @@ export default {
         attributeValue: ''
       },
       editDrawer: false,
-      allMultiValue: [], //所有值可选的属性,包含属性类的所有字段
-      allMultiKey: [], //所有值可选的属性名称
-      noSelectValue: [], //当前场景模型中当前要素下值不可选的所有属性及其当前值
-      selectValue: [], //当前场景模型中当前要素下值可选的所有属性及其当前值，可选值
-      currentAttributes:[], //当前要素的所有值可选的属性体
-      currentKey: '', //当前选中添加的要素属性
-      addAttributes: [], //当前所有添加的要素属性及其值
+      allMultiValue: [], // 所有值可选的属性,包含属性类的所有字段
+      allMultiKey: [], // 所有值可选的属性名称
+      noSelectValue: [], // 当前场景模型中当前要素下值不可选的所有属性及其当前值
+      selectValue: [], // 当前场景模型中当前要素下值可选的所有属性及其当前值，可选值
+      currentAttributes: [], // 当前要素的所有值可选的属性体
+      currentKey: '', // 当前选中添加的要素属性
+      addAttributes: [] // 当前所有添加的要素属性及其值
     }
   },
   watch: {
-    currentKey(newAtt,oldAtt) {
+    currentKey (newAtt, oldAtt) {
       this.addAttributes.push(newAtt)
     }
   },
@@ -228,7 +228,7 @@ export default {
     })
   },
   methods: {
-    editAttribute (row,elementId) {
+    editAttribute (row, elementId) {
       this.postForm = {}
       this.selectValue = []
       this.noSelectValue = []
@@ -246,8 +246,11 @@ export default {
         this.postForm = row
       } else {
         this.editTitle = '新增'
-        this.postForm['attributeValue'] = []
+        this.postForm.sceneId = this.sceneModel.id
+        this.postForm.elementId = elementId
+        this.postForm.attributeValue = []
       }
+      console.log(this.postForm)
       this.postForm.attributeValue.forEach(item => {
         let tag = item.substring(0, item.lastIndexOf(':'))
         if (this.allMultiKey.indexOf(tag) !== -1) {
@@ -268,9 +271,22 @@ export default {
       this.editDrawer = true
     },
     deleteAttribute (row) {
-      this.postForm = {}
-      this.postForm = row
-      api.delete({url: 'elementData/deleteOne', params: this.id})
+      let args = {
+        url: 'elementData/deleteOne',
+        params: {
+          elementDataId: row.id
+        }
+      }
+      console.log(args.params.elementDataId)
+      api.delete(args).then(res => {
+        if (res > 0) {
+          this.$message.success('删除成功')
+          history.go(0)
+        } else {
+          this.$message.error('删除失败')
+          history.go(0)
+        }
+      })
     },
     submitAttribute () {
       let ss = ''
@@ -285,27 +301,36 @@ export default {
       })
       ss = ss.substring(0, ss.length - 1)
       this.postForm['attributeValue'] = ss
-      api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
-        if (res > 0) {
-          history.go(0)
-        } else {
-          alert('更新失败！')
-        }
-      })
+      if (this.postForm.id) {
+        api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
+          if (res > 0) {
+            history.go(0)
+          } else {
+            alert('更新失败！')
+          }
+        })
+      } else {
+        api.post({url: 'elementData/insertOne', params: this.postForm}).then(res => {
+          if (res > 0) {
+            history.go(0)
+          } else {
+            alert('新增失败！')
+          }
+        })
+      }
     },
     deleteItem (row) {
       let temp = []
-      for (let i=0;i<this.addAttributes.length;i++) {
-        if (this.addAttributes[i]!==row) {
+      for (let i = 0; i < this.addAttributes.length; i++) {
+        if (this.addAttributes[i] !== row) {
           temp.push(this.addAttributes[i])
         }
       }
       this.addAttributes = []
       this.addAttributes = temp
-      console.log(this.addAttributes)
     },
-    cleanUnsaved(){
-      this.addAttributes=[]
+    cleanUnsaved () {
+      this.addAttributes = []
       this.editDrawer = false
       this.currentKey = ''
     }

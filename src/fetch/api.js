@@ -76,7 +76,7 @@ function del (args) {
     if (url.search('http') !== -1) {
       root = ''
     }
-    axios.delete(root + url, {data: args['params']})
+    axios.delete(root + url, {params: args['params']})
       .then(response => {
         store.commit('clear')
         resolve(response.data)
