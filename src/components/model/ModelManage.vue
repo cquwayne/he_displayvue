@@ -9,7 +9,7 @@
           </el-input>
         </el-col>
         <el-col :span="6" style="text-align:right">
-          <el-button type="info">
+          <el-button type="info" @click="editSceneModel(null)">
             <i class="el-icon-circle-plus-outline"></i>新增模型
           </el-button>
         </el-col>
@@ -19,6 +19,7 @@
         <el-table :data="sceneModelList" style="text-align: center">
           <el-table-column
             label="孪生模型名称"
+            align="center"
           >
             <template slot-scope="scope">
               {{scope.row['title']}}
@@ -26,26 +27,61 @@
           </el-table-column>
           <el-table-column
             label="上层模型"
+            align="center"
           >
             <template slot-scope="scope">
               {{scope.row['parent']['title']}}
             </template>
           </el-table-column>
           <el-table-column
-            label="铸造类型"
+            label="工艺类型"
+            align="center"
           >
             <template slot-scope="scope">
               {{scope.row['processType']['title']}}
             </template>
           </el-table-column>
           <el-table-column
+            label="操作者"
+            align="center"
+          >
+            <template slot-scope="scope">
+              {{scope.row['operator']}}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="时间"
+            align="center"
+          >
+            <template slot-scope="scope">
+              {{scope.row['executionTime']}}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="地点"
+            align="center"
+          >
+            <template slot-scope="scope">
+              {{scope.row['region']}}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="数据来源"
+            align="center"
+          >
+            <template slot-scope="scope">
+              {{scope.row['dataSource']}}
+            </template>
+          </el-table-column>
+          <el-table-column
             label="模型描述"
+            align="center"
           >
             <template slot-scope="scope">
               {{scope.row['description']}}
             </template>
           </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="操作" align="center" width="155">
             <template slot-scope="scope">
               <el-button size="mini" @click="getDetails(scope.$index, scope.row)">
                 详情
@@ -58,6 +94,62 @@
       </el-table>
       </el-main>
     </div>
+    <el-drawer
+      :title="editTitle+'场景模型'"
+      :visible.sync="editDrawer"
+      :direction="'rtl'"
+      :before-close="cleanUnsaved"
+      :size="'27%'"
+
+    >
+      <el-form v-model="postForm" label-position="left">
+        <el-form-item label="孪生模型名称">
+          <el-input v-model="postForm.title" style="width: 70%" autosize></el-input>
+        </el-form-item>
+        <el-form-item label="上层模型">
+          <el-select v-model="postForm.parentId">
+            <el-option
+              v-for="item in sceneModelList"
+              :key="item.index"
+              :label="item.title"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="工艺类型">
+          <el-select v-model="postForm.processTypeId">
+            <el-option
+              v-for="item in processTypeList"
+              :key="item.index"
+              :label="item.title"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="操作者">
+          <el-input v-model="postForm.operator" style="width: 77%" autosize></el-input>
+        </el-form-item>
+        <el-form-item label="时间">
+          <el-input v-model="postForm.executionTime" style="width: 77%" autosize></el-input>
+        </el-form-item>
+        <el-form-item label="地点">
+          <el-input v-model="postForm.region" style="width: 77%" autosize></el-input>
+        </el-form-item>
+        <el-form-item label="数据来源">
+          <el-input v-model="postForm.dataSource" style="width: 77%" autosize></el-input>
+        </el-form-item>
+        <el-form-item label="模型描述">
+          <el-input v-model="postForm.description" style="width: 77%" autosize></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="info" @click="submitSceneModel">
+            保存
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-drawer>
   </el-container>
 </template>
 
@@ -68,15 +160,20 @@ export default {
   data () {
     return {
       sceneModelList: [],
-      postSceneModel: false,
+      processTypeList: [],
       postForm: {
-        sceneModel: {
-          title: '',
-          parentId: 1,
-          processTypeId: 1,
-          description: ''
-        }
-      }
+        id: '',
+        title: '',
+        parentId: 1,
+        processTypeId: 1,
+        operator: '',
+        executionTime: '',
+        region: '',
+        dataSource: '',
+        description: ''
+      },
+      editDrawer: false,
+      editTitle: '新增'
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -84,9 +181,11 @@ export default {
       let args = {
         url: 'sceneModel/list'
       }
-      // let url = 'sceneModel/list'
       api.get(args).then(res => {
         vm.sceneModelList = res
+      })
+      api.get({url: 'processType/list'}).then(res => {
+        vm.processTypeList = res
       })
     })
   },
@@ -96,10 +195,36 @@ export default {
     },
     editSceneModel (row) {
       if (row) {
-        this.postForm.sceneData = row
-        this.postForm.sceneData['id'] = row['id']
+        this.editTitle = '编辑'
+        this.postForm = row
+        this.postForm['id'] = row['id']
+      } else {
+        this.editTitle = '新增'
       }
-      this.postSceneModel = true
+      this.editDrawer = true
+    },
+    submitSceneModel(){
+      if (this.postForm.id) {
+        api.put({url: 'sceneModel/updateOne', params: this.postForm}).then(res => {
+          if (res > 0) {
+            history.go(0)
+          } else {
+            alert('更新失败！')
+          }
+        })
+      } else {
+        api.post({url: 'sceneModel/insertOne', params: this.postForm}).then(res => {
+          if (res > 0) {
+            history.go(0)
+          } else {
+            alert('新增失败！')
+          }
+        })
+      }
+    },
+    cleanUnsaved(){
+      this.postForm = {}
+      this.editDrawer = false
     }
   }
 }
@@ -130,7 +255,6 @@ export default {
       font-weight: bolder;
       font-size: larger;
       margin: 0 0 0 10px;
-      /*margin: 10px 20px 20px 370px;*/
     }
   }
 </style>

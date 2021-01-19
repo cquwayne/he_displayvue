@@ -79,7 +79,7 @@
               <el-col :span="20">
                 <el-select v-model="att.description" placeholder="请填写">
                   <el-option
-                    v-for="tt in att['value'].split(',')"
+                    v-for="tt in att['value'].split('，')"
                     :key="tt.index"
                     :value="tt">
                   </el-option>
@@ -130,18 +130,22 @@ export default {
         parent: {},
         processTypeId: '',
         processType: {},
+        operator: '',
+        executionTime: '',
+        region: '',
+        dataSource: '',
         description: '',
         elementDataList: []
       },
       elementDataList: {
+        // des: {
+        //   elementId: 1,
+        //   title: '场景描述',
+        //   dataList: []
+        // },
         object: {
-          elementId: 1,
-          title: '工艺对象',
-          dataList: []
-        },
-        device: {
           elementId: 2,
-          title: '设备',
+          title: '工艺对象',
           dataList: []
         },
         assist: {
@@ -149,14 +153,29 @@ export default {
           title: '辅料',
           dataList: []
         },
-        param: {
+        device: {
           elementId: 4,
-          title: '工艺参数',
+          title: '设备',
           dataList: []
         },
         energy: {
           elementId: 5,
-          title: '能源',
+          title: '能源消耗',
+          dataList: []
+        },
+        param: {
+          elementId: 6,
+          title: '工艺参数',
+          dataList: []
+        },
+        output: {
+          elementId: 7,
+          title: '输出部件',
+          dataList: []
+        },
+        envLoad: {
+          elementId: 8,
+          title: '环境负荷',
           dataList: []
         }
       },
@@ -192,23 +211,24 @@ export default {
       api.get(args).then(res => {
         vm.sceneModel = res
         vm.sceneModel.elementDataList.forEach(item => {
-          item['attributeValue'] = item.attributeValue.split(',')
-          if (item['elementId'] === 1) {
-            // vm.objectList.push(item)
-            // vm.elementDataList['object']['dataList'].push(item)
+          item.attributeValue = item.attributeValue.split(',')
+          // if (item.elementId === 1) {
+          //   vm.elementDataList.des.dataList.push(item)
+          // } else
+          if (item.elementId === 2) {
             vm.elementDataList.object.dataList.push(item)
-          } else if (item['elementId'] === 2) {
-            // vm.deviceList.push(item)
-            vm.elementDataList['device']['dataList'].push(item)
-          } else if (item['elementId'] === 3) {
-            // vm.assistList.push(item)
-            vm.elementDataList['assist']['dataList'].push(item)
-          } else if (item['elementId'] === 4) {
-            // vm.paramList.push(item)
-            vm.elementDataList['param']['dataList'].push(item)
-          } else if (item['elementId'] === 5) {
-            // vm.energyList.push(item)
-            vm.elementDataList['energy']['dataList'].push(item)
+          } else if (item.elementId === 3) {
+            vm.elementDataList.assist.dataList.push(item)
+          } else if (item.elementId === 4) {
+            vm.elementDataList.device.dataList.push(item)
+          } else if (item.elementId === 5) {
+            vm.elementDataList.energy.dataList.push(item)
+          } else if (item.elementId === 6) {
+            vm.elementDataList.param.dataList.push(item)
+          } else if (item.elementId === 7) {
+            vm.elementDataList.output.dataList.push(item)
+          } else if (item.elementId === 8) {
+            vm.elementDataList.envLoad.dataList.push(item)
           }
         })
       })
@@ -219,7 +239,7 @@ export default {
         res.forEach(item => {
           let oj = {
             name: item['title'],
-            values: item['value'].split(',')
+            values: item['value'].split('，')
           }
           vm.allMultiValue.push(oj)
           vm.allMultiKey.push(item['title'])
@@ -250,7 +270,6 @@ export default {
         this.postForm.elementId = elementId
         this.postForm.attributeValue = []
       }
-      console.log(this.postForm)
       this.postForm.attributeValue.forEach(item => {
         let tag = item.substring(0, item.lastIndexOf(':'))
         if (this.allMultiKey.indexOf(tag) !== -1) {
@@ -277,7 +296,6 @@ export default {
           elementDataId: row.id
         }
       }
-      console.log(args.params.elementDataId)
       api.delete(args).then(res => {
         if (res > 0) {
           this.$message.success('删除成功')

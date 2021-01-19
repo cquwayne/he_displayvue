@@ -73,12 +73,12 @@ export default {
   data () {
     return {
       tabPaneList: [
+        // {
+        //   label: '场景描述',
+        //   elementId: 1
+        // },
         {
           label: '工艺对象',
-          elementId: 1
-        },
-        {
-          label: '设备',
           elementId: 2
         },
         {
@@ -86,24 +86,36 @@ export default {
           elementId: 3
         },
         {
-          label: '工艺参数',
+          label: '设备',
           elementId: 4
         },
         {
           label: '能源消耗',
           elementId: 5
+        },
+        {
+          label: '工艺参数',
+          elementId: 6
+        },
+        {
+          label: '输出部件',
+          elementId: 7
+        },
+        {
+          label: '环境负荷',
+          elementId: 8
         }
       ],
       attributeList: [],
       editDrawer: false,
       editForm: {},
-      elementId: 1
+      elementId: 2
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
       let query = {
-        elementId: 1
+        elementId: 2
       }
       let args = {
         url: 'attribute/list',
@@ -149,13 +161,13 @@ export default {
       }
     },
     handleDeleteDialog (row) {
-      console.log(row)
       this.editForm = row
       api.delete({url: 'attribute', params: this.editForm}).then(res => {
-        if (res === 0) {
-          alert('暂不允许删除数据！！')
+        if (res===0) {
+          alert('暂时不允许删除数据')
+          // this.$message.success('删除成功！')
         } else {
-          history.go(0)
+          // this.$message.error('删除失败！')
         }
       })
     }

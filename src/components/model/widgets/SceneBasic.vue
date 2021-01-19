@@ -8,6 +8,13 @@
       </el-breadcrumb>
     </div>
     <div>
+      模型名称：{{sceneModel['title']}}
+      上层模型：{{sceneModel['parent']['title']}}
+      工艺类型：{{sceneModel['processType']['title']}}
+      操作者：{{sceneModel['operator']}}
+      时间：{{sceneModel['executionTime']}}
+      地点：{{sceneModel['region']}}
+      数据来源：{{sceneModel['dataSource']}}
       模型描述: {{sceneModel['description']}}
     </div>
   </el-card>
