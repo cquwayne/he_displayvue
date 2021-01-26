@@ -26,6 +26,11 @@ export default {
               title: '模型管理',
               name: 'ModelManage',
               icon: 'el-icon-box',
+            },
+            {
+              title: '可视化创建',
+              name: 'FlowMain',
+              icon: 'el-icon-map-location',
             }
           //   {
           //     title: '坐标管理',

@@ -15,15 +15,15 @@
 </template>
 
 <script>
-  import Navigation from '../components/widgets/Navigation'
-  import Header from '../components/widgets/Header'
-  export default {
-    name: 'Home',
-    components: {
-      Navigation,
-      Header
-    }
+import Navigation from '../components/widgets/Navigation'
+import Header from '../components/widgets/Header'
+export default {
+  name: 'Home',
+  components: {
+    Navigation,
+    Header
   }
+}
 </script>
 
 <style lang="scss">

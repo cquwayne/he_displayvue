@@ -12,6 +12,9 @@
           <el-button type="info" @click="editSceneModel(null)">
             <i class="el-icon-circle-plus-outline"></i>新增模型
           </el-button>
+          <el-button type="info" @click="createDataImage">
+            <i class="el-icon-circle-plus-outline"></i>创建过程流程
+          </el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
@@ -207,7 +210,7 @@ export default {
       }
       this.editDrawer = true
     },
-    submitSceneModel(){
+    submitSceneModel () {
       if (this.postForm.id) {
         api.put({url: 'sceneModel/updateOne', params: this.postForm}).then(res => {
           if (res > 0) {
@@ -226,7 +229,7 @@ export default {
         })
       }
     },
-    cleanUnsaved(){
+    cleanUnsaved () {
       this.postForm = {}
       this.editDrawer = false
     }

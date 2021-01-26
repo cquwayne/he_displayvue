@@ -7,6 +7,7 @@ import Process from "../components/monitor/Process";
 import Realtime from "../components/monitor/Realtime";
 import Prediction from "../components/monitor/Prediction";
 import SceneModel from "../components/model/SceneModel";
+import FlowMain from "../components/model/FlowMain";
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
           path: '/modelManage',
           name: 'ModelManage',
           component: ModelManage
+        },
+        {
+          path: '/dataImage/',
+          name: 'FlowMain',
+          component: FlowMain
         },
         {
           path: '/modelManage/:sceneModelId',
