@@ -25,12 +25,17 @@ export default {
             {
               title: '模型管理',
               name: 'ModelManage',
-              icon: 'el-icon-box',
+              icon: 'el-icon-box'
             },
             {
-              title: '可视化创建',
+              title: '属性管理',
+              name: 'Attribute',
+              icon: 'el-icon-paperclip'
+            },
+            {
+              title: '流程可视化创建',
               name: 'FlowMain',
-              icon: 'el-icon-map-location',
+              icon: 'el-icon-map-location'
             }
           //   {
           //     title: '坐标管理',
@@ -50,34 +55,13 @@ export default {
           ]
         },
         {
-          title: '铸造工艺要素特征指标体系',
-          icon: 'el-icon-files',
-          list: [
-            {
-              title: '属性管理',
-              name: 'Attribute',
-              icon: 'el-icon-paperclip',
-            }
-            // {
-            //   title: '属性管理',
-            //   name: 'attribute',
-            //   icon: 'el-icon-tickets',
-            // },
-            // {
-            //   title: '信息管理',
-            //   name: 'Information',
-            //   icon: 'el-icon-document-copy',
-            // }
-          ]
-        },
-        {
           title: '铸造工艺数字孪生监测',
           icon: 'el-icon-coin',
           list: [
             {
               title: '工艺过程运行',
               name: 'Process',
-              icon: 'el-icon-s-operation',
+              icon: 'el-icon-s-operation'
             },
             {
               title: '指标实时监控',
@@ -87,7 +71,7 @@ export default {
             {
               title: '运行状态预测',
               name: 'Prediction',
-              icon: 'el-icon-time',
+              icon: 'el-icon-time'
             }
           ]
         }
