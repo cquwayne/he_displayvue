@@ -12,9 +12,9 @@
           <el-button type="info" @click="editSceneModel(null)">
             <i class="el-icon-circle-plus-outline"></i>新增模型
           </el-button>
-          <el-button type="info" @click="createDataImage">
-            <i class="el-icon-circle-plus-outline"></i>创建过程流程
-          </el-button>
+<!--          <el-button type="info" @click="createDataImage">-->
+<!--            <i class="el-icon-circle-plus-outline"></i>创建过程流程-->
+<!--          </el-button>-->
         </el-col>
       </el-row>
       <el-divider></el-divider>

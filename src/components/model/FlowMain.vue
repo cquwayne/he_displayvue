@@ -454,8 +454,8 @@ export default {
       // event.preventDefault();
       var _obj = this.$refs.flowContent
       var temp = {
-        id: this.currentItem.id,
-        title: this.currentItem.title,
+        id: this.currentItem.id+'',
+        lable: this.currentItem.title,
         top: event.offsetY + 'px',
         left: event.offsetX + 'px'
       }
