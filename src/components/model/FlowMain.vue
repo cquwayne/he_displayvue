@@ -22,7 +22,7 @@
            @dragover="allowDrop($event)"
            @click="editFlow()"
            @dblclick="isConnect=false">
-        <flowNode v-for="node in data.nodeList" :key="node.index"
+        <flowNode v-for="node in data.flowInfo.nodeList" :key="node.index"
                   :node="node"
                   :id="node.id"
                   :isconnect="isConnect"
@@ -56,27 +56,6 @@ export default {
   name: 'flowMain',
   data () {
     return {
-      // menueList: [{
-      //     type: 1,
-      //     name: '新建场景',
-      //     icon: 'el-icon-help'
-      //   },
-      //   {
-      //     type: 2,
-      //     name: '终点',
-      //     icon: 'el-icon-s-help'
-      //   },
-      //   {
-      //     type: 3,
-      //     name: '人工活动',
-      //     icon: 'el-icon-user'
-      //   },
-      //   {
-      //     type: 4,
-      //     name: '自动活动',
-      //     icon: 'el-icon-s-tools'
-      //   },
-      // ],
       menueList: [],
       jsPlumb: null, // jsPlumb 实例
       index: 1,
@@ -92,7 +71,7 @@ export default {
         // 这个是鼠标拉出来的线的属性
         ConnectionOverlays: [
           ['Label', {
-            label: '连线文本',
+            title: '',
             id: 'label-1',
             cssClass: 'csslabel'
           }]
@@ -154,12 +133,12 @@ export default {
       // 数据
       data: {
         flowInfo: {
-          Id: this.getUUID(),
-          Name: '我的流程',
-          Remark: ''
-        },
-        nodeList: [],
-        lineList: []
+          id: this.getUUID(),
+          title: '工艺过程',
+          remark: '',
+          nodeList: [],
+          lineList: []
+        }
       },
       currentItem: '', // 临时存添加的元素
       isConnect: false, // 判断是否连接
@@ -231,16 +210,17 @@ export default {
         })
         // 连线
         _this.jsPlumb.bind('connection', function (evt) {
-          console.log('connection', evt)
+          // console.log('connection', evt)
           let from = evt.source.id
           let to = evt.target.id
           if (_this.loadEasyFlowFinish) {
-            _this.data.lineList.push({
+            _this.data.flowInfo.lineList.push({
               from: from,
               to: to,
-              label: '连线名称',
+              title: '',
               id: _this.getUUID(),
-              Remark: ''
+              processEntityId: _this.data.flowInfo.id,
+              remark: ''
             })
           };
           setTimeout(function () {
@@ -304,8 +284,8 @@ export default {
     // 加载流程图
     loadEasyFlow () {
       // 初始化节点
-      for (var i = 0; i < this.data.nodeList.length; i++) {
-        let node = this.data.nodeList[i]
+      for (var i = 0; i < this.data.flowInfo.nodeList.length; i++) {
+        let node = this.data.flowInfo.nodeList[i]
         // 设置源点，可以拖出线连接其他节点
         this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions)
         // // 设置目标点，其他源点拖出的线可以连接该节点
@@ -325,8 +305,8 @@ export default {
       }
 
       // 初始化连线
-      for (var i = 0; i < this.data.lineList.length; i++) {
-        let line = this.data.lineList[i]
+      for (let i = 0; i < this.data.flowInfo.lineList.length; i++) {
+        let line = this.data.flowInfo.lineList[i]
         let connection = this.jsPlumb.connect({
           source: line.from,
           target: line.to
@@ -340,8 +320,8 @@ export default {
     },
     // 添加新的节点
     addNode (temp) {
-      console.log('添加节点', temp)
-      this.data.nodeList.push(temp)
+      this.data.flowInfo.nodeList.push(temp)
+      console.log(this.data.flowInfo.nodeList)
       this.$nextTick(function () {
         this.jsPlumb.makeSource(temp.id, this.jsplumbSourceOptions)
         this.jsPlumb.makeTarget(temp.id, this.jsplumbTargetOptions)
@@ -352,7 +332,7 @@ export default {
     },
     // 删除线
     deleteLine (from, to) {
-      this.data.lineList = this.data.lineList.filter(function (line) {
+      this.data.flowInfo.lineList = this.data.flowInfo.lineList.filter(function (line) {
         return line.from !== from && line.to !== to
       })
     },
@@ -362,9 +342,9 @@ export default {
     },
     // 改变节点的位置
     changeNodeSite (data) {
-      console.log(this.data.nodeList)
-      for (var i = 0; i < this.data.nodeList.length; i++) {
-        let node = this.data.nodeList[i]
+      console.log(this.data.flowInfo.nodeList)
+      for (var i = 0; i < this.data.flowInfo.nodeList.length; i++) {
+        let node = this.data.flowInfo.nodeList[i]
         if (node.id === data.nodeId) {
           node.left = data.left
           node.top = data.top
@@ -379,15 +359,15 @@ export default {
         type: 'warning',
         closeOnClickModal: false
       }).then(() => {
-        // this.data.nodeList = this.data.nodeList.filter(function(node) {
-        // 	if (node.id === nodeId) {
-        // 		node.show = false
-        // 	}
-        // 	return true
+        // this.data.flowInfo.nodeList = this.data.flowInfo.nodeList.filter(function(node) {
+        // if (node.id === nodeId) {
+        // node.show = false
+        // }
+        // return true
         // })
-        this.data.nodeList.forEach((item, index) => {
+        this.data.flowInfo.nodeList.forEach((item, index) => {
           if (item.id === nodeId) {
-            this.data.nodeList.splice(index, 1)
+            this.data.flowInfo.nodeList.splice(index, 1)
           }
         })
 
@@ -409,7 +389,7 @@ export default {
     editLine (conn) {
       var _this = this
       _this.currentConnect = conn
-      _this.data.lineList.forEach(function (item, index) {
+      _this.data.flowInfo.lineList.forEach(function (item, index) {
         if (item.from === conn.sourceId && item.to === conn.targetId) {
           _this.currentLine = item
           _this.editType = 'line'
@@ -431,8 +411,8 @@ export default {
     },
     // 是否具有该线
     hasLine (from, to) {
-      for (var i = 0; i < this.data.lineList.length; i++) {
-        var line = this.data.lineList[i]
+      for (var i = 0; i < this.data.flowInfo.lineList.length; i++) {
+        var line = this.data.flowInfo.lineList[i]
         if (line.from === from && line.to === to) {
           return true
         }
@@ -452,13 +432,54 @@ export default {
     },
     drop (event) {
       // event.preventDefault();
-      var _obj = this.$refs.flowContent
-      var temp = {
-        id: this.currentItem.id+'',
-        lable: this.currentItem.title,
+      // let _obj = this.$refs.flowContent
+      let temp = {
+        id: this.getUUID(),
+        processEntityId: this.data.flowInfo.id,
+        title: this.currentItem.title,
         top: event.offsetY + 'px',
-        left: event.offsetX + 'px'
+        left: event.offsetX + 'px',
+        modelEntity: {
+          id: '',
+          title: '',
+          parentId: '',
+          parent: {},
+          processTypeId: '',
+          processType: {},
+          operator: '',
+          executionTime: '',
+          region: '',
+          dataSource: '',
+          description: '',
+          elementDataList: [],
+          entityElementDataList: []
+        }
       }
+      let args = {
+        url: '/sceneModel/' + this.currentItem.id
+      }
+      api.get(args).then(res => {
+        temp.modelEntity.id = temp.id
+        temp.modelEntity.title = temp.title
+        temp.modelEntity.parentId = res.parentId
+        temp.modelEntity.parent = res.parent
+        temp.modelEntity.processTypeId = res.processTypeId
+        temp.modelEntity.operator = res.operator
+        temp.modelEntity.executionTime = res.executionTime
+        temp.modelEntity.region = res.region
+        temp.modelEntity.dataSource = res.dataSource
+        temp.modelEntity.description = res.description
+        temp.modelEntity.elementDataList = res.elementDataList
+        temp.modelEntity.elementDataList.forEach(item => {
+          let entityElementData = {
+            modelEntityId: temp.id,
+            elementId: item.elementId,
+            attributeValue: item.attributeValue
+          }
+          temp.modelEntity.entityElementDataList.push(entityElementData)
+        })
+        temp.modelEntity.elementDataList = []
+      })
       this.addNode(temp)
       this.editNode(temp.id)
     },
@@ -482,6 +503,17 @@ export default {
       // console.log(this.jsPlumb.Defaults)
       // console.log('线', this.jsPlumb.getConnections())
       console.log(this.data)
+      let args = {
+        url: 'processEntity',
+        params: this.data.flowInfo
+      }
+      api.post(args).then(res => {
+        if (res) {
+          alert('成功！！')
+        } else {
+          alert('失败！！')
+        }
+      })
     },
     editFlow () {
       this.editType = 'flow'

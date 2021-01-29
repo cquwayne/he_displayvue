@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
-import ModelManage from "../components/model/ModelManage";
-import Attribute from "../components/attribute/Attribute";
-import Process from "../components/monitor/Process";
-import Realtime from "../components/monitor/Realtime";
-import Prediction from "../components/monitor/Prediction";
-import SceneModel from "../components/model/SceneModel";
-import FlowMain from "../components/model/FlowMain";
+import ModelManage from '../components/model/ModelManage'
+import Attribute from '../components/model/Attribute'
+import ProcessManage from '../components/process/ProcessManage'
+import Process from '../components/monitor/Process'
+import Realtime from '../components/monitor/Realtime'
+import Prediction from '../components/monitor/Prediction'
+import SceneModel from '../components/model/SceneModel'
+import FlowMain from '../components/model/FlowMain'
 
 Vue.use(Router)
 
@@ -37,6 +38,11 @@ export default new Router({
           path: '/attribute',
           name: 'Attribute',
           component: Attribute
+        },
+        {
+          path: '/processManage',
+          name: 'ProcessManage',
+          component: ProcessManage
         },
         {
           path: '/process',

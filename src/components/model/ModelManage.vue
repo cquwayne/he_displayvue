@@ -22,7 +22,7 @@
         <el-table :data="sceneModelList.filter(data => !searchForm.content || data.title.toLowerCase().includes(searchForm.content.toLowerCase()))"
                   style="text-align: center">
           <el-table-column
-            label="孪生模型名称"
+            label="模型名称"
             align="center"
           >
             <template slot-scope="scope">
@@ -38,7 +38,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="工艺类型"
+            label="所属工艺"
             align="center"
           >
             <template slot-scope="scope">
@@ -46,7 +46,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="操作者"
+            label="模型创建者"
             align="center"
           >
             <template slot-scope="scope">
@@ -61,22 +61,22 @@
               {{scope.row['executionTime']}}
             </template>
           </el-table-column>
-          <el-table-column
-            label="地点"
-            align="center"
-          >
-            <template slot-scope="scope">
-              {{scope.row['region']}}
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="数据来源"
-            align="center"
-          >
-            <template slot-scope="scope">
-              {{scope.row['dataSource']}}
-            </template>
-          </el-table-column>
+<!--          <el-table-column-->
+<!--            label="地点"-->
+<!--            align="center"-->
+<!--          >-->
+<!--            <template slot-scope="scope">-->
+<!--              {{scope.row['region']}}-->
+<!--            </template>-->
+<!--          </el-table-column>-->
+<!--          <el-table-column-->
+<!--            label="数据来源"-->
+<!--            align="center"-->
+<!--          >-->
+<!--            <template slot-scope="scope">-->
+<!--              {{scope.row['dataSource']}}-->
+<!--            </template>-->
+<!--          </el-table-column>-->
           <el-table-column
             label="模型描述"
             align="center"
@@ -104,7 +104,6 @@
       :direction="'rtl'"
       :before-close="cleanUnsaved"
       :size="'27%'"
-
     >
       <el-form v-model="postForm" label-position="left">
         <el-form-item label="孪生模型名称">

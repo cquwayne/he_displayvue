@@ -4,8 +4,8 @@ import Vue from 'vue'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    // root: 'http://localhost:8000/',
-    root: 'http://192.168.191.1:8000/',
+    root: 'http://localhost:8000/',
+    // root: 'http://192.168.191.1:8000/',
     // root: 'http://172.28.9.157:8000/',
     token: '',
     sceneModelList: JSON.parse(localStorage.getItem('sceneModelList')) || null,

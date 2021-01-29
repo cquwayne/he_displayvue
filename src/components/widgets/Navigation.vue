@@ -31,11 +31,6 @@ export default {
               title: '属性管理',
               name: 'Attribute',
               icon: 'el-icon-paperclip'
-            },
-            {
-              title: '流程可视化创建',
-              name: 'FlowMain',
-              icon: 'el-icon-map-location'
             }
           //   {
           //     title: '坐标管理',
@@ -52,6 +47,22 @@ export default {
           //     name: 'Hyperlink',
           //     icon: 'el-icon-link',
           //   }
+          ]
+        },
+        {
+          title: '铸造工艺过程实例',
+          icon: 'el-icon-s-grid',
+          list: [
+            {
+              title: '过程可视化创建',
+              name: 'FlowMain',
+              icon: 'el-icon-map-location'
+            },
+            {
+              title: '工艺过程管理',
+              name: 'ProcessManage',
+              icon: 'el-icon-map-location'
+            }
           ]
         },
         {

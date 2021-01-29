@@ -201,7 +201,7 @@ export default {
       selectValue: [], // 当前场景模型中当前要素下值可选的所有属性及其当前值，可选值
       currentAttributes: [], // 当前要素的所有值可选的属性体
       currentKey: '', // 当前选中添加的要素属性
-      addAttributes: [], // 当前所有添加的要素属性及其值
+      addAttributes: [] // 当前所有添加的要素属性及其值
       // graphDrawer: false // 数据流图显示标志
     }
   },

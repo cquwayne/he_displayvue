@@ -13,38 +13,38 @@
             <el-input v-model="line.label"></el-input>
         </el-form-item>
         <el-form-item label="备注说明">
-            <el-input v-model="line.Remark" type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+            <el-input v-model="line.remark" type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
         </el-form-item>
     </el-form>
 </template>
 
 <script>
-    export default {
-        name:'editLine',
-        data() {
-            return {
-                line: { label: '' },
-                isUpdate: false,
-            }
-        },
-        watch: {
-            line: {
-                handler(val) {
-                    if (this.isUpdate) {
-                        this.$emit('line-save', this.line);
-                    }
-                },
-                deep: true
-            }
-        },
-        methods: {
-            init(item) {
-                this.isUpdate = false;
-                this.line = item;
-                this.$nextTick(function () {
-                    this.isUpdate = true;
-                });
-            },
-        }
+export default {
+  name: 'editLine',
+  data () {
+    return {
+      line: { label: '' },
+      isUpdate: false
     }
+  },
+  watch: {
+    line: {
+      handler (val) {
+        if (this.isUpdate) {
+          this.$emit('line-save', this.line)
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    init (item) {
+      this.isUpdate = false
+      this.line = item
+      this.$nextTick(function () {
+        this.isUpdate = true
+      })
+    }
+  }
+}
 </script>

@@ -11,7 +11,7 @@
                 <i class="el-icon-delete" @@click.stop="deleteNode"></i>
             </div>
         </div> -->
-        <div class="node-con"><i class="el-icon-s-tools"></i><span>{{node.lable}}</span></div>
+        <div class="node-con"><i class="el-icon-s-tools"></i><span>{{node.title}}</span></div>
         <div class="node-del" v-show="mouseEnter" @click.stop="deleteNode">
           <i class="el-icon-circle-close"></i>
         </div>
