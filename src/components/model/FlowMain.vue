@@ -156,6 +156,9 @@ export default {
       api.get(args).then(res => {
         vm.menueList = res
       })
+      api.get({url: 'processEntity', params: {id: '4d6991c1-7692-4e8a-8ef9-02fcad0bb25f'}}).then(res => {
+        vm.data.flowInfo = res
+      })
     })
   },
   components: {
@@ -175,6 +178,7 @@ export default {
   methods: {
     init () {
       const _this = this
+      console.log(this.data.flowInfo)
       this.jsPlumb.ready(function () {
         // 导入默认配置
         _this.jsPlumb.importDefaults(_this.jsplumbSetting)
@@ -283,8 +287,9 @@ export default {
     },
     // 加载流程图
     loadEasyFlow () {
+      console.log(this.data.flowInfo)
       // 初始化节点
-      for (var i = 0; i < this.data.flowInfo.nodeList.length; i++) {
+      for (let i = 0; i < this.data.flowInfo.nodeList.length; i++) {
         let node = this.data.flowInfo.nodeList[i]
         // 设置源点，可以拖出线连接其他节点
         this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions)
@@ -321,7 +326,6 @@ export default {
     // 添加新的节点
     addNode (temp) {
       this.data.flowInfo.nodeList.push(temp)
-      console.log(this.data.flowInfo.nodeList)
       this.$nextTick(function () {
         this.jsPlumb.makeSource(temp.id, this.jsplumbSourceOptions)
         this.jsPlumb.makeTarget(temp.id, this.jsplumbTargetOptions)
