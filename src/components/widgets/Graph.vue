@@ -68,13 +68,13 @@ export default {
       if (item.information) {
         let arr = item.information.attributeList
         info = item.information.title + ' {\n\n'
-        for(let i = 0; i < arr.length; i++) {
-          info = info + '  ' + arr[i]['title']  + ': ' +  (arr[i]['value'] ? arr[i]['value'] : '/') + '\n'
+        for (let i = 0; i < arr.length; i++) {
+          info = info + '  ' + arr[i]['title'] + ': ' + (arr[i]['value'] ? arr[i]['value'] : '/') + '\n'
         }
         info = info + '\n}'
       }
       // item.label = info ? info : item.title + item.label
-      item.label = info ? info : item.title
+      item.label = info || item.title
       this.dag.setNode(label, item)
     },
     setEdge (item) {

@@ -11,7 +11,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VCharts from 'v-charts'
 
-
 // 全局注册，使用方法为:this.$axios
 Vue.prototype.api = api
 Vue.prototype.$http = axios
@@ -19,8 +18,6 @@ Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VCharts)
-
-
 
 /* eslint-disable no-new */
 new Vue({

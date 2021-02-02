@@ -9,6 +9,7 @@ import Realtime from '../components/monitor/Realtime'
 import Prediction from '../components/monitor/Prediction'
 import SceneModel from '../components/model/SceneModel'
 import FlowMain from '../components/model/FlowMain'
+import DateChart from '../components/monitor/widgets/DateChart'
 
 Vue.use(Router)
 
@@ -25,7 +26,7 @@ export default new Router({
           component: ModelManage
         },
         {
-          path: '/dataImage/',
+          path: '/flowMain/',
           name: 'FlowMain',
           component: FlowMain
         },
@@ -45,6 +46,11 @@ export default new Router({
           component: ProcessManage
         },
         {
+          path: '/prediction',
+          name: 'Prediction',
+          component: Prediction
+        },
+        {
           path: '/process',
           name: 'Process',
           component: Process
@@ -52,12 +58,14 @@ export default new Router({
         {
           path: '/realtime',
           name: 'Realtime',
-          component: Realtime
-        },
-        {
-          path: '/prediction',
-          name: 'Prediction',
-          component: Prediction
+          component: Realtime,
+          children: [
+            {
+              path: '',
+              name: 'DateChart',
+              component: DateChart
+            }
+          ]
         }
       ]
     }
