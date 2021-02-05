@@ -12,7 +12,9 @@ import api from 'api'
 export default {
   name: 'DateChart',
   // 只需传入【时间】和【数据】就行
-  props: ['dateTime', 'chartInfo'],
+  props: {
+    chartInfo: {}
+  },
   data: function () {
     return {
       // 接收传过来的数据
@@ -98,7 +100,7 @@ export default {
       myExtend: {
         title: {
           // 标题
-          text: '',
+          text: '工艺过程运行数据',
           left: '10%'
         },
         // 左右两边留白，太近导致x轴两边的日期显示不全
@@ -144,9 +146,10 @@ export default {
           trigger: 'axis',
           formatter: function (datas) {
             let result = `<font color="#87cefa">时间:${datas[0].value[0]}</font><br/>`
-            datas.forEach(function (item) {
-              result += `<font color='${item.color}'>${item.seriesName}:${item.value[1]}</font><br/>`
-            })
+            result += `<font color='${datas[0].color}'>${datas[0].seriesName}:${datas[0].value[1]}</font><br/>`
+            // datas.forEach(function (item) {
+            //   result += `<font color='${item.color}'>${item.seriesName}:${item.value[1]}</font><br/>`
+            // })
             return result
           }
         }

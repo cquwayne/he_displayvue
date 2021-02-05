@@ -11,7 +11,7 @@
           :value="item">
         </el-option>
       </el-select>
-    <DateChart :chartInfo="currentItem" v-if="currentItem!==''"></DateChart>
+    <DateChart :chartInfo="currentItem" v-if="currentItem!==''&&refresh"></DateChart>
   </div>
 </template>
 
@@ -28,12 +28,12 @@ export default {
     // 【模拟】开始推送,这里是设置1s执行一次
     setInterval(() => {
       this.pushData()
-    }, 500)
+    }, 1000)
   },
   data () {
     return {
       loading: true,
-      // dataVisible: false,
+      refresh: true,
       currentItem: '',
       chartInfo: [
         [{
@@ -52,12 +52,20 @@ export default {
       ]
     }
   },
+  watch: {
+    currentItem (newValue, oldValue) {
+      this.refreshWindows()
+    }
+  },
   methods: {
+    refreshWindows () {
+      this.refresh = !this.refresh
+      this.$nextTick(() => {
+        this.refresh = !this.refresh
+      })
+    },
     onLoad () {
       this.loading = false
-    },
-    displayData () {
-      // this.dataVisible = true
     },
     /**
      * 模拟推送数据
@@ -67,7 +75,12 @@ export default {
       let watchNum = this.getRandom(1500, 1650)
       let orderNum = this.getRandom(200, 240)
       let nowDate = api.formatDate(new Date())
-
+      if (this.chartInfo[0][0].data.length > 50) {
+        this.chartInfo[0][0].data.splice(0, 1)
+      }
+      if (this.chartInfo[1][0].data.length > 50) {
+        this.chartInfo[1][0].data.splice(0, 1)
+      }
       this.chartInfo[0][0].data.push({
         value: [nowDate, watchNum]
       })
