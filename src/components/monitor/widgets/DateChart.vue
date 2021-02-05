@@ -98,7 +98,7 @@ export default {
       myExtend: {
         title: {
           // 标题
-          text: '工艺过程参数指标实时监测',
+          text: '',
           left: '10%'
         },
         // 左右两边留白，太近导致x轴两边的日期显示不全
@@ -188,7 +188,7 @@ export default {
        */
     iChartInfo: {
       handler (newValue, oldValue) {
-        if (newValue != null) {
+        if (newValue !== null) {
           // 更新新值前线清除上次的老数据，除了锚剩下的就是老数据
           this.myExtend.series.splice(1, this.myExtend.series.length - 1)
           newValue.forEach((item) => {

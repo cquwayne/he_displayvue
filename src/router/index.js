@@ -10,6 +10,7 @@ import Prediction from '../components/monitor/Prediction'
 import SceneModel from '../components/model/SceneModel'
 import FlowMain from '../components/model/FlowMain'
 import DateChart from '../components/monitor/widgets/DateChart'
+// import ModelObj from "_vue-3d-model@1.3.1@vue-3d-model";
 
 Vue.use(Router)
 
@@ -17,7 +18,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
       component: Home,
       children: [
         {
@@ -54,10 +54,16 @@ export default new Router({
           path: '/process',
           name: 'Process',
           component: Process
+          // children: [
+          //   {
+          //     path: '',
+          //     name: 'ModelObj',
+          //     component: ModelObj
+          //   }
+          // ]
         },
         {
           path: '/realtime',
-          name: 'Realtime',
           component: Realtime,
           children: [
             {

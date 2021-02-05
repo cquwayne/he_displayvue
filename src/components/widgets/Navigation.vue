@@ -76,7 +76,7 @@ export default {
             },
             {
               title: '指标实时监控',
-              name: 'Realtime',
+              name: 'DateChart',
               icon: 'el-icon-data-analysis'
             },
             {

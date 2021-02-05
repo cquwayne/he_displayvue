@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import VeLine from 'v-charts/lib/line'
 import DateChart from './widgets/DateChart'
 import api from 'api'
 export default {
@@ -31,7 +30,7 @@ export default {
           // 线条名称
           name: '熔炼温度',
           // 线条颜色
-          color: '#BF0060',
+          color: '#bf0060',
           // 线条的数据 格式[ value:{时间,值},value:{时间,值},value:{时间,值}... ]
           data: []
         },

@@ -156,9 +156,9 @@ export default {
       api.get(args).then(res => {
         vm.menueList = res
       })
-      api.get({url: 'processEntity', params: {id: '4d6991c1-7692-4e8a-8ef9-02fcad0bb25f'}}).then(res => {
-        vm.data.flowInfo = res
-      })
+      // api.get({url: 'processEntity', params: {id: '4d6991c1-7692-4e8a-8ef9-02fcad0bb25f'}}).then(res => {
+      //   vm.data.flowInfo = res
+      // })
     })
   },
   components: {
