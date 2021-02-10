@@ -19,7 +19,7 @@
         <el-tab-pane v-for="item in tabPaneList" :key="item.index">
           <span slot="label" @click="getAttributeList(item.elementId)"><i class="el-icon-setting"></i>{{item.label}}</span>
           <el-table
-            :data="attributeList.filter(data => !searchForm.content || data.title.toLowerCase().includes(searchForm.content.toLowerCase()))">
+            :data="attributeList">
             <el-table-column
               type="index"
               label="序号">

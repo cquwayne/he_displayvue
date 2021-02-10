@@ -257,7 +257,7 @@ export default {
   },
   methods: {
     editAttribute (row, elementId) {
-      this.postForm = {}
+      this.postForm.attributeValue = []
       this.selectValue = []
       this.noSelectValue = []
       let args = {

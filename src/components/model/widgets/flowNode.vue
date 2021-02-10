@@ -1,6 +1,6 @@
 <template>
     <div class="node-item"
-         ref="node"
+         :ref="node"
          :style="flowNodeContainer"
          @mouseenter="showDelete"
          @mouseleave="hideDelete"
@@ -69,6 +69,7 @@ export default {
         left: this.$refs.node.style.left,
         top: this.$refs.node.style.top
       })
+      console.log(this.data.nodeList)
     }
   }
 }
