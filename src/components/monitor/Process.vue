@@ -1,15 +1,16 @@
 <template>
   <div>
+<!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/turbo.obj"></model-obj>-->
 <!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/male02.obj" mtl="static/models/obj/male02.mtl"></model-obj>-->
 <!--      <model-stl :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/m.STL"></model-stl>-->
       <model-fbx src="static/models/obj/m.FBX"></model-fbx>
       <el-select v-model="currentItem" placeholder="请选择">
-        <el-options
+        <el-option
           v-for="item in chartInfo"
           :key="item.index"
           :label="item[0].name"
           :value="item">
-        </el-options>
+        </el-option>
       </el-select>
     <DateChart :chartInfo="currentItem" v-if="currentItem!==''&&refresh"></DateChart>
   </div>
@@ -54,6 +55,7 @@ export default {
   },
   watch: {
     currentItem (newValue, oldValue) {
+      console.log(newValue)
       this.refreshWindows()
     }
   },
