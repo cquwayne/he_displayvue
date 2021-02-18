@@ -1,9 +1,12 @@
 <template>
   <div>
-<!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/turbo.obj"></model-obj>-->
-<!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/male02.obj" mtl="static/models/obj/male02.mtl"></model-obj>-->
-<!--      <model-stl :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/m.STL"></model-stl>-->
-      <model-fbx src="static/models/obj/m.FBX"></model-fbx>
+      <!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/turbo.obj"></model-obj>-->
+      <!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/male02.obj" mtl="static/models/obj/male02.mtl"></model-obj>-->
+      <!--      <model-stl :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/m.STL"></model-stl>-->
+    <el-row>
+      <model-fbx src="static/models/obj/x1.fbx"></model-fbx>
+    </el-row>
+    <el-row>
       <el-select v-model="currentItem" placeholder="请选择">
         <el-option
           v-for="item in chartInfo"
@@ -12,7 +15,8 @@
           :value="item">
         </el-option>
       </el-select>
-    <DateChart :chartInfo="currentItem" v-if="currentItem!==''&&refresh"></DateChart>
+      <DateChart :chartInfo="currentItem" v-if="currentItem!==''&&refresh"></DateChart>
+    </el-row>
   </div>
 </template>
 
@@ -55,7 +59,6 @@ export default {
   },
   watch: {
     currentItem (newValue, oldValue) {
-      console.log(newValue)
       this.refreshWindows()
     }
   },

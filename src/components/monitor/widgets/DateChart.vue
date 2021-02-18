@@ -4,7 +4,8 @@
            :data-zoom="dataZoom"
            :not-set-unchange="notSetUnchange"
            :settings="settings"
-           :extend="myExtend"></ve-line>
+           :extend="myExtend">
+  </ve-line>
 </template>
 
 <script>

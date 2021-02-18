@@ -52,7 +52,7 @@ export default new Router({
         },
         {
           path: '/process',
-          // name: 'Process',
+          name: 'Process',
           component: Process
           // children: [
           //   {

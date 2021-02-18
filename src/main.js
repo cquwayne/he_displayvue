@@ -10,7 +10,7 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VCharts from 'v-charts'
-import ModelObj from 'vue-3d-model'
+import ModelFbx from 'vue-3d-model'
 
 // 全局注册，使用方法为:this.$axios
 Vue.prototype.api = api
@@ -19,7 +19,7 @@ Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VCharts)
-Vue.use(ModelObj)
+Vue.use(ModelFbx)
 
 /* eslint-disable no-new */
 new Vue({
