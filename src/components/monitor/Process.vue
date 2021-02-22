@@ -5,7 +5,7 @@
       <!--      <model-stl :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/m.STL"></model-stl>-->
     <el-row>
 <!--      <model-fbx src="static/models/obj/x1.fbx"></model-fbx>-->
-      <model-fbx src="static/models/obj/x2.fbx"></model-fbx>
+      <model-fbx src="static/models/obj/x3.fbx"></model-fbx>
     </el-row>
     <el-row>
       <el-select v-model="currentItem" placeholder="请选择">
