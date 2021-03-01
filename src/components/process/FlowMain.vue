@@ -507,7 +507,7 @@ export default {
       // console.log(this.jsPlumb)
       // console.log(this.jsPlumb.Defaults)
       // console.log('线', this.jsPlumb.getConnections())
-      // console.log(this.data)
+      console.log(this.data)
       let args = {
         url: 'processEntity',
         params: this.data.flowInfo
@@ -515,6 +515,7 @@ export default {
       api.post(args).then(res => {
         if (res) {
           alert('成功！！')
+          // history.go(0)
         } else {
           alert('失败！！')
         }
