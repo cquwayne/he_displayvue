@@ -19,16 +19,16 @@ export default {
     return {
       navList: [
         {
-          title: '铸造工艺孪生模型库',
+          title: '铸造工艺场景模型库',
           icon: 'el-icon-s-grid',
           list: [
             {
-              title: '模型管理',
+              title: '场景模型管理',
               name: 'ModelManage',
               icon: 'el-icon-box'
             },
             {
-              title: '属性管理',
+              title: '工艺要素模型及其特征管理',
               name: 'Attribute',
               icon: 'el-icon-paperclip'
             }
@@ -50,18 +50,18 @@ export default {
           ]
         },
         {
-          title: '铸造工艺过程实例',
+          title: '铸造工艺过程数字模型',
           icon: 'el-icon-s-grid',
           list: [
             {
-              title: '过程可视化创建',
+              title: '数字模型创建',
               name: 'FlowMain',
               icon: 'el-icon-map-location'
             },
             {
               title: '工艺过程管理',
               name: 'ProcessManage',
-              icon: 'el-icon-map-location'
+              icon: 'el-icon-s-unfold'
             }
           ]
         },

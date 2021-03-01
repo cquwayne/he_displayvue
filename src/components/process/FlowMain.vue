@@ -48,10 +48,10 @@
 <script>
 import api from 'api'
 import {jsPlumb} from 'jsplumb'
-import flowNode from './widgets/flowNode.vue'
-import editFlow from './widgets/editFlow.vue'
-import editNode from './widgets/editNode.vue'
-import editLine from './widgets/editLine.vue'
+import flowNode from './wigdets/flowNode.vue'
+import editFlow from './wigdets/editFlow.vue'
+import editNode from './wigdets/editNode.vue'
+import editLine from './wigdets/editLine.vue'
 export default {
   name: 'flowMain',
   data () {
@@ -153,6 +153,7 @@ export default {
       let args = {
         url: 'sceneModel/list'
       }
+      // 获得场景模型
       api.get(args).then(res => {
         vm.menueList = res
       })
@@ -287,6 +288,7 @@ export default {
     },
     // 加载流程图
     loadEasyFlow () {
+      console.log(1)
       console.log(this.data.flowInfo)
       // 初始化节点
       for (let i = 0; i < this.data.flowInfo.nodeList.length; i++) {
