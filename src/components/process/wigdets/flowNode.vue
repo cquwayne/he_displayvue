@@ -1,6 +1,6 @@
 <template>
     <div class="node-item"
-         :ref="node"
+         ref="node"
          :style="flowNodeContainer"
          @mouseenter="showDelete"
          @mouseleave="hideDelete"
@@ -64,7 +64,7 @@ export default {
     },
     // 鼠标移动后抬起
     changeNodeSite () {
-      this.$emit('changeNodeSite', {
+      this.$emit('change-node-site', {
         nodeId: this.node.id,
         left: this.$refs.node.style.left,
         top: this.$refs.node.style.top

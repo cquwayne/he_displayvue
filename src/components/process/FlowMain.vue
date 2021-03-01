@@ -157,9 +157,6 @@ export default {
       api.get(args).then(res => {
         vm.menueList = res
       })
-      // api.get({url: 'processEntity', params: {id: '4d6991c1-7692-4e8a-8ef9-02fcad0bb25f'}}).then(res => {
-      //   vm.data.flowInfo = res
-      // })
     })
   },
   components: {
@@ -177,9 +174,14 @@ export default {
     this.editFlow()
   },
   methods: {
-    init () {
+    async init () {
       const _this = this
-      console.log(this.data.flowInfo)
+      await api.get({url: 'processEntity', params: {id: '4d6991c1-7692-4e8a-8ef9-02fcad0bb25f'}}).then(async res => {
+        this.data.flowInfo = res
+        console.log(res)
+        console.log(2)
+      })
+      console.log(0)
       this.jsPlumb.ready(function () {
         // 导入默认配置
         _this.jsPlumb.importDefaults(_this.jsplumbSetting)
@@ -288,8 +290,6 @@ export default {
     },
     // 加载流程图
     loadEasyFlow () {
-      console.log(1)
-      console.log(this.data.flowInfo)
       // 初始化节点
       for (let i = 0; i < this.data.flowInfo.nodeList.length; i++) {
         let node = this.data.flowInfo.nodeList[i]
@@ -319,7 +319,7 @@ export default {
           target: line.to
         }, this.jsplumbConnectOptions)
 
-        connection.getOverlay('label-1').setLabel(line.label) // 初始化label
+        connection.getOverlay('label-1').setLabel(line.title) // 初始化label
       }
       this.$nextTick(function () {
         this.loadEasyFlowFinish = true
@@ -348,7 +348,6 @@ export default {
     },
     // 改变节点的位置
     changeNodeSite (data) {
-      console.log(this.data.flowInfo.nodeList)
       for (var i = 0; i < this.data.flowInfo.nodeList.length; i++) {
         let node = this.data.flowInfo.nodeList[i]
         if (node.id === data.nodeId) {
@@ -430,7 +429,7 @@ export default {
       return this.hasLine(to, from)
     },
     lineLabelSave (line) {
-      this.currentConnect.getOverlay('label-1').setLabel(line.label)
+      this.currentConnect.getOverlay('label-1').setLabel(line.title)
       // this.$set(this.currentLine, 'label', line.label);
     },
     drag (item) {
@@ -508,7 +507,7 @@ export default {
       // console.log(this.jsPlumb)
       // console.log(this.jsPlumb.Defaults)
       // console.log('线', this.jsPlumb.getConnections())
-      console.log(this.data)
+      // console.log(this.data)
       let args = {
         url: 'processEntity',
         params: this.data.flowInfo
