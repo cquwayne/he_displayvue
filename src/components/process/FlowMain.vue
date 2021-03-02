@@ -178,10 +178,7 @@ export default {
       const _this = this
       await api.get({url: 'processEntity', params: {id: '4d6991c1-7692-4e8a-8ef9-02fcad0bb25f'}}).then(async res => {
         this.data.flowInfo = res
-        console.log(res)
-        console.log(2)
       })
-      console.log(0)
       this.jsPlumb.ready(function () {
         // 导入默认配置
         _this.jsPlumb.importDefaults(_this.jsplumbSetting)
@@ -507,7 +504,7 @@ export default {
       // console.log(this.jsPlumb)
       // console.log(this.jsPlumb.Defaults)
       // console.log('线', this.jsPlumb.getConnections())
-      console.log(this.data)
+      // console.log(this.data.flowInfo)
       let args = {
         url: 'processEntity',
         params: this.data.flowInfo
@@ -515,7 +512,6 @@ export default {
       api.post(args).then(res => {
         if (res) {
           alert('成功！！')
-          // history.go(0)
         } else {
           alert('失败！！')
         }

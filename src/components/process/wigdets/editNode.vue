@@ -4,20 +4,20 @@
             <el-input disabled v-model="node.id"></el-input>
         </el-form-item>
         <el-form-item label="环节名称">
-            <el-input v-model="node.title"></el-input>
+            <el-input v-model="node.modelEntity.title"></el-input>
         </el-form-item>
         <el-form-item label="代表地点">
-            <el-input v-model="node.region"></el-input>
+            <el-input v-model="node.modelEntity.region"></el-input>
         </el-form-item>
         <el-form-item label="数据来源">
-          <el-input v-model="node.dataSource"></el-input>
+          <el-input v-model="node.modelEntity.dataSource"></el-input>
         </el-form-item>
         <el-form-item label="备注">
-            <el-input v-model="node.remark" type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+            <el-input v-model="node.modelEntity.remark" type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
         </el-form-item>
       <el-tabs tab-position="left" >
         <el-tab-pane v-for="item in tabPaneList" :key="item.index">
-          <span slot="label" @click="getAttributeList(item.elementId)"><i class="el-icon-setting"></i>{{item.label}}</span>
+<!--          <span slot="label" @click="getAttributeList(item.elementId)"><i class="el-icon-setting"></i>{{item.label}}</span>-->
           <el-table
             :data="attributeList">
             <el-table-column

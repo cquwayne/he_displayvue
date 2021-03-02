@@ -11,7 +11,7 @@
                 <i class="el-icon-delete" @@click.stop="deleteNode"></i>
             </div>
         </div> -->
-        <div class="node-con"><i class="el-icon-s-tools"></i><span>{{node.title}}</span></div>
+        <div class="node-con"><i class="el-icon-s-tools"></i><span>{{node.modelEntity.title}}</span></div>
         <div class="node-del" v-show="mouseEnter" @click.stop="deleteNode">
           <i class="el-icon-circle-close"></i>
         </div>
@@ -23,6 +23,23 @@
 <script>
 export default {
   props: {
+    // node: {
+    //   id: String,
+    //   left: String,
+    //   top: String,
+    //   title: String,
+    //   processEntityId: String,
+    //   modelEntity: {
+    //     id: String,
+    //     title: String,
+    //     dataSource: String,
+    //     executionTime: String,
+    //     operator: String,
+    //     region: String,
+    //     remark: String,
+    //     entityElementDataList: Array
+    //   }
+    // },
     node: Object,
     isconnect: Boolean
   },
