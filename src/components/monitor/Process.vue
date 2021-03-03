@@ -4,11 +4,15 @@
       <!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/male02.obj" mtl="static/models/obj/male02.mtl"></model-obj>-->
       <!--      <model-stl :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/m.STL"></model-stl>-->
     <el-row>
-      <model-fbx src="static/models/obj/x4.fbx"></model-fbx>
+      <model-fbx src="static/models/obj/x8.fbx"></model-fbx>
 <!--      <model-fbx src="static/models/obj/x1.fbx"></model-fbx>-->
 <!--      <model-fbx src="static/models/obj/x2.fbx"></model-fbx>-->
 <!--      <model-fbx src="static/models/obj/x3.fbx"></model-fbx>-->
 <!--      <model-fbx src="static/models/obj/x4.fbx"></model-fbx>-->
+<!--      <model-fbx src="static/models/obj/x5.fbx"></model-fbx>-->
+<!--      <model-fbx src="static/models/obj/x6.fbx"></model-fbx>-->
+<!--      <model-fbx src="static/models/obj/x7.fbx"></model-fbx>-->
+<!--      <model-fbx src="static/models/obj/x8.fbx"></model-fbx>-->
     </el-row>
     <el-row>
       <el-select v-model="currentItem" placeholder="请选择">
