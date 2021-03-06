@@ -4,7 +4,7 @@
       <!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/male02.obj" mtl="static/models/obj/male02.mtl"></model-obj>-->
       <!--      <model-stl :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/m.STL"></model-stl>-->
     <el-row>
-      <model-fbx src="static/models/obj/x7.fbx"></model-fbx>
+      <model-fbx src="static/models/x7.fbx"></model-fbx>
 <!--      <model-fbx src="static/models/obj/x1.fbx"></model-fbx>-->
 <!--      <model-fbx src="static/models/obj/x2.fbx"></model-fbx>-->
 <!--      <model-fbx src="static/models/obj/x3.fbx"></model-fbx>-->
