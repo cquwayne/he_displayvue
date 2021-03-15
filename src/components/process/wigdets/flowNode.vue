@@ -21,6 +21,7 @@
 </template>
 
 <script>
+// import api from 'api'
 export default {
   props: {
     // node: {
@@ -37,7 +38,7 @@ export default {
     //     operator: String,
     //     region: String,
     //     remark: String,
-    //     entityElementDataList: Array
+    //     entityentityElementDataList: Array
     //   }
     // },
     node: Object,
@@ -45,7 +46,8 @@ export default {
   },
   data () {
     return {
-      mouseEnter: false
+      mouseEnter: false,
+      modelEntity: {}
     }
   },
   computed: {

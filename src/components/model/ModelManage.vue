@@ -99,14 +99,14 @@
       </el-main>
     </div>
     <el-drawer
-      :title="editTitle+'场景模型'"
+      :title="editTitle+'数字模型'"
       :visible.sync="editDrawer"
       :direction="'rtl'"
       :before-close="cleanUnsaved"
       :size="'27%'"
     >
       <el-form v-model="postForm" label-position="left">
-        <el-form-item label="孪生模型名称">
+        <el-form-item label="数字模型名称">
           <el-input v-model="postForm.title" style="width: 70%" autosize></el-input>
         </el-form-item>
         <el-form-item label="上层模型">
@@ -131,7 +131,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="操作者">
+        <el-form-item label="创建者">
           <el-input v-model="postForm.operator" style="width: 77%" autosize></el-input>
         </el-form-item>
         <el-form-item label="时间">
@@ -140,8 +140,8 @@
         <el-form-item label="地点">
           <el-input v-model="postForm.region" style="width: 77%" autosize></el-input>
         </el-form-item>
-        <el-form-item label="数据来源">
-          <el-input v-model="postForm.dataSource" style="width: 77%" autosize></el-input>
+        <el-form-item label="模型数据来源">
+          <el-input v-model="postForm.dataSource" style="width: 55%" autosize></el-input>
         </el-form-item>
         <el-form-item label="模型描述">
           <el-input v-model="postForm.description" style="width: 77%" autosize></el-input>

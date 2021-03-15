@@ -110,13 +110,6 @@
         </el-form-item>
       </el-form>
     </el-drawer>
-<!--    <el-dialog-->
-<!--      title= '数据流图'-->
-<!--      width="80%"-->
-<!--      :show-close="false"-->
-<!--      :visible.sync="graphDrawer">-->
-<!--      <Graph ref="graph"></Graph>-->
-<!--    </el-dialog>-->
   </el-container>
 </template>
 

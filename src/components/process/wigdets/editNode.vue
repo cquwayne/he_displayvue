@@ -15,65 +15,35 @@
         <el-form-item label="备注">
             <el-input v-model="node.modelEntity.remark" type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
         </el-form-item>
-      <el-tabs tab-position="left" >
-        <el-tab-pane v-for="item in tabPaneList" :key="item.index">
-<!--          <span slot="label" @click="getAttributeList(item.elementId)"><i class="el-icon-setting"></i>{{item.label}}</span>-->
-          <el-table
-            :data="attributeList">
-            <el-table-column
-              type="index"
-              label="序号">
-            </el-table-column>
-            <el-table-column
-              prop="title"
-              label="属性名称">
-            </el-table-column>
-            <el-table-column
-              prop="value"
-              label="属性值域">
-            </el-table-column>
-            <el-table-column
-              label="操作">
-              <template slot-scope="scope">
-                <!--              <el-button @click="handleEditDrawer(scope.row)" type="text" size="small">编辑</el-button>-->
-                <!--              <el-button @click="handleDeleteDialog(scope.row)" type="text" size="small">删除</el-button>-->
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-tab-pane>
-      </el-tabs>
-<!--      <el-table-->
-<!--        :data="tableData"-->
-<!--        style="width: 100%;margin-bottom: 20px;"-->
-<!--        row-key="id"-->
-<!--        border-->
-<!--        default-expand-all-->
-
-<!--        :tree-props="{children: 'children', hasChildren: 'hasChildren'}">-->
-<!--        <el-table-column-->
-<!--          prop="date"-->
-<!--          label="类型"-->
-<!--          sortable-->
-<!--          width="180">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column-->
-<!--          prop="name"-->
-<!--          label="描述"-->
-<!--          sortable-->
-<!--          width="180">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column label="操作">-->
-<!--          <template slot-scope="scope">-->
-<!--            <el-button-->
-<!--              size="mini"-->
-<!--              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
-<!--            <el-button-->
-<!--              size="mini"-->
-<!--              type="danger"-->
-<!--              @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
-<!--          </template>-->
-<!--        </el-table-column>-->
-<!--      </el-table>-->
+      <el-button @click="dialogVisible=!dialogVisible" type="success">场景实例数据</el-button>
+      <el-dialog title="场景实例数据" :visible.sync="dialogVisible" width="60%">
+        <el-tabs tab-position="top" >
+          <el-tab-pane v-for="item in entityElementDataList" :key="item.index" :label="item.label">
+            <!--          <span slot="label" @click="getAttributeList(item.elementId)"><i class="el-icon-setting"></i>{{item.label}}</span>-->
+            <el-table
+              :data="item.dataList">
+              <el-table-column
+                prop="name"
+                :label="item.label">
+              </el-table-column>
+              <el-table-column
+                prop="attributeValue"
+                label="特征描述">
+                <template slot-scope="scope">
+                  <div v-html="formatterColumn(scope.row.attributeValue)" style="white-space: pre-line"></div>
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="操作">
+                <template slot-scope="scope">
+                  <el-button type="info" @click="editAttribute(scope.row,scope.row.elementId)">修改</el-button>
+                  <el-button type="info" @click="deleteAttribute(scope.row)">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+        </el-tabs>
+      </el-dialog>
     </el-form>
 </template>
 
@@ -84,154 +54,103 @@ export default {
   data () {
     return {
       node: {},
-      tabPaneList: [
+      dialogVisible: false,
+      entityElementDataList: [
         // {
         //   label: '场景描述',
         //   elementId: 1
         // },
         {
           label: '工艺对象',
-          elementId: 2
+          elementId: 2,
+          dataList: []
         },
         {
           label: '辅料',
-          elementId: 3
+          elementId: 3,
+          dataList: []
         },
         {
           label: '设备',
-          elementId: 4
+          elementId: 4,
+          dataList: []
         },
         {
           label: '能源消耗',
-          elementId: 5
+          elementId: 5,
+          dataList: []
         },
         {
           label: '工艺参数',
-          elementId: 6
+          elementId: 6,
+          dataList: []
         },
         {
           label: '输出部件',
-          elementId: 7
+          elementId: 7,
+          dataList: []
         },
         {
           label: '环境负荷',
-          elementId: 8
+          elementId: 8,
+          dataList: []
         }
       ],
-      attributeList: []
+      attributeList: [],
+      modelEntity: {}
     }
   },
   methods: {
-    init (data, id) {
+    async init (data, id) {
       data.flowInfo.nodeList.filter((node) => {
         if (node.id === id) {
           this.node = node
         }
       })
-    },
-    editAttribute (row, elementId) {
-      this.postForm = {}
-      this.selectValue = []
-      this.noSelectValue = []
       let args = {
-        url: 'attribute/list',
+        url: 'modelEntity/selectOne/',
         params: {
-          elementId: elementId
+          id: this.node.modelEntity.id
         }
       }
-      api.get(args).then(res => {
-        this.currentAttributes = res
-      })
-      if (row) {
-        this.editTitle = '编辑'
-        this.postForm = row
-      } else {
-        this.editTitle = '新增'
-        this.postForm.sceneId = this.sceneModel.id
-        this.postForm.elementId = elementId
-        this.postForm.attributeValue = []
-      }
-      this.postForm.attributeValue.forEach(item => {
-        let tag = item.substring(0, item.lastIndexOf(':'))
-        if (this.allMultiKey.indexOf(tag) !== -1) {
-          let selectTmp = {
-            name: tag,
-            values: this.allMultiValue[this.allMultiKey.indexOf(tag)].values,
-            presentValue: item.substring(item.lastIndexOf(':') + 1)
-          }
-          this.selectValue.push(selectTmp)
-        } else {
-          let noSelectTmp = {
-            name: item.substring(0, item.lastIndexOf(':')),
-            presentValue: item.substring(item.lastIndexOf(':') + 1)
-          }
-          this.noSelectValue.push(noSelectTmp)
-        }
-      })
-      this.editDrawer = true
-    },
-    deleteAttribute (row) {
-      let args = {
-        url: 'elementData/deleteOne',
-        params: {
-          elementDataId: row.id
-        }
-      }
-      api.delete(args).then(res => {
-        if (res > 0) {
-          this.$message.success('删除成功')
-          history.go(0)
-        } else {
-          this.$message.error('删除失败')
-          history.go(0)
-        }
-      })
-    },
-    submitAttribute () {
-      let ss = ''
-      this.noSelectValue.forEach(item => {
-        ss = ss + item['name'] + ':' + item['presentValue'] + ','
-      })
-      this.selectValue.forEach(item => {
-        ss = ss + item['name'] + ':' + item['presentValue'] + ','
-      })
-      this.addAttributes.forEach(item => {
-        ss = ss + item['title'] + ':' + item['description'] + ','
-      })
-      ss = ss.substring(0, ss.length - 1)
-      this.postForm['attributeValue'] = ss
-      if (this.postForm.id) {
-        api.put({url: 'elementData/updateOne', params: this.postForm}).then(res => {
-          if (res > 0) {
-            history.go(0)
-          } else {
-            alert('更新失败！')
+      await api.get(args).then(res => {
+        this.modelEntity = res
+        console.log(res)
+        this.modelEntity.entityElementDataList.forEach(item => {
+          item.attributeValue = item.attributeValue.split(',')
+          // if (item.elementId === 1) {
+          //   this.entityElementDataList.des.dataList.push(item)
+          // } else
+          if (item.elementId === 2) {
+            item.name = item.attributeValue[0].substring(item.attributeValue[0].lastIndexOf(':') + 1)
+            this.entityElementDataList[0].dataList.push(item)
+          } else if (item.elementId === 3) {
+            item.name = item.attributeValue[1].substring(item.attributeValue[1].lastIndexOf(':') + 1)
+            this.entityElementDataList[1].dataList.push(item)
+          } else if (item.elementId === 4) {
+            item.name = item.attributeValue[2].substring(item.attributeValue[2].lastIndexOf(':') + 1)
+            this.entityElementDataList[2].dataList.push(item)
+          } else if (item.elementId === 5) {
+            item.name = item.attributeValue[3].substring(item.attributeValue[3].lastIndexOf(':') + 1)
+            this.entityElementDataList[3].dataList.push(item)
+          } else if (item.elementId === 6) {
+            item.name = item.attributeValue[4].substring(item.attributeValue[4].lastIndexOf(':') + 1)
+            this.entityElementDataList[4].dataList.push(item)
+          } else if (item.elementId === 7) {
+            item.name = item.attributeValue[5].substring(item.attributeValue[5].lastIndexOf(':') + 1)
+            this.entityElementDataList[5].dataList.push(item)
+          } else if (item.elementId === 8) {
+            item.name = item.attributeValue[6].substring(item.attributeValue[6].lastIndexOf(':') + 1)
+            this.entityElementDataList[6].dataList.push(item)
           }
         })
-      } else {
-        api.post({url: 'elementData/insertOne', params: this.postForm}).then(res => {
-          if (res > 0) {
-            history.go(0)
-          } else {
-            alert('新增失败！')
-          }
-        })
-      }
+      })
     },
-    deleteItem (row) {
-      let temp = []
-      for (let i = 0; i < this.addAttributes.length; i++) {
-        if (this.addAttributes[i] !== row) {
-          temp.push(this.addAttributes[i])
-        }
-      }
-      this.addAttributes = []
-      this.addAttributes = temp
-    },
-    cleanUnsaved () {
-      this.addAttributes = []
-      this.editDrawer = false
-      this.currentKey = ''
+    editAttribute (row, elementId) {},
+    deleteAttribute (row) {},
+    formatterColumn(cellValue) {
+      let value = cellValue.join("\r")
+      return value
     }
   }
 }

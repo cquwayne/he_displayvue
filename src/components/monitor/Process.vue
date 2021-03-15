@@ -1,18 +1,7 @@
 <template>
   <div>
-      <!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/turbo.obj"></model-obj>-->
-      <!--      <model-obj :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/male02.obj" mtl="static/models/obj/male02.mtl"></model-obj>-->
-      <!--      <model-stl :backgroundAlpha="0" @on-load="onLoad" src="static/models/obj/m.STL"></model-stl>-->
-    <el-row>
+      <el-row>
       <model-fbx src="static/models/fx4.fbx"></model-fbx>
-<!--      <model-fbx src="static/models/obj/x1.fbx"></model-fbx>-->
-<!--      <model-fbx src="static/models/obj/x2.fbx"></model-fbx>-->
-<!--      <model-fbx src="static/models/obj/x3.fbx"></model-fbx>-->
-<!--      <model-fbx src="static/models/obj/x4.fbx"></model-fbx>-->
-<!--      <model-fbx src="static/models/obj/x5.fbx"></model-fbx>-->
-<!--      <model-fbx src="static/models/obj/x6.fbx"></model-fbx>-->
-<!--      <model-fbx src="static/models/obj/x7.fbx"></model-fbx>-->
-<!--      <model-fbx src="static/models/obj/x8.fbx"></model-fbx>-->
     </el-row>
     <el-row>
       <el-select v-model="currentItem" placeholder="请选择">
@@ -23,7 +12,9 @@
           :value="item">
         </el-option>
       </el-select>
-      <DateChart :chartInfo="currentItem" v-if="currentItem!==''&&refresh"></DateChart>
+      <el-dialog title="数据监测" :visible.sync="dialogVisible">
+        <DateChart :chartInfo="currentItem" v-if="currentItem!==''&&refresh"></DateChart>
+      </el-dialog>
     </el-row>
   </div>
 </template>
@@ -62,7 +53,8 @@ export default {
           color: '#4B0091',
           data: []
         }]
-      ]
+      ],
+      dialogVisible: false
     }
   },
   watch: {
@@ -72,6 +64,7 @@ export default {
   },
   methods: {
     refreshWindows () {
+      this.dialogVisible = true
       this.refresh = !this.refresh
       this.$nextTick(() => {
         this.refresh = !this.refresh

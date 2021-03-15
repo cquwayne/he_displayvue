@@ -67,7 +67,7 @@ export default {
         ],
         Container: 'flowContent',
         // 连线的样式 StateMachine、Flowchart,有四种默认类型：Bezier（贝塞尔曲线），Straight（直线），Flowchart（流程图），State machine（状态机）
-        Connector: 'Straight',
+        Connector: 'Flowchart',
         // 这个是鼠标拉出来的线的属性
         ConnectionOverlays: [
           ['Label', {

@@ -1,19 +1,21 @@
 <template>
   <div>
     <el-row>
-      <DateChart :chartInfo="chartInfo" v-if="refresh"></DateChart>
+<!--      <DateChart :chartInfo="chartInfo" v-if="refresh"></DateChart>-->
+      <h1>数据展示</h1>
+      <h1>知识库</h1>
     </el-row>
   </div>
 </template>
 
 <script>
-import DateChart from './widgets/DateChart'
+// import DateChart from './widgets/DateChart'
 import api from 'api'
 export default {
   name: 'Realtime',
-  components: {
-    DateChart
-  },
+  // components: {
+  //   DateChart
+  // },
   mounted () {
     // setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
     // 【模拟】开始推送,这里是设置1s执行一次

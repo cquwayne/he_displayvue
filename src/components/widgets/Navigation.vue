@@ -32,25 +32,10 @@ export default {
               name: 'Attribute',
               icon: 'el-icon-paperclip'
             }
-          //   {
-          //     title: '坐标管理',
-          //     name: 'Point',
-          //     icon: 'el-icon-map-location',
-          //   },
-          //   {
-          //     title: '管道管理',
-          //     name: 'Pipe',
-          //     icon: 'el-icon-s-unfold',
-          //   },
-          //   {
-          //     title: '超链接管理',
-          //     name: 'Hyperlink',
-          //     icon: 'el-icon-link',
-          //   }
           ]
         },
         {
-          title: '铸造工艺过程数字模型',
+          title: '铸造工艺过程数字模型与实例管理',
           icon: 'el-icon-s-grid',
           list: [
             {
@@ -59,14 +44,14 @@ export default {
               icon: 'el-icon-map-location'
             },
             {
-              title: '工艺过程管理',
+              title: '场景实例管理',
               name: 'ProcessManage',
               icon: 'el-icon-s-unfold'
             }
           ]
         },
         {
-          title: '铸造工艺数字孪生监测',
+          title: '铸造工艺数字孪生监控与预测',
           icon: 'el-icon-coin',
           list: [
             {
@@ -75,12 +60,17 @@ export default {
               icon: 'el-icon-s-operation'
             },
             {
-              title: '指标实时监控',
-              name: 'DateChart',
+              title: '铸造工艺知识库',
+              name: 'Knowledge',
+              icon: 'el-icon-link'
+            },
+            {
+              title: '负荷计算模型',
+              name: 'Realtime',
               icon: 'el-icon-data-analysis'
             },
             {
-              title: '运行状态预测',
+              title: '负荷预测与解释',
               name: 'Prediction',
               icon: 'el-icon-time'
             }

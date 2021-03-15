@@ -9,7 +9,8 @@ import Realtime from '../components/monitor/Realtime'
 import Prediction from '../components/monitor/Prediction'
 import SceneModel from '../components/model/SceneModel'
 import FlowMain from '../components/process/FlowMain'
-import DateChart from '../components/monitor/widgets/DateChart'
+// import DateChart from '../components/monitor/widgets/DateChart'
+import Knowledge from '../components/monitor/Knowledge'
 // import ModelObj from "_vue-3d-model@1.3.1@vue-3d-model";
 
 Vue.use(Router)
@@ -51,26 +52,25 @@ export default new Router({
           component: Prediction
         },
         {
+          path: '/knowledge',
+          name: 'Knowledge',
+          component: Knowledge
+        },
+        {
           path: '/process',
           name: 'Process',
           component: Process
-          // children: [
-          //   {
-          //     path: '',
-          //     name: 'DateChart',
-          //     component: DateChart
-          //   }
-          // ]
         },
         {
           path: '/realtime',
+          name: 'Realtime',
           component: Realtime,
           children: [
-            {
-              path: '',
-              name: 'DateChart',
-              component: DateChart
-            }
+            // {
+            //   path: '',
+            //   name: 'DateChart',
+            //   component: DateChart
+            // }
           ]
         }
       ]
