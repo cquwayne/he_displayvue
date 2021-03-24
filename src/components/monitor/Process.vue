@@ -1,6 +1,7 @@
 <template>
   <div>
       <el-row>
+      <model-fbx src="static/models/fx5_e.fbx"></model-fbx>
       <model-fbx src="static/models/fx4.fbx"></model-fbx>
     </el-row>
     <el-row>

@@ -12,7 +12,7 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="影响因素"
+      label="经验结论"
       align="center"
     >
       <template slot-scope="scope">
@@ -20,7 +20,7 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="相关数据项"
+      label="特征函数"
       align="center"
     >
       <template slot-scope="scope">

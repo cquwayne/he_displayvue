@@ -45,8 +45,13 @@ export default {
             },
             {
               title: '场景实例管理',
-              name: 'ProcessManage',
+              name: 'ElementManage',
               icon: 'el-icon-s-unfold'
+            },
+            {
+              title: '要素管理',
+              name: 'ProcessManage',
+              icon: 'el-icon-s-data'
             }
           ]
         },

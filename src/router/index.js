@@ -8,9 +8,12 @@ import Process from '../components/monitor/Process'
 import Realtime from '../components/monitor/Realtime'
 import Prediction from '../components/monitor/Prediction'
 import SceneModel from '../components/model/SceneModel'
+import SceneData from '../components/model/SceneData'
 import FlowMain from '../components/process/FlowMain'
+import SceneFrameData from '../components/model/SceneFrameData'
 // import DateChart from '../components/monitor/widgets/DateChart'
 import Knowledge from '../components/monitor/Knowledge'
+import ElementManage from '../components/model/ElementManage'
 // import ModelObj from "_vue-3d-model@1.3.1@vue-3d-model";
 
 Vue.use(Router)
@@ -37,14 +40,29 @@ export default new Router({
           component: SceneModel
         },
         {
+          path: '/elementManage',
+          name: 'ProcessManage',
+          component: ProcessManage
+        },
+        {
           path: '/attribute',
           name: 'Attribute',
           component: Attribute
         },
         {
           path: '/processManage',
-          name: 'ProcessManage',
-          component: ProcessManage
+          name: 'ElementManage',
+          component: ElementManage
+        },
+        {
+          path: '/processManage/sceneData/:sceneDataId',
+          name: 'SceneData',
+          component: SceneData
+        },
+        {
+          path: '/processManage/sceneData/:sceneDataId/inputFrameData/:inputFrameDataId',
+          name: 'SceneFrameData',
+          component: SceneFrameData
         },
         {
           path: '/prediction',
