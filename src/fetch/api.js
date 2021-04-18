@@ -89,13 +89,10 @@ function del (args) {
 }
 function all (list) {
   return new Promise((resolve) => {
-    let root = store.state.root
+    let root = 'http://localhost:9000/api/'
     let reqList = []
     list.forEach(item => {
       let url = item.url
-      if (url.search('system/') !== -1) {
-        root = store.state.rootApi
-      }
       reqList.push(axios.get(root + url, {params: item['params']}))
     })
     axios.all(reqList).then(axios.spread(function (...resList) {

@@ -11,6 +11,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VCharts from 'v-charts'
 import ModelFbx from 'vue-3d-model'
+import NProgress from 'nprogress'
 
 // 全局注册，使用方法为:this.$axios
 Vue.prototype.api = api
@@ -20,6 +21,29 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VCharts)
 Vue.use(ModelFbx)
+
+// 前置拦截，任何界面在进入之前都会被该函数拦截，直到next()被执行才会进入界面
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  let args = [
+    {url: 'system/all'},
+    {url: 'system/tables'}
+  ]
+  if (store.state.baseTableMap === null|| store.state.systemTable === null) {
+    api.all(args).then(res => {
+      console.log(res)
+      store.commit('setBaseTableMap', res[0])
+      store.commit('setSystemTable', res[1])
+      next()
+    })
+  } else {
+    next()
+  }
+})
+
+router.afterEach(() => {
+  NProgress.done()
+})
 
 /* eslint-disable no-new */
 new Vue({

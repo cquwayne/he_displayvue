@@ -9,7 +9,9 @@ export default new Vuex.Store({
     // root: 'http://172.28.9.157:8000/',
     token: '',
     sceneModelList: JSON.parse(localStorage.getItem('sceneModelList')) || null,
-    objectList: JSON.parse(localStorage.getItem('objectList')) || null
+    objectList: JSON.parse(localStorage.getItem('objectList')) || null,
+    baseTableMap: JSON.parse(localStorage.getItem('baseTableMap')) || null,
+    systemTable: JSON.parse(localStorage.getItem('systemTable')) || null
   },
   mutations: {
     setToken (state, token) {
@@ -22,6 +24,14 @@ export default new Vuex.Store({
     setObjectList (state, objectList) {
       localStorage.setItem('objectList', JSON.stringify(objectList))
       state.objectList = JSON.parse(localStorage.getItem('objectList'))
+    },
+    setBaseTableMap (state, baseTableMap) {
+      localStorage.setItem('baseTableMap', JSON.stringify(baseTableMap))
+      state.baseTableMap = JSON.parse(localStorage.getItem('baseTableMap'))
+    },
+    setSystemTable (state, systemTable) {
+      localStorage.setItem('systemTable', JSON.stringify(systemTable))
+      state.systemTable = JSON.parse(localStorage.getItem('systemTable'))
     }
   }
 })

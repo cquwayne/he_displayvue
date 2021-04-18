@@ -8,7 +8,7 @@ export default {
   name: 'Header',
   data () {
     return {
-      title: '铸造工艺在线数字孪生系统'
+      title: '铸造工艺过程数字孪生验证系统'
     }
   }
 }
@@ -18,7 +18,7 @@ export default {
     text-align: left;
     height: 50px;
     line-height: 50px;
-    font-size: 14px;
+    font-size: 25px;
     color: #ccc;
     padding-left: 20px;
     i {

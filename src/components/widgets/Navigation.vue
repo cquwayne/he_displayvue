@@ -19,7 +19,7 @@ export default {
     return {
       navList: [
         {
-          title: '铸造工艺场景模型库',
+          title: '铸造工艺过程数字模型',
           icon: 'el-icon-s-grid',
           list: [
             {
@@ -28,56 +28,41 @@ export default {
               icon: 'el-icon-box'
             },
             {
-              title: '工艺要素模型及其特征管理',
-              name: 'Attribute',
-              icon: 'el-icon-paperclip'
+              title: '数字模型创建',
+              name: 'CreateDigitalModel',
+              icon: 'el-icon-map-location'
             }
           ]
         },
         {
-          title: '铸造工艺过程数字模型与实例管理',
+          title: '铸造工艺过程场景数据管理',
           icon: 'el-icon-s-grid',
           list: [
             {
-              title: '数字模型创建',
-              name: 'FlowMain',
-              icon: 'el-icon-map-location'
-            },
-            {
               title: '场景实例管理',
-              name: 'ElementManage',
+              name: 'SceneDataManage',
               icon: 'el-icon-s-unfold'
             },
             {
-              title: '要素管理',
-              name: 'ProcessManage',
+              title: '场景基础数据管理',
+              name: 'BaseDataManage',
               icon: 'el-icon-s-data'
             }
           ]
         },
         {
-          title: '铸造工艺数字孪生监控与预测',
-          icon: 'el-icon-coin',
+          title: '铸造工艺场景负荷计算模型',
+          icon: 'el-icon-s-grid',
           list: [
-            {
-              title: '工艺过程运行',
-              name: 'Process',
-              icon: 'el-icon-s-operation'
-            },
             {
               title: '铸造工艺知识库',
               name: 'Knowledge',
               icon: 'el-icon-link'
             },
             {
-              title: '负荷计算模型',
-              name: 'Realtime',
-              icon: 'el-icon-data-analysis'
-            },
-            {
-              title: '负荷预测与解释',
-              name: 'Prediction',
-              icon: 'el-icon-time'
+              title: '场景负荷计算模型',
+              name: 'ComputeModel',
+              icon: 'el-icon-s-operation'
             }
           ]
         }
@@ -100,14 +85,14 @@ export default {
     }
     .title{
       color: #aaa;
-      font-size: 14px;
+      font-size: 20px;
     }
     .list{
       a{
-        font-size: 14px;
+        font-size: 20px;
         display: block;
         padding: 0 15px;
-        margin: 10px 0;
+        margin: 15px 0;
         color: #ccc;
       }
       .router-link-active{

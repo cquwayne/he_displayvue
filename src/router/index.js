@@ -1,20 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
-import ModelManage from '../components/model/ModelManage'
-import Attribute from '../components/model/Attribute'
-import ProcessManage from '../components/process/ProcessManage'
-import Process from '../components/monitor/Process'
-import Realtime from '../components/monitor/Realtime'
-import Prediction from '../components/monitor/Prediction'
-import SceneModel from '../components/model/SceneModel'
-import SceneData from '../components/model/SceneData'
-import FlowMain from '../components/process/FlowMain'
-import SceneFrameData from '../components/model/SceneFrameData'
-// import DateChart from '../components/monitor/widgets/DateChart'
-import Knowledge from '../components/monitor/Knowledge'
-import ElementManage from '../components/model/ElementManage'
-// import ModelObj from "_vue-3d-model@1.3.1@vue-3d-model";
+import SceneModel from '../components/digitalModel/wigdets/SceneModel'
+import ModelManage from '../components/digitalModel/ModelManage'
+import CreateDigitalModel from '../components/digitalModel/CreateDigitalModel'
+import BaseDataManage from '../components/sceneInstanceData/BaseDataManage'
+import SceneData from '../components/sceneInstanceData/SceneData'
+import SceneFrameData from '../components/sceneInstanceData/SceneFrameData'
+import SceneDataManage from "../components/sceneInstanceData/SceneDataManage";
+import ComputeModel from '../components/computeModel/ComputeModel'
+import Knowledge from '../components/computeModel/Knowledge'
 
 Vue.use(Router)
 
@@ -30,29 +25,19 @@ export default new Router({
           component: ModelManage
         },
         {
-          path: '/flowMain/',
-          name: 'FlowMain',
-          component: FlowMain
-        },
-        {
           path: '/modelManage/:sceneModelId',
           name: 'SceneModel',
           component: SceneModel
         },
         {
-          path: '/elementManage',
-          name: 'ProcessManage',
-          component: ProcessManage
+          path: '/digitalModel/',
+          name: 'CreateDigitalModel',
+          component: CreateDigitalModel
         },
         {
-          path: '/attribute',
-          name: 'Attribute',
-          component: Attribute
-        },
-        {
-          path: '/processManage',
-          name: 'ElementManage',
-          component: ElementManage
+          path: '/sceneDataManage',
+          name: 'SceneDataManage',
+          component: SceneDataManage
         },
         {
           path: '/processManage/sceneData/:sceneDataId',
@@ -65,9 +50,9 @@ export default new Router({
           component: SceneFrameData
         },
         {
-          path: '/prediction',
-          name: 'Prediction',
-          component: Prediction
+          path: '/baseDataManage',
+          name: 'BaseDataManage',
+          component: BaseDataManage
         },
         {
           path: '/knowledge',
@@ -75,21 +60,9 @@ export default new Router({
           component: Knowledge
         },
         {
-          path: '/process',
-          name: 'Process',
-          component: Process
-        },
-        {
-          path: '/realtime',
-          name: 'Realtime',
-          component: Realtime,
-          children: [
-            // {
-            //   path: '',
-            //   name: 'DateChart',
-            //   component: DateChart
-            // }
-          ]
+          path: '/computeModel',
+          name: 'ComputeModel',
+          component: ComputeModel
         }
       ]
     }
