@@ -95,23 +95,26 @@ export default {
         deviceDataList: [],
         keyParameterDataList: []
       },
-      sceneDataId: 34
+      sceneDataId: 34,
+      sceneModelId: 1,
+      inputFrameId: 194
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      let sceneModelId = to.params['sceneModelId']
+      vm.sceneModelId = to.params['sceneModelId']!==undefined?to.params['sceneModelId']:1
       let args = {
-        url: '/sceneModel/' + sceneModelId
+        url: '/sceneModel/' + vm.sceneModelId
       }
       api.get(args).then(res => {
         vm.sceneModel = res
       })
-      let sceneDataId = to.params['sceneModelId']
+      vm.sceneDataId = to.params['sceneDataId']!==undefined?to.params['sceneDataId']:34
+      vm.inputFrameId = to.params['inputFrameId']!==undefined?to.params['inputFrameId']:194
       vm.postInputFrameData.materialDataList = []
       vm.postInputFrameData.deviceDataList = []
       vm.postInputFrameData.keyParameterDataList = []
-      axios.get('http://localhost:9000/api/manage/sceneData/' + sceneDataId).then(res => {
+      axios.get('http://localhost:9000/api/manage/sceneData/' + vm.sceneDataId).then(res => {
         vm.sceneData = res.data
         vm.postInputFrameData.sceneDataId = vm.sceneData['id']
         if (vm.sceneData['inputFrameDataList'].length !== 0) {
@@ -126,9 +129,8 @@ export default {
           })
         }
         vm.sceneData['inputFrameDataList'].forEach(item => {
-          if (item['id']===to.params['inputFrameId']) {
+          if (item['id']===vm.inputFrameId) {
             vm.inputFrameDataList.push(item)
-            console.log(vm.inputFrameDataList)
           }
         })
       })

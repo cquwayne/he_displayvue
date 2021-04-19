@@ -173,7 +173,7 @@ export default {
   },
   methods: {
     getDetails (index, row) {
-      this.$router.push({name: 'SceneModel', params: {sceneModelId: row['sceneModelId'],inputFrameId: row['inputFrameId']}})
+      this.$router.push({name: 'SceneModel', params: {sceneModelId: row['id'],sceneDataId: row['sceneModelId'],inputFrameId: row['inputFrameId']}})  //这里的sceneModelId实际上是9000中的sceneDataId
     },
     editSceneModel (row) {
       if (row) {

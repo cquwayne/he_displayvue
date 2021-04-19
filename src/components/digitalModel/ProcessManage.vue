@@ -80,7 +80,6 @@ export default {
       }
       api.get(args).then(res => {
         vm.digitalModelList = res
-        console.log(res)
       })
     })
   },

@@ -47,6 +47,7 @@
 
 <script>
 import api from 'api'
+import axios from 'axios'
 import {jsPlumb} from 'jsplumb'
 import sceneNode from './wigdets/sceneNode.vue'
 import editDigitalModel from './wigdets/editDigitalModel.vue'
@@ -145,7 +146,8 @@ export default {
       currentLine: '', // 当前连接线数据
       editType: '', // 编辑的类型,
       sceneDataId: '4d6991c1-7692-4e8a-8ef9-02fcad0bb25f',
-      upLevelId: []
+      upLevelId: [],
+
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -193,6 +195,7 @@ export default {
       const _this = this
       await api.get({url: 'sceneData', params: {id: this.sceneDataId}}).then(async res => {
         this.sceneData = res
+        console.log(res)
       })
       this.jsPlumb.ready(function () {
         // 导入默认配置
@@ -201,7 +204,6 @@ export default {
         _this.jsPlumb.setSuspendDrawing(false, true)
         // 初始化结点
         _this.loadEasyFlow()
-
         // 单点连接线（编辑label）,
         _this.jsPlumb.bind('click', function (conn, originalEvent) {
           // clearTimeout(this.timer);
@@ -447,7 +449,6 @@ export default {
     },
     drag (item) {
       this.currentItem = item
-      console.log(item)
     },
     drop (event) { //释放模型创建新的结点
       //新结点的数据
@@ -458,19 +459,20 @@ export default {
         top: event.offsetY + 'px',
         left: event.offsetX + 'px',
         sceneData: {},
-        sceneModelId: this.currentItem.sceneModelId,  //场景模型id
-        InputFrameId: this.currentItem.inputFrameId  //输入帧模型id
+        sceneModelId: this.currentItem.sceneModelId,  //9000中的场景模型id
+        InputFrameId: this.currentItem.inputFrameId  //9000中的输入帧模型id
       }
-
-      console.log(temp)
-      // let args = {
-      //   url: '/sceneData/' + this.currentItem.sceneDataId
-      // }
-      // api.get(args).then(res => {
-      //
-      // })
-      this.addNode(temp)
-      this.editNode(temp.id)
+      let args = {
+        url: 'http://localhost:9000/api/manage/sceneData/' + temp.sceneModelId
+      }
+      axios.get(args.url).then(res => {
+        temp.sceneData = res.data
+        let inputList = []
+        inputList.push(res.data['inputFrameDataList'].pop())
+        temp.sceneData['inputFrameDataList']=inputList
+        this.addNode(temp)
+        this.editNode(temp.id)
+      })
     },
     allowDrop (event) {
       event.preventDefault()
