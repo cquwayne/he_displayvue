@@ -21,49 +21,6 @@ export default {
   data () {
     return {
       node: {},
-      dialogVisible: false,
-      entityElementDataList: [
-        // {
-        //   label: '场景描述',
-        //   elementId: 1
-        // },
-        {
-          label: '工艺对象',
-          elementId: 2,
-          dataList: []
-        },
-        {
-          label: '辅料',
-          elementId: 3,
-          dataList: []
-        },
-        {
-          label: '设备',
-          elementId: 4,
-          dataList: []
-        },
-        {
-          label: '能源消耗',
-          elementId: 5,
-          dataList: []
-        },
-        {
-          label: '工艺参数',
-          elementId: 6,
-          dataList: []
-        },
-        {
-          label: '输出部件',
-          elementId: 7,
-          dataList: []
-        },
-        {
-          label: '环境负荷',
-          elementId: 8,
-          dataList: []
-        }
-      ],
-      attributeList: [],
       sceneData: {},
       sceneId: 34
     }

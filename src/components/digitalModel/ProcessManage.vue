@@ -1,6 +1,6 @@
 <template>
   <el-main>
-    <el-row>
+    <el-row style="margin-left: 10px">
       <el-col :span="16">
         <h1>铸造工艺过程管理</h1>
       </el-col>
@@ -25,22 +25,22 @@
           {{scope.row['hierarchy']}}
         </template>
       </el-table-column>
-      <el-table-column
-        label="边界划分"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{scope.row['boundary']}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="作用范围"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{scope.row['function']}}
-        </template>
-      </el-table-column>
+<!--      <el-table-column-->
+<!--        label="边界划分"-->
+<!--        align="center"-->
+<!--      >-->
+<!--        <template slot-scope="scope">-->
+<!--          {{scope.row['boundary']}}-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--        label="作用范围"-->
+<!--        align="center"-->
+<!--      >-->
+<!--        <template slot-scope="scope">-->
+<!--          {{scope.row['function']}}-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <el-table-column
         label="备注"
         align="center"
@@ -49,7 +49,7 @@
           {{scope.row['remark']}}
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="200">
+      <el-table-column label="操作" align="center" width="400">
         <template slot-scope="scope">
           <el-button @click="digitalModelDetail(scope.row)" plain type="primary" size="small">
             数字模型
