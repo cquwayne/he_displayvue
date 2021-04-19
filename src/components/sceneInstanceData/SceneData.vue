@@ -4,8 +4,8 @@
     <el-header>
       <el-card class="hover SceneBasic">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/processManage' }">所有铸造工艺场景</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{name: 'SceneData', params:{sceneDataId: sceneData['id']}}">{{sceneData['title']}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/sceneDataManage' }">所有铸造工艺场景</el-breadcrumb-item>
+          <el-breadcrumb-item >{{sceneData['title']}}</el-breadcrumb-item>
         </el-breadcrumb>
       </el-card>
       <el-divider></el-divider>
@@ -132,7 +132,6 @@ export default {
         sceneData: this.sceneData,
         inputFrameDataId: row.id
       }
-      console.log(params)
       this.$router.push({name: 'SceneFrameData', params: params})
     },
     goBack () {

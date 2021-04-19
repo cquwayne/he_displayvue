@@ -159,8 +159,20 @@ export default {
       })
       if (to.params['sceneDataId']!==undefined) {
         vm.sceneDataId = to.params['sceneDataId']
+        if (vm.jsPlumb) {
+          vm.jsPlumb.deleteEveryConnection()
+          vm.jsPlumb = jsPlumb.getInstance()
+          vm.$nextTick(() => {
+            vm.init()
+          })
+        }
       }
     })
+  },
+  beforeRouteLeave(to, from, next) {
+    this.jsPlumb = jsPlumb.getInstance()
+    next()
+    window.location.reload()
   },
   components: {
     sceneNode,
@@ -499,12 +511,16 @@ export default {
       })
     },
     changeToFrontLevel () {
-      this.sceneDataId = this.upLevelId.pop()
-      this.jsPlumb.deleteEveryConnection()
-      this.jsPlumb = jsPlumb.getInstance()
-      this.$nextTick(() => {
-        this.init()
-      })
+      if (this.upLevelId.length===0) {
+        history.go(0)
+      }else {
+        this.sceneDataId = this.upLevelId.pop()
+        this.jsPlumb.deleteEveryConnection()
+        this.jsPlumb = jsPlumb.getInstance()
+        this.$nextTick(() => {
+          this.init()
+        })
+      }
     }
   }
 }

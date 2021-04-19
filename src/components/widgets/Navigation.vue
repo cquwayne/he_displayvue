@@ -28,6 +28,11 @@ export default {
               icon: 'el-icon-box'
             },
             {
+              title: '铸造工艺过程管理',
+              name: 'ProcessManage',
+              icon: 'el-icon-document'
+            },
+            {
               title: '数字模型创建',
               name: 'CreateDigitalModel',
               icon: 'el-icon-map-location'
@@ -85,11 +90,11 @@ export default {
     }
     .title{
       color: #aaa;
-      font-size: 20px;
+      font-size: 18px;
     }
     .list{
       a{
-        font-size: 20px;
+        font-size: 18px;
         display: block;
         padding: 0 15px;
         margin: 15px 0;

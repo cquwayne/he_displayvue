@@ -130,7 +130,6 @@ export default {
       axios.get('http://localhost:9000/api/category', {params: params}).then(res => {
         vm.categoryRes = res['category']
         vm.sceneDataList = res['data']['data']
-        console.log(res['data'])
       })
     })
   },
