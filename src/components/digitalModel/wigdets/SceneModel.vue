@@ -11,19 +11,21 @@
             align="center">
             <template slot-scope="scope">
               <div v-for="item in scope.row['materialDataList']" :key="item.index" class="text item">
-                {{item['material']?item['material']['title']:''}} ： {{item['value']?item['value']:''}} {{item['unit']?item['unit']['title']:''}}
+                {{item['material']?item['material']['title']:''}}
+<!--                {{item['material']?item['material']['title']:''}} ： {{item['value']?item['value']:''}} {{item['unit']?item['unit']['title']:''}}-->
               </div>
             </template>
           </el-table-column>
-          <el-table-column
-            label="能源"
-            align="center">
-            <template slot-scope="scope">
-              <div v-for="item in scope.row['energyDataList']" :key="item.index" class="text item">
-                {{item['energy']?item['energy']['title']:''}} ： {{item['value']?item['value']:''}} {{item['unit']?item['unit']['title']:''}}
-              </div>
-            </template>
-          </el-table-column>
+<!--          <el-table-column-->
+<!--            label="能源"-->
+<!--            align="center">-->
+<!--            <template slot-scope="scope">-->
+<!--              <div v-for="item in scope.row['energyDataList']" :key="item.index" class="text item">-->
+<!--                {{item['energy']?item['energy']['title']:''}}-->
+<!--&lt;!&ndash;                {{item['energy']?item['energy']['title']:''}} ： {{item['value']?item['value']:''}} {{item['unit']?item['unit']['title']:''}}&ndash;&gt;-->
+<!--              </div>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
           <el-table-column
             label="设备"
             align="center">
@@ -38,29 +40,31 @@
             align="center">
             <template slot-scope="scope">
               <div v-for="item in scope.row['keyParameterDataList']" :key="item.index" class="text item">
-                {{item['title']?item['title']:''}} :  {{item['description']?item['description']:''}}
+                {{item['title']?item['title']:''}}
+<!--                {{item['title']?item['title']:''}} :  {{item['description']?item['description']:''}}-->
               </div>
             </template>
           </el-table-column>
-          <el-table-column
-            label="工艺描述"
-            align="center">
-            <template slot-scope="scope">
-              <div v-if="scope.row['outputFrameDataList']" v-for="item in scope.row['outputFrameDataList']" :key="item.index" class="text item">
-                {{item['collectionDescription']?item['collectionDescription']:''}}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="环境负荷"
-            align="center">
-            <template slot-scope="scope">
-              <div v-if="scope.row['outputFrameDataList']&&scope.row['outputFrameDataList'][0]['envLoadDataList']"
-                   v-for="item in scope.row['outputFrameDataList'].length!==0?scope.row['outputFrameDataList'][0]['envLoadDataList']:null" :key="item.index" class="text item">
-                {{item['envLoad']?item['envLoad']['title']:''}} ： {{item['value']}} {{item['unit']?item['unit']['title']:''}}
-              </div>
-            </template>
-          </el-table-column>
+<!--          <el-table-column-->
+<!--            label="工艺描述"-->
+<!--            align="center">-->
+<!--            <template slot-scope="scope">-->
+<!--              <div v-if="scope.row['outputFrameDataList']" v-for="item in scope.row['outputFrameDataList']" :key="item.index" class="text item">-->
+<!--                {{item['collectionDescription']?item['collectionDescription']:''}}-->
+<!--              </div>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
+<!--          <el-table-column-->
+<!--            label="环境负荷"-->
+<!--            align="center">-->
+<!--            <template slot-scope="scope">-->
+<!--              <div v-if="scope.row['outputFrameDataList']&&scope.row['outputFrameDataList'][0]['envLoadDataList']"-->
+<!--                   v-for="item in scope.row['outputFrameDataList'].length!==0?scope.row['outputFrameDataList'][0]['envLoadDataList']:null" :key="item.index" class="text item">-->
+<!--                {{item['envLoad']?item['envLoad']['title']:''}}-->
+<!--&lt;!&ndash;                {{item['envLoad']?item['envLoad']['title']:''}} ： {{ item['value']}} {{item['unit']?item['unit']['title']:''}}&ndash;&gt;-->
+<!--              </div>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button @click="updateModel(scope.row)" slot="reference">编辑</el-button>
@@ -103,10 +107,7 @@ export default {
       api.get(args).then(res => {
         vm.sceneModel = res
       })
-      let sceneDataId = 75
-      if(to.params['sceneModelId'] === '1') {
-        sceneDataId = 75
-      }
+      let sceneDataId = to.params['sceneModelId']
       vm.postInputFrameData.materialDataList = []
       vm.postInputFrameData.deviceDataList = []
       vm.postInputFrameData.keyParameterDataList = []
@@ -124,10 +125,18 @@ export default {
             vm.postInputFrameData.keyParameterDataList.push(item['title'])
           })
         }
-        vm.inputFrameDataList.push(vm.sceneData['inputFrameDataList'][0])
-        console.log(vm.inputFrameDataList)
+        vm.sceneData['inputFrameDataList'].forEach(item => {
+          if (item['id']===to.params['inputFrameId']) {
+            vm.inputFrameDataList.push(item)
+            console.log(vm.inputFrameDataList)
+          }
+        })
       })
     })
+  },
+  beforeRouteLeave(to, from, next) {
+    this.inputFrameDataList = []
+    next()
   },
   methods: {
     updateModel(sceneModel) {

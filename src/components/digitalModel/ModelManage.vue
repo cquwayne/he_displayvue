@@ -173,7 +173,7 @@ export default {
   },
   methods: {
     getDetails (index, row) {
-      this.$router.push({name: 'SceneModel', params: {sceneModelId: row['id']}})
+      this.$router.push({name: 'SceneModel', params: {sceneModelId: row['sceneModelId'],inputFrameId: row['inputFrameId']}})
     },
     editSceneModel (row) {
       if (row) {

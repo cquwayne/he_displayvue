@@ -78,7 +78,7 @@ export default {
         ],
         // 鼠标不能拖动删除线
         ConnectionsDetachable: false,
-        // 删除线的时候节点不删除
+        // 删除线的时候结点不删除
         DeleteEndpointsOnDetach: false,
         // 连线的端点
         // Endpoint: ["Dot", {radius: 5}],
@@ -94,7 +94,7 @@ export default {
         LogEnabled: true, // 是否打开jsPlumb的内部日志记录
         // 绘制线
         PaintStyle: {
-          stroke: '#409eff',
+          stroke: '#000000',
           strokeWidth: 2
         },
         // 绘制箭头
@@ -199,7 +199,7 @@ export default {
         _this.jsPlumb.importDefaults(_this.jsplumbSetting)
         // 会使整个jsPlumb立即重绘。
         _this.jsPlumb.setSuspendDrawing(false, true)
-        // 初始化节点
+        // 初始化结点
         _this.loadEasyFlow()
 
         // 单点连接线（编辑label）,
@@ -253,7 +253,7 @@ export default {
           _this.deleteLine(evt.sourceId, evt.targetId)
         })
 
-        // 改变线的连接节点
+        // 改变线的连接结点
         _this.jsPlumb.bind('connectionMoved', function (evt) {
           console.log('connectionMoved', evt)
           _this.changeLine(evt.originalSourceId, evt.originalTargetId)
@@ -302,12 +302,12 @@ export default {
     },
     // 加载流程图
     loadEasyFlow () {
-      // 初始化节点
+      // 初始化结点
       for (let i = 0; i < this.sceneData.nodeList.length; i++) {
         let node = this.sceneData.nodeList[i]
-        // 设置源点，可以拖出线连接其他节点
+        // 设置源点，可以拖出线连接其他结点
         this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions)
-        // // 设置目标点，其他源点拖出的线可以连接该节点
+        // // 设置目标点，其他源点拖出的线可以连接该结点
         this.jsPlumb.makeTarget(node.id, this.jsplumbTargetOptions)
         // jsPlumb.addEndpoint(node.id)
         // 设置可拖拽
@@ -338,7 +338,7 @@ export default {
         this.editFlow()
       })
     },
-    // 添加新的节点
+    // 添加新的结点
     addNode (temp) {
       this.sceneData.nodeList.push(temp)
       this.$nextTick(function () {
@@ -359,7 +359,7 @@ export default {
     changeLine (oldFrom, oldTo) {
       this.deleteLine(oldFrom, oldTo)
     },
-    // 改变节点的位置
+    // 改变结点的位置
     changeNodeSite (data) {
       for (var i = 0; i < this.sceneData.nodeList.length; i++) {
         let node = this.sceneData.nodeList[i]
@@ -369,9 +369,9 @@ export default {
         }
       }
     },
-    // 删除节点
+    // 删除结点
     deleteNode (nodeId) {
-      this.$confirm('确定要删除节点' + nodeId + '?', '提示', {
+      this.$confirm('确定要删除结点' + nodeId + '?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -396,14 +396,15 @@ export default {
       }).catch(() => {})
       return true
     },
-    // 编辑节点
+    // 编辑结点
     editNode (nodeId) {
-      // console.log('编辑节点', nodeId)
+      // console.log('编辑结点', nodeId)
       this.editType = 'node'
       this.$nextTick(function () {
         this.$refs.nodeForm.init(this.sceneData, nodeId)
       })
     },
+    //编辑管道
     editLine (conn) {
       var _this = this
       _this.currentConnect = conn
@@ -446,28 +447,35 @@ export default {
     },
     drag (item) {
       this.currentItem = item
+      console.log(item)
     },
-    drop (event) {
+    drop (event) { //释放模型创建新的结点
+      //新结点的数据
       let temp = {
         id: this.getUUID(),
-        sceneDataId: this.sceneDataId,
+        sceneDataId: this.sceneDataId,   //所属工艺场景ID
         title: this.currentItem.title.substring(0,this.currentItem.title.length-4),
         top: event.offsetY + 'px',
         left: event.offsetX + 'px',
-        sceneData: {}
+        sceneData: {},
+        sceneModelId: this.currentItem.sceneModelId,  //场景模型id
+        InputFrameId: this.currentItem.inputFrameId  //输入帧模型id
       }
-      let args = {
-        url: '/sceneModel/' + this.currentItem.id
-      }
-      api.get(args).then(res => {
 
-      })
+      console.log(temp)
+      // let args = {
+      //   url: '/sceneData/' + this.currentItem.sceneDataId
+      // }
+      // api.get(args).then(res => {
+      //
+      // })
       this.addNode(temp)
       this.editNode(temp.id)
     },
     allowDrop (event) {
       event.preventDefault()
     },
+    //获取唯一标识
     getUUID () {
       var s = []
       var hexDigits = '0123456789abcdef'
@@ -480,6 +488,7 @@ export default {
       var uuid = s.join('')
       return uuid
     },
+    // 保存数据
     saveData () {
 
       let args = {
@@ -495,12 +504,14 @@ export default {
       //   }
       // })
     },
+    //当焦点没在结点上时显示当前工艺过程信息
     editFlow () {
       this.editType = 'flow'
       this.$nextTick(function () {
         this.$refs.flowEdit.init(this.sceneData)
       })
     },
+    //去往下一层级
     changeToNextLevel(sceneDataId,upLevelId) {
       this.upLevelId.push(upLevelId)
       this.sceneDataId = sceneDataId
@@ -510,6 +521,7 @@ export default {
         this.init()
       })
     },
+    //回到上一层级，上一层级的工艺场景id放在upLevelId这个数组里面，如果数组为空，直接最上层工艺场景
     changeToFrontLevel () {
       if (this.upLevelId.length===0) {
         history.go(0)
@@ -553,7 +565,7 @@ export default {
     position: absolute;
     width: 57px;
     height: 90px;
-    border: 1px solid #007AFF;
+    border: 3px solid #000;
   }
 
   .flow-menu {

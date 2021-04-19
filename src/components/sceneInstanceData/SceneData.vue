@@ -105,6 +105,22 @@ export default {
 
       axios.get('http://localhost:9000/api/manage/sceneData/' + sceneDataId).then(res => {
         vm.sceneData = res.data
+        let tem = res.data
+        let inputs = []
+        let input = [194,195,196,197]
+        let flag = 0
+        tem['inputFrameDataList'].forEach(tt => {
+          flag = 0
+          input.forEach(t => {
+            if (t===tt['id']) {
+              flag = 1
+            }
+          })
+          if (flag===0) {
+            inputs.push(tt)
+          }
+        })
+        vm.sceneData['inputFrameDataList'] = inputs
         vm.postInputFrameData.sceneDataId = vm.sceneData['id']
         if (vm.sceneData['inputFrameDataList'].length !== 0) {
           vm.sceneData['inputFrameDataList'][0]['materialDataList'].forEach((item) => {
@@ -120,11 +136,6 @@ export default {
       })
     })
   },
-  // watch: {
-  //   '$router'(to, from) {
-  //     this.$router.go(0)
-  //   }
-  // },
   methods: {
     handleDetail (row) {
       let params = {
@@ -132,7 +143,7 @@ export default {
         sceneData: this.sceneData,
         inputFrameDataId: row.id
       }
-      this.$router.push({name: 'SceneFrameData', params: params})
+      this.$router.push({name:'SceneFrameData', params:params})
     },
     goBack () {
       window.history.back()

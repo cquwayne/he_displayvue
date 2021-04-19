@@ -46,12 +46,12 @@ export default new Router({
           component: SceneDataManage
         },
         {
-          path: '/processManage/sceneData/:sceneDataId',
+          path: '/sceneDataManage/sceneData/:sceneDataId',
           name: 'SceneData',
           component: SceneData
         },
         {
-          path: '/processManage/sceneData/:sceneDataId/inputFrameData/:inputFrameDataId',
+          path: '/sceneDataManage/sceneData/:sceneDataId/inputFrameData/:inputFrameDataId',
           name: 'SceneFrameData',
           component: SceneFrameData
         },
