@@ -142,7 +142,7 @@
 
 <script>
 import axios from 'axios'
-// import api from 'api'
+import api from 'api'
 export default {
   name: 'Process',
   data () {
@@ -171,14 +171,28 @@ export default {
         f6: '2',
         f7: '3',
         f8: '2'
-      }
+      },
+      sceneData: {}
     }
   },
   watch: {
     currentItem (newValue, oldValue) {
+      console.log(newValue)
       this.inputVisible = true
       this.currentItemList = []
       this.currentItemList.push(this.currentItem['inputFrameDataList'][0])
+      this.sceneData.id = newValue.id
+      this.sceneData.title = newValue.title
+      this.sceneData.category = newValue.category.title
+      this.sceneData.description = newValue.description
+      this.sceneData.materialDataList = newValue.inputFrameDataList[0].materialDataList
+      this.sceneData.energyDataList = newValue.inputFrameDataList[0].energyDataList
+      this.sceneData.deviceDataList = newValue.inputFrameDataList[0].deviceDataList
+      this.sceneData.keyParameterDataList = newValue.inputFrameDataList[0].keyParameterDataList
+      this.sceneData.envLoadDataList = newValue.inputFrameDataList[0].keyParameterDataList
+      this.sceneData.outputPartDataList = newValue.inputFrameDataList[0].outputPartDataList
+      // console.log("00")
+      // console.log(this.sceneData)
       // this.refreshWindows()
     }
   },
@@ -190,15 +204,25 @@ export default {
         pageSize: 10
       }
       axios.get('http://localhost:9000/api/category', {params: params}).then(res => {
-        // vm.sceneDataList = res['data']['data']
-        vm.sceneDataList.push(res['data']['data'][0])
+        vm.sceneDataList = res['data']['data']
+        // vm.sceneDataList.push(res['data']['data'][0])
       })
     })
   },
   methods: {
 
     feature() {
+      let args = {
+        url: 'knowledge/inference',
+        params: {
+          sceneData: this.sceneData
+        }
+      }
+      api.post(args).then(res => {
+
+      })
       this.featureVisible = false
+
     },
     featureDisplay() {
       this.featureImportance = true;
