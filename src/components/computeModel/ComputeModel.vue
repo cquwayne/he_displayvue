@@ -15,6 +15,8 @@
         </el-option>
       </el-select>
       <el-button type="success" @click="rawData">查看场景过程原始数据</el-button>
+      <el-button type="primary" @click="featureProject">构建特征工程</el-button>
+      <el-button type="primary" @click="featureProject">查看训练数据</el-button>
     </el-row>
   </div>
 </template>
@@ -54,7 +56,10 @@ export default {
   },
   methods: {
     rawData() {
-      this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.currentItem, type:'rawData'}})
+      this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.currentItem}})
+    },
+    featureProject() {
+
     }
   }
 }

@@ -26,7 +26,8 @@ export default {
       autoGenerateColumns: false,
       spread: null,
       excelData: [],
-      fieldList: []
+      fieldList: [],
+      sceneTitle: ''
     };
   },
   methods: {
@@ -36,7 +37,7 @@ export default {
   },
   beforeRouteEnter: function (to, from, next) {
     next(vm => {
-      console.log(to.params.sceneDataTitle)
+      vm.sceneTitle = to.params.sceneDataTitle
       let url = '../../static/'+ to.params.sceneDataTitle +'.xlsx'
       axios.get(url, {responseType: 'arraybuffer'}).then(res => {
         let data = new Uint8Array(res.data)
@@ -54,6 +55,7 @@ export default {
   .sample-tutorial {
     position: relative;
     height: 100%;
+    width: 100%;
     overflow: hidden;
   }
   .sample-spreadsheets {
