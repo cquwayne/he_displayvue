@@ -12,6 +12,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import VCharts from 'v-charts'
 import ModelFbx from 'vue-3d-model'
 import NProgress from 'nprogress'
+import XLSX from 'xlsx'
 
 // 全局注册，使用方法为:this.$axios
 Vue.prototype.api = api
@@ -21,6 +22,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VCharts)
 Vue.use(ModelFbx)
+Vue.use(XLSX)
 
 // 前置拦截，任何界面在进入之前都会被该函数拦截，直到next()被执行才会进入界面
 router.beforeEach((to, from, next) => {

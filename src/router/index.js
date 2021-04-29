@@ -9,8 +9,9 @@ import BaseDataManage from '../components/sceneInstanceData/BaseDataManage'
 import SceneData from '../components/sceneInstanceData/SceneData'
 import SceneFrameData from '../components/sceneInstanceData/SceneFrameData'
 import SceneDataManage from "../components/sceneInstanceData/SceneDataManage"
-import ComputeModel from '../components/computeModel/ComputeModel'
 import Knowledge from '../components/computeModel/Knowledge'
+import ComputeModel from '../components/computeModel/ComputeModel'
+import ExcelDisplay from '../components/computeModel/ExcelDisplay'
 
 Vue.use(Router)
 
@@ -69,6 +70,11 @@ export default new Router({
           path: '/computeModel',
           name: 'ComputeModel',
           component: ComputeModel
+        },
+        {
+          path: '/computeModel/excelDisplay',
+          name: 'ExcelDisplay',
+          component: ExcelDisplay
         }
       ]
     }
