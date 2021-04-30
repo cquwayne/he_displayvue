@@ -10,31 +10,53 @@
           v-for="item in sceneDataList"
           :key="item.index"
           :label="item.title"
-          :value="item.title"
+          :value="item.id"
         >
         </el-option>
       </el-select>
-      <el-button type="success" @click="rawData">查看场景过程原始数据</el-button>
-      <el-button type="primary" @click="featureProject">构建特征工程</el-button>
-      <el-button type="primary" @click="featureProject">查看训练数据</el-button>
+      <el-button type="info" @click="rawData":disabled="viewRaw">查看场景过程原始数据</el-button>
+      <el-button type="success" @click="featureProject":disabled="viewRaw">构建特征工程</el-button>
+      <el-button type="primary" @click="trainData" :disabled="viewTrain">查看训练数据</el-button>
+      <el-button type="warning" @click="resolutionIterative" :disabled="doTrain">实施迭代建模</el-button>
+      <el-button type="error" @click="modelFeature" :disabled="featureVisible">模型特征</el-button>
     </el-row>
+    <el-dialog :visible.sync="featureExplain" style="width: 1500px;height: 2000px">
+      <el-image
+        :url="url"
+        :preview-src-list="srcList"
+      >
+      </el-image>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import api from 'api'
 export default {
   name: 'Process',
   data () {
     return {
       sceneVisible: false,
       currentItem: '',
+      sceneData: {},
       autoGenerateColumns: false,
       spread: null,
       excelData: [],
       fieldList: [],
       rawDataVisible: false,
-      sceneDataList: []
+      sceneDataList: [],
+      viewRaw: true,
+      viewTrain: true,
+      doTrain: true,
+      featureVisible: true,
+      featureExplain: false,
+      explainTitle: '特征贡献度分析',
+      url: '../static/模型特征总体分析.png',
+      srcList: [
+        '../static/模型特征总体分析.png',
+        '../static/特征贡献度分析.png'
+      ]
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -50,16 +72,66 @@ export default {
     })
   },
   watch: {
-    currentItem(){
+    currentItem(newValue, oldValue){
+      if (newValue!=='') {
+        this.viewRaw = false
+      }
       this.sceneVisible = !this.sceneVisible
+      axios.get('http://localhost:9000/api/manage/sceneData/' + newValue).then(res => {
+        this.sceneData.id = res.data.id
+        this.sceneData.title = res.data.title
+        this.sceneData.category = res.data.category.title
+        this.sceneData.description = res.data.description
+        this.sceneData.materialDataList = res.data.inputFrameDataList[0].materialDataList
+        this.sceneData.energyDataList = res.data.inputFrameDataList[0].energyDataList
+        this.sceneData.deviceDataList = res.data.inputFrameDataList[0].deviceDataList
+        this.sceneData.keyParameterDataList = res.data.inputFrameDataList[0].keyParameterDataList
+        this.sceneData.envLoadDataList = res.data.inputFrameDataList[0].keyParameterDataList
+        this.sceneData.outputPartDataList = res.data.inputFrameDataList[0].outputPartDataList
+      })
     }
   },
   methods: {
     rawData() {
-      this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.currentItem}})
+      this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.sceneData.title}})
     },
     featureProject() {
-
+      let args = {
+        url: 'knowledge/inference',
+        params: {
+          sceneData: this.sceneData
+        }
+      }
+      api.post(args).then(res => {
+        if (res === 1) {
+          this.viewTrain = false
+          this.doTrain = false
+        } else {
+          this.$message("请重新构建特征工程")
+        }
+      })
+    },
+    trainData() {
+      this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.sceneData.title + 'train'}})
+    },
+    resolutionIterative() {
+      let args = {
+        url: 'sceneData/compute',
+        params: {
+          sceneTitle: this.sceneData.title
+        }
+      }
+      api.get(args).then(res => {
+          if (res === 1) {
+            alert('成功')
+            this.featureVisible = false
+          } else {
+            alert('失败')
+          }
+      })
+    },
+    modelFeature() {
+      this.featureExplain = true
     }
   }
 }
