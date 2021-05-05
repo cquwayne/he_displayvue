@@ -17,15 +17,23 @@
       <el-button type="info" @click="rawData":disabled="viewRaw">查看场景过程原始数据</el-button>
       <el-button type="success" @click="featureProject":disabled="viewRaw">构建特征工程</el-button>
       <el-button type="primary" @click="trainData" :disabled="viewTrain">查看训练数据</el-button>
-      <el-button type="warning" @click="resolutionIterative" :disabled="doTrain">实施迭代建模</el-button>
-      <el-button type="error" @click="modelFeature" :disabled="featureVisible">模型特征</el-button>
     </el-row>
-    <el-dialog :visible.sync="featureExplain" style="width: 1500px;height: 2000px">
+    <el-row style="margin: 5px 0 0 52%">
+      <el-button type="warning" @click="resolutionIterative" :disabled="doTrain">实施迭代建模</el-button>
+<!--      <el-button type="danger" @click="modelFeature" style="margin-left: 27px">模型特征</el-button>-->
+      <el-button type="danger" @click="modelFeature" :disabled="featureVisible" style="margin-left: 27px">模型特征</el-button>
+    </el-row>
+<!--    <el-dialog :visible.sync="!viewRaw" :title="explainTitle">-->
+<!--      <el-transfer v-model="value" :data="data"></el-transfer>-->
+<!--    </el-dialog>-->
+    <el-dialog :visible.sync="featureExplain" :title="explainTitle">
+<!--    <el-dialog :visible.sync="featureExplain" style="width: 1500px;height: 2000px">-->
       <el-image
-        :url="url"
-        :preview-src-list="srcList"
+        fit="fill"
+        :src="featureImage"
       >
       </el-image>
+      <el-button @click="changeImage" style="margin: 0 0 5px 75%">{{nextTitle}}</el-button>
     </el-dialog>
   </div>
 </template>
@@ -51,12 +59,9 @@ export default {
       doTrain: true,
       featureVisible: true,
       featureExplain: false,
-      explainTitle: '特征贡献度分析',
-      url: '../static/模型特征总体分析.png',
-      srcList: [
-        '../static/模型特征总体分析.png',
-        '../static/特征贡献度分析.png'
-      ]
+      explainTitle: '模型特征总体分析',
+      featureImage: '../static/模型特征总体分析.png',
+      nextTitle: '特征贡献度分析'
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -107,7 +112,7 @@ export default {
           this.viewTrain = false
           this.doTrain = false
         } else {
-          this.$message("请重新构建特征工程")
+          this.$message("请重新构建特征工程！！！")
         }
       })
     },
@@ -132,6 +137,17 @@ export default {
     },
     modelFeature() {
       this.featureExplain = true
+    },
+    changeImage() {
+      if (this.explainTitle === '模型特征总体分析') {
+        this.explainTitle = '特征贡献度分析'
+        this.featureImage = '../static/特征贡献度分析.png'
+        this.nextTitle = '模型特征总体分析'
+      } else {
+        this.explainTitle = '模型特征总体分析'
+        this.featureImage = '../static/模型特征总体分析.png'
+        this.nextTitle = '特征贡献度分析'
+      }
     }
   }
 }
