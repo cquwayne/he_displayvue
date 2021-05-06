@@ -61,7 +61,11 @@ export default {
       featureExplain: false,
       explainTitle: '模型特征总体分析',
       featureImage: '../static/模型特征总体分析.png',
-      nextTitle: '特征贡献度分析'
+      nextTitle: '特征贡献度分析',
+      count: 0,
+      predictList: [],
+      knowledgeList: [],
+      timer: null
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -100,7 +104,7 @@ export default {
     rawData() {
       this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.sceneData.title}})
     },
-    featureProject() {
+    async featureProject() {
       let args = {
         url: 'knowledge/inference',
         params: {
@@ -108,11 +112,35 @@ export default {
         }
       }
       api.post(args).then(res => {
-        if (res === 1) {
+        if (res) {
+          this.count = res.count
+          this.predictList = res.predictList
+          this.knowledgeList = res.knowledgeList
+          this.$notify({
+            title: '构建成功',
+            message: '共命中了'+this.count+'条规则！',
+            type: 'success',
+            duration: 5700
+          })
           this.viewTrain = false
           this.doTrain = false
+          this.knowledgeList.forEach(item => {
+            this.timer = window.setTimeout(() => {
+              this.$notify({
+                title: '命中规则',
+                message: item,
+                position: 'bottom-right',
+                duration: 4500
+              })
+            }, 0)
+          })
         } else {
-          this.$message("请重新构建特征工程！！！")
+          this.$notify({
+            title: '构建失败',
+            message: '请重新构建特征工程！！！',
+            type: 'warning',
+            duration: 0
+          })
         }
       })
     },
