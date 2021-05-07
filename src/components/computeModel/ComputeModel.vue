@@ -14,14 +14,13 @@
         >
         </el-option>
       </el-select>
-      <el-button type="info" @click="rawData":disabled="viewRaw">查看场景过程原始数据</el-button>
+<!--      <el-button type="info" @click="rawData":disabled="viewRaw">查看场景过程原始数据</el-button>-->
       <el-button type="success" @click="featureProject":disabled="viewRaw">构建特征工程</el-button>
-      <el-button type="primary" @click="trainData" :disabled="viewTrain">查看训练数据</el-button>
-    </el-row>
-    <el-row style="margin: 5px 0 0 52%">
+<!--      <el-button type="primary" @click="trainData" :disabled="viewTrain">查看训练数据</el-button>-->
       <el-button type="warning" @click="resolutionIterative" :disabled="doTrain">实施迭代建模</el-button>
 <!--      <el-button type="danger" @click="modelFeature" style="margin-left: 27px">模型特征</el-button>-->
-      <el-button type="danger" @click="modelFeature" :disabled="featureVisible" style="margin-left: 27px">模型特征</el-button>
+      <el-button type="danger" @click="modelFeature" :disabled="featureVisible">模型特征分析</el-button>
+      <el-button type="info" @click="envLoadCompute" :disabled="featureVisible">负荷计算</el-button>
     </el-row>
 <!--    <el-dialog :visible.sync="!viewRaw" :title="explainTitle">-->
 <!--      <el-transfer v-model="value" :data="data"></el-transfer>-->
@@ -35,6 +34,32 @@
       </el-image>
       <el-button @click="changeImage" style="margin: 0 0 5px 75%">{{nextTitle}}</el-button>
     </el-dialog>
+    <el-dialog
+      title="规划信息输入"
+      :visible.sync="computeVisible"
+      style="top: 10%"
+    >
+      <el-form :inline="true" label-width="100px" v-for="item in predictList" :key="item.index">
+        <el-col :span="12">
+          <el-form-item :label="item">
+            <el-input v-model="form[item]" style="width: auto"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-form>
+      <el-tag style="margin-left: 57px">计算值:  {{predictValue}}</el-tag>
+      <el-button style="margin: 0 0 10px 400px" type="primary" @click="compute">计算</el-button>
+    </el-dialog>
+<!--    <el-dialog-->
+<!--      title="结果解释"-->
+<!--      :visible.sync="valueComponent"-->
+<!--      style="top: 10%"-->
+<!--    >-->
+<!--      <el-image-->
+<!--        fit="fill"-->
+<!--        :src="featureUrl"-->
+<!--      >-->
+<!--      </el-image>-->
+<!--    </el-dialog>-->
   </div>
 </template>
 
@@ -57,15 +82,19 @@ export default {
       viewRaw: true,
       viewTrain: true,
       doTrain: true,
-      featureVisible: true,
+      featureVisible: false,
       featureExplain: false,
+      computeVisible: false,
       explainTitle: '模型特征总体分析',
       featureImage: '../static/模型特征总体分析.png',
       nextTitle: '特征贡献度分析',
       count: 0,
-      predictList: [],
+      // predictList: [],
+      predictList: ["废钢消耗M", "预热温度", "风量", "生铁消耗", "炉料总量", "废钢消耗", "扒渣次数", "吃砂量", "焦铁比", "焦钢比", "加料次数", "炉体容积", "机械加工余量", "焦炭消耗"],
       knowledgeList: [],
-      timer: null
+      timer: null,
+      form: {},
+      predictValue: null
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -95,7 +124,7 @@ export default {
         this.sceneData.energyDataList = res.data.inputFrameDataList[0].energyDataList
         this.sceneData.deviceDataList = res.data.inputFrameDataList[0].deviceDataList
         this.sceneData.keyParameterDataList = res.data.inputFrameDataList[0].keyParameterDataList
-        this.sceneData.envLoadDataList = res.data.inputFrameDataList[0].keyParameterDataList
+        this.sceneData.envLoadDataList = res.data.inputFrameDataList[0].envLoadDataList
         this.sceneData.outputPartDataList = res.data.inputFrameDataList[0].outputPartDataList
       })
     }
@@ -104,7 +133,7 @@ export default {
     rawData() {
       this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.sceneData.title}})
     },
-    async featureProject() {
+    featureProject() {
       let args = {
         url: 'knowledge/inference',
         params: {
@@ -114,7 +143,6 @@ export default {
       api.post(args).then(res => {
         if (res) {
           this.count = res.count
-          this.predictList = res.predictList
           this.knowledgeList = res.knowledgeList
           this.$notify({
             title: '构建成功',
@@ -155,16 +183,34 @@ export default {
         }
       }
       api.get(args).then(res => {
-          if (res === 1) {
-            alert('成功')
-            this.featureVisible = false
-          } else {
-            alert('失败')
-          }
+        if (res) {
+          alert('成功')
+          this.featureVisible = false
+          this.predictList = res
+        } else {
+          alert('失败')
+        }
       })
     },
     modelFeature() {
       this.featureExplain = true
+    },
+    envLoadCompute() {
+      this.computeVisible = true
+    },
+    compute() {
+      console.log(this.form)
+      console.log(this.sceneData.title)
+      let args = {
+        url: 'sceneData/featureCompute',
+        params: {
+          sceneTitle: this.sceneData.title,
+          featureList: this.form
+        }
+      }
+      api.post(args).then(res => {
+        this.predictValue = res
+      })
     },
     changeImage() {
       if (this.explainTitle === '模型特征总体分析') {
