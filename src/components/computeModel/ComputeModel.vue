@@ -15,18 +15,14 @@
         </el-option>
       </el-select>
 <!--      <el-button type="info" @click="rawData":disabled="viewRaw">查看场景过程原始数据</el-button>-->
-      <el-button type="success" @click="featureProject":disabled="viewRaw">构建特征工程</el-button>
+      <el-button type="success" @click="enterFeature" :disabled="viewRaw">构建特征工程</el-button>
 <!--      <el-button type="primary" @click="trainData" :disabled="viewTrain">查看训练数据</el-button>-->
       <el-button type="warning" @click="resolutionIterative" :disabled="doTrain">实施迭代建模</el-button>
 <!--      <el-button type="danger" @click="modelFeature" style="margin-left: 27px">模型特征</el-button>-->
       <el-button type="danger" @click="modelFeature" :disabled="featureVisible">模型特征分析</el-button>
       <el-button type="info" @click="envLoadCompute" :disabled="featureVisible">负荷计算</el-button>
     </el-row>
-<!--    <el-dialog :visible.sync="!viewRaw" :title="explainTitle">-->
-<!--      <el-transfer v-model="value" :data="data"></el-transfer>-->
-<!--    </el-dialog>-->
     <el-dialog :visible.sync="featureExplain" :title="explainTitle">
-<!--    <el-dialog :visible.sync="featureExplain" style="width: 1500px;height: 2000px">-->
       <el-image
         fit="fill"
         :src="featureImage"
@@ -48,6 +44,31 @@
       </el-form>
       <el-tag style="margin-left: 57px">计算值:  {{predictValue}}</el-tag>
       <el-button style="margin: 0 0 10px 400px" type="primary" @click="compute">计算</el-button>
+    </el-dialog>
+    <el-dialog title="构建特征工程" :visible.sync="viewTrain">
+      <el-row type="flex" justify="space-around" align="middle">
+        <el-col :span="8" type="flex" justify="space-around" align="middle">
+          <h1>
+            场景原始数据项
+          </h1>
+          <el-button type="info" @click="rawData":disabled="viewRaw">
+            查看场景过程原始数据
+          </el-button>
+        </el-col>
+        <el-col :span="8" type="flex" justify="space-around" align="middle">
+          <el-button type="success" @click="featureProject":disabled="viewRaw">
+            知识驱动构建特征工程
+          </el-button>
+        </el-col>
+        <el-col :span="8" type="flex" justify="space-around" align="middle">
+          <h1>
+            计算模型训练数据项
+          </h1>
+          <el-button type="primary" @click="trainData" :disabled="doTrain">
+            查看训练数据
+          </el-button>
+        </el-col>
+      </el-row>
     </el-dialog>
 <!--    <el-dialog-->
 <!--      title="结果解释"-->
@@ -80,9 +101,9 @@ export default {
       rawDataVisible: false,
       sceneDataList: [],
       viewRaw: true,
-      viewTrain: true,
+      viewTrain: false,
       doTrain: true,
-      featureVisible: false,
+      featureVisible: true,
       featureExplain: false,
       computeVisible: false,
       explainTitle: '模型特征总体分析',
@@ -131,7 +152,12 @@ export default {
   },
   methods: {
     rawData() {
+      this.viewTrain = false
       this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.sceneData.title}})
+    },
+    enterFeature() {
+      this.viewTrain = true
+      // this.doTrain = false
     },
     featureProject() {
       let args = {
@@ -150,7 +176,7 @@ export default {
             type: 'success',
             duration: 5700
           })
-          this.viewTrain = false
+          // this.viewTrain = false
           this.doTrain = false
           this.knowledgeList.forEach(item => {
             this.timer = window.setTimeout(() => {
@@ -173,6 +199,7 @@ export default {
       })
     },
     trainData() {
+      this.viewTrain = false
       this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.sceneData.title + 'train'}})
     },
     resolutionIterative() {
