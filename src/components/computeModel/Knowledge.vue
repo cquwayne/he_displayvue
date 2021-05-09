@@ -34,14 +34,14 @@
       </el-table-column>
       <el-table-column label="操作" align="center" width="200">
         <template slot-scope="scope">
-          <el-button v-if="scope.row['stype']===1" @click="computeUnit">
-            特征计算单元
-          </el-button>
           <el-button>
             编辑
           </el-button>
           <el-button>
             删除
+          </el-button>
+          <el-button v-if="scope.row['stype']===1" @click="computeUnit"style="margin-top: 4px">
+            特征计算单元
           </el-button>
         </template>
       </el-table-column>

@@ -46,17 +46,20 @@
       <el-button style="margin: 0 0 10px 400px" type="primary" @click="compute">计算</el-button>
     </el-dialog>
     <el-dialog title="构建特征工程" :visible.sync="viewTrain">
-      <el-row type="flex" justify="space-around" align="middle">
+      <el-row>
         <el-col :span="8" type="flex" justify="space-around" align="middle">
           <h1>
             场景原始数据项
           </h1>
-          <el-button type="info" @click="rawData":disabled="viewRaw">
+          <el-col v-for="item in originalIndexes" :key="item.index" :span="12">
+            <el-tag closable style="width: 100px;margin-top: 2px" @close="handleClose(item)">{{item}}</el-tag>
+          </el-col>
+          <el-button type="info" @click="rawData":disabled="viewRaw" style="margin: 10px 0 5px 0">
             查看场景过程原始数据
           </el-button>
         </el-col>
-        <el-col :span="8" type="flex" justify="space-around" align="middle">
-          <el-button type="success" @click="featureProject":disabled="viewRaw">
+        <el-col :span="8" type="flex" justify="space-around" align="middle" style="height: 400px;">
+          <el-button type="success" @click="featureProject":disabled="viewRaw" style="position:relative;top:50%;transform: translateY(-50%);">
             知识驱动构建特征工程
           </el-button>
         </el-col>
@@ -64,23 +67,15 @@
           <h1>
             计算模型训练数据项
           </h1>
-          <el-button type="primary" @click="trainData" :disabled="doTrain">
+          <el-col v-for="item in trainIndexes" :key="item.index" :span="12">
+            <el-tag closable style="width: 100px;margin-top: 2px">{{item}}</el-tag>
+          </el-col>
+          <el-button type="primary" @click="trainData" :disabled="doTrain" style="margin: 10px 0 5px 0">
             查看训练数据
           </el-button>
         </el-col>
       </el-row>
     </el-dialog>
-<!--    <el-dialog-->
-<!--      title="结果解释"-->
-<!--      :visible.sync="valueComponent"-->
-<!--      style="top: 10%"-->
-<!--    >-->
-<!--      <el-image-->
-<!--        fit="fill"-->
-<!--        :src="featureUrl"-->
-<!--      >-->
-<!--      </el-image>-->
-<!--    </el-dialog>-->
   </div>
 </template>
 
@@ -115,7 +110,10 @@ export default {
       knowledgeList: [],
       timer: null,
       form: {},
-      predictValue: null
+      predictValue: null,
+      originalIndexes: [],
+      trainIndexes: [],
+      indexForm: []
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -147,6 +145,17 @@ export default {
         this.sceneData.keyParameterDataList = res.data.inputFrameDataList[0].keyParameterDataList
         this.sceneData.envLoadDataList = res.data.inputFrameDataList[0].envLoadDataList
         this.sceneData.outputPartDataList = res.data.inputFrameDataList[0].outputPartDataList
+        let args = {
+          url: 'knowledge/dataIndexes',
+          params: {
+            sceneDataTitle: this.sceneData.title,
+            index: 'originalIndexes'
+          }
+        }
+        api.get(args).then(res => {
+          this.originalIndexes = res
+          console.log(this.originalIndexes)
+        })
       })
     }
   },
@@ -156,8 +165,8 @@ export default {
       this.$router.push({name: 'ExcelDisplay', params: {sceneDataTitle: this.sceneData.title}})
     },
     enterFeature() {
-      this.viewTrain = true
       // this.doTrain = false
+      this.viewTrain = true
     },
     featureProject() {
       let args = {
@@ -168,6 +177,17 @@ export default {
       }
       api.post(args).then(res => {
         if (res) {
+          let arg = {
+            url: 'knowledge/dataIndexes',
+            params: {
+              sceneDataTitle: this.sceneData.title,
+              index: 'trainIndexes'
+            }
+          }
+          api.get(arg).then(res => {
+            this.trainIndexes = res
+            console.log(this.trainIndexes)
+          })
           this.count = res.count
           this.knowledgeList = res.knowledgeList
           this.$notify({
@@ -249,7 +269,10 @@ export default {
         this.featureImage = '../static/模型特征总体分析.png'
         this.nextTitle = '特征贡献度分析'
       }
-    }
+    },
+    handleClose(item) {
+      this.originalIndexes.splice(this.originalIndexes.indexOf(item), 1);
+    },
   }
 }
 </script>
