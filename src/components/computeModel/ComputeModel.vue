@@ -42,7 +42,7 @@
           </el-form-item>
         </el-col>
       </el-form>
-      <el-tag style="margin-left: 57px">计算值:  {{predictValue}}</el-tag>
+      <el-tag style="margin-left: 57px">粉尘 计算值:  {{predictValue}}</el-tag>
       <el-button style="margin: 0 0 10px 400px" type="primary" @click="compute">计算</el-button>
     </el-dialog>
     <el-dialog title="构建特征工程" :visible.sync="viewTrain">
