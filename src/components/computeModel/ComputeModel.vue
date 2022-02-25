@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-row>
-      <model-fbx v-if="!sceneVisible" src="static/models/fx0.fbx"></model-fbx>
-      <model-fbx v-if="sceneVisible" src="static/models/fx1.fbx"></model-fbx>
-    </el-row>
+    <!--<el-row>-->
+    <!--  <model-fbx v-if="!sceneVisible" src="static/models/fx0.fbx"></model-fbx>-->
+    <!--  <model-fbx v-if="sceneVisible" src="static/models/fx1.fbx"></model-fbx>-->
+    <!--</el-row>-->
     <el-row>
       <el-select v-model="currentItem" placeholder="请选择" style="width: 500px">
         <el-option
@@ -52,7 +52,7 @@
             场景原始数据项
           </h1>
           <el-col v-for="item in originalIndexes" :key="item.index" :span="12">
-            <el-tag closable style="width: 100px;margin-top: 2px" @close="handleClose(item)">{{item}}</el-tag>
+            <el-tag closable style="width: 107px;margin-top: 2px" @close="handleClose(item)">{{item}}</el-tag>
           </el-col>
           <el-button type="info" @click="rawData":disabled="viewRaw" style="margin: 10px 0 5px 0">
             查看场景过程原始数据
@@ -68,7 +68,7 @@
             计算模型训练数据项
           </h1>
           <el-col v-for="item in trainIndexes" :key="item.index" :span="12">
-            <el-tag closable style="width: 100px;margin-top: 2px">{{item}}</el-tag>
+            <el-tag closable style="width: 107px;margin-top: 2px" @close="handleClose2(item)">{{item}}</el-tag>
           </el-col>
           <el-button type="primary" @click="trainData" :disabled="doTrain" style="margin: 10px 0 5px 0">
             查看训练数据
@@ -272,6 +272,9 @@ export default {
     },
     handleClose(item) {
       this.originalIndexes.splice(this.originalIndexes.indexOf(item), 1);
+    },
+    handleClose2(item) {
+      this.trainIndexes.splice(this.trainIndexes.indexOf(item), 1);
     },
   }
 }

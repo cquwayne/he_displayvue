@@ -12,6 +12,11 @@ import SceneDataManage from "../components/sceneInstanceData/SceneDataManage"
 import Knowledge from '../components/computeModel/Knowledge'
 import ComputeModel from '../components/computeModel/ComputeModel'
 import ExcelDisplay from '../components/computeModel/ExcelDisplay'
+import DigitalTwinsList from '../components/evaluation/DigitalTwinsList'
+import EvaluationDataList from '../components/evaluation/EvaluationDataList'
+import EnvAssessment from '../components/evaluation/EnvAssessment'
+import SceneMatch from '../components/evaluation/SceneMatch'
+import RealTimeMonitor from "../components/realTime/RealTimeMonitor";
 
 Vue.use(Router)
 
@@ -75,7 +80,35 @@ export default new Router({
           path: '/computeModel/excelDisplay',
           name: 'ExcelDisplay',
           component: ExcelDisplay
-        }
+        },
+        // 何仪项目新增---孪生体模型管理的环境影响评价
+        {
+          path: '/evaluation/digitalTwinsList',
+          name: 'DigitalTwinsList',
+          component: DigitalTwinsList
+        },
+        {
+          path: '/evaluation/evaluationDataList',
+          name: 'EvaluationDataList',
+          component: EvaluationDataList
+        },
+        {
+          path: '/evaluation/envAssessment',
+          name: 'EnvAssessment',
+          component: EnvAssessment
+        },
+        {
+          path: '/evaluation/sceneMatch',
+          name: 'SceneMatch',
+          component: SceneMatch
+        },
+        //何仪新项目新增---数字孪生的实时数据监控
+        {
+          path: '/realTimeMonitor',
+          name: 'RealTimeMonitor',
+          component: RealTimeMonitor
+        },
+
       ]
     }
   ]
