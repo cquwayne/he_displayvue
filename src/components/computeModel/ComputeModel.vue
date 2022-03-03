@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!--<el-row>-->
-    <!--  <model-fbx v-if="!sceneVisible" src="static/models/fx0.fbx"></model-fbx>-->
-    <!--  <model-fbx v-if="sceneVisible" src="static/models/fx1.fbx"></model-fbx>-->
-    <!--</el-row>-->
+    <el-row style="height: 600px; width: 1000px; margin-top: -50px" >
+      <model-fbx v-if="!sceneVisible" src="static/models/fx0.fbx"></model-fbx>
+      <model-fbx v-if="sceneVisible" src="static/models/fx1.fbx"></model-fbx>
+    </el-row>
     <el-row>
       <el-select v-model="currentItem" placeholder="请选择" style="width: 500px">
         <el-option

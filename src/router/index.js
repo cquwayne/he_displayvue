@@ -17,6 +17,7 @@ import EvaluationDataList from '../components/evaluation/EvaluationDataList'
 import EnvAssessment from '../components/evaluation/EnvAssessment'
 import SceneMatch from '../components/evaluation/SceneMatch'
 import RealTimeMonitor from "../components/realTime/RealTimeMonitor";
+import EvaluationMetadata from "../components/evaluation/EvaluationMetadata";
 
 Vue.use(Router)
 
@@ -101,6 +102,12 @@ export default new Router({
           path: '/evaluation/sceneMatch',
           name: 'SceneMatch',
           component: SceneMatch
+        },
+        //环境影响评价数据管理
+        {
+          path: '/evaluation/valuationMetadata',
+          name: 'EvaluationMetadata',
+          component: EvaluationMetadata
         },
         //何仪新项目新增---数字孪生的实时数据监控
         {

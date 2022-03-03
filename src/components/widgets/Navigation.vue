@@ -82,6 +82,11 @@ export default {
               name: 'DigitalTwinsList',
               icon: 'el-icon-link'
             },
+            {
+              title: '元评价管理',
+              name: 'EvaluationMetadata',
+              icon: 'el-icon-link'
+            },
             // {
             //   title: '场景匹配',
             //   name: 'SceneMatch',

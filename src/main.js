@@ -10,7 +10,7 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VCharts from 'v-charts'
-//import ModelFbx from 'vue-3d-model'
+import ModelFbx from 'vue-3d-model'
 import NProgress from 'nprogress'
 // import XLSX from 'xlsx'
 import echarts from 'echarts'
@@ -22,7 +22,7 @@ Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VCharts)
-// Vue.use(ModelFbx)
+Vue.use(ModelFbx)
 // Vue.use(XLSX)
 Vue.prototype.$echarts = echarts
 

@@ -1,6 +1,13 @@
 <template>
   <div class="Header">
+    <div style="float: left; margin-right: 10px; margin-top: 1px">
+    <el-avatar :size="47" src="https://www.cqu.edu.cn/Sites/CQUmain/Themes/Default/Images/logo.png"></el-avatar>
+    <!--<el-avatar :size="47" src="static/image/CQUlogo1.png"></el-avatar>-->
+    </div>
     {{title}}
+    <!--<div style="float: right; margin-top: -25px">-->
+    <!--  <h1>CQU</h1>-->
+    <!--</div>-->
   </div>
 </template>
 <script>
@@ -8,7 +15,7 @@ export default {
   name: 'Header',
   data () {
     return {
-      title: '铸造工艺过程数字孪生验证系统'
+      title: '铸造工艺数字孪生环境影响评价支持系统'
     }
   }
 }
